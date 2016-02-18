@@ -1,0 +1,317 @@
+﻿@font-face{
+    font-family: OpenSans-Light; /* Гарнитура шрифта */
+    src: url(../../fonts/HomeLayout/OpenSans-Light.ttf); /* Путь к файлу со шрифтом */
+}
+
+.ipad-items{
+    position: relative;
+    height: 355px;
+    background-color: white;
+    padding: 0;
+}
+.item-img{
+    position: relative;
+    display: block;
+    max-width: 150px;
+    max-height: 150px;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 10%;
+    top: 10%;
+    margin-bottom: 10%;
+}
+.cost-text{
+    position:relative;
+    font-size: 18px;
+    text-align: center;
+}
+.cost{
+    width: 100%;
+    text-align: center;
+}
+.item-name{
+    position:relative;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+}
+.ipad-view{
+    width: 100%;
+    margin: 0;
+    padding:0;
+    position: relative;
+}
+.items{
+    position:relative;
+    margin-left: 46px;
+}
+.more-item{
+    position:relative;
+    background-color: lightgray;
+    height: 355px;
+}
+.more-item:hover{
+    cursor: pointer;
+}
+.filter{
+    /*position:fixed;*/
+    position:absolute;
+    width: 46px;
+    top:0;
+    bottom:0;
+    background-color: lightgray;
+    float:left;
+    height: 100%;
+    z-index: 4;
+    transition: 1s width ease 0s;
+    overflow-y: hidden;
+}
+.filter:hover{
+    width: 396px;
+    /*z-index: 5;*/
+    overflow-y:scroll;
+}
+.filter:hover .filter-data{
+    width: 330px;
+}
+.filter-image-div{
+    position:absolute;
+    /*position: absolute;*/
+    width: 46px;
+    height: 100%;
+}
+#filter-img{
+    position:absolute;
+    top: 45%;
+    left: 10px;
+}
+.filter-data{
+    position: absolute;
+    left: 46px;
+    width: 0px;
+    transition: 1.2s width ease 0s;
+    overflow: hidden;
+}
+.proc,.screendiagonal,.screencoverage,.network,.ram,.hd{
+    margin: 20px;
+}
+.filter-panel{
+    position:relative;
+    width: 200px;
+    height: 40px;
+    font-family: OpenSans-Light;
+    font-size: 15px;
+    background-color: yellow;
+    padding-top: 10px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+.filter-item{
+    position:relative;
+    height: 30px;
+    font-family: OpenSans-Light;
+    font-size: 15px;
+    /*background-color: greenyellow;*/
+    height: 0px;
+    opacity: 0;
+}
+.stiky{
+    top: 0px;
+    position: fixed;
+}
+.link{
+    width: 100%;
+    max-width: 1366px;
+    height: 60px;
+    background: #e4e4e4;
+}
+.nav-img{
+    position: relative;
+    width: 100%;
+}
+.item-hover{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background-color: gray;
+    opacity: 0;
+    -webkit-transition: opacity 0.5s  linear 0s;
+    -moz-transition: opacity 0.5s  linear 0s;
+    -o-transition: opacity 0.5s  linear 0s;
+    transition: opacity 0.5s  linear 0s;
+}
+.item-hover:hover{
+    cursor: pointer;
+}
+.ipad-items:hover .item-hover{
+    opacity: 0.8;
+}
+.item{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: -100%;
+}
+.top-link-panel{
+    position: relative;
+    margin-top:15px;
+}
+.top-link-panel-text{
+    font-family: OpenSans-Light;
+    font-size: 17px;
+    color: black;
+}
+.top-link-panel-text:hover{
+    text-decoration: none;
+}
+.element-hover-text{
+    margin-top: 30px;
+    margin-left: 30px;
+    overflow: hidden;
+    color: white;
+    font-size: 15px;
+}
+.element-hover-text-div{
+    position:relative;
+    width: 30%;
+    text-align: center;
+}
+.element-a-link{
+    position:relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+.learn-more-button{
+    position: relative;
+    height: 60px;
+    margin-left: -50px;
+    margin-top: 60px;
+    border: 3px solid lightgray;
+    text-align: center;
+    font-size: 20px;
+    font-family: OpenSans-Light;
+    padding: 7%;
+}
+.items-more-main{
+    margin-top: 30%;
+    width: 100%;
+    text-align: center;
+
+}
+.more-text{
+    font-family: OpenSans-Light;
+    font-size: 25px;
+    color: black;
+}
+.filter-checkbox{
+    display: none;
+}
+.filter-checkbox-div label {
+    width: 15px;
+    height: 15px;
+    display: compact;
+    margin-top: 15px;
+    background-color: lightgray;
+    border: 2px solid gray;
+    cursor: pointer;
+    position: relative;
+}
+.filter-checkbox:checked + label {
+    background-color: black;
+}
+.filter-checkbox-div label span{
+    position: relative;
+    margin-left: 20px;
+    top: -5px;
+    margin-top: -5px;
+    white-space: nowrap;
+}
+.filter-checkbox-div label span:hover{
+    text-decoration: underline;
+}
+.paging{
+    position: relative;
+    height: 70px;
+    background-color: lightgray;
+    width: 100%;
+    padding-top: 20px;
+}
+.page-item-active, .page-item{
+    height: 35px;
+    width: 35px;
+    text-align: center;
+    font-size: 17px;
+    padding: 4px;
+    padding-top: 6px;
+}
+.page-item:hover{
+    background: #4d4c51;
+    color: white;
+    cursor:pointer;
+}
+.page-item{
+    color: #4d4c51;
+    background: transparent;
+}
+.page-item-active{
+    color: white;
+    background: #4d4c51;
+}
+
+.top-bar-text{
+    position:relative;
+    margin-top: 5%;
+    z-index:2;
+    margin-left: 10%;
+}
+.top-img-bar{
+    position:relative;
+    margin-top: -13%;
+}
+.top-bar-text-main{
+    font-family: OpenSans-Light;
+    font-size: 50px;
+}
+.top-bar-text-more{
+    font-family: OpenSans-Light;
+    font-size: 25px;
+}
+
+@media (min-width: 1200px){
+    
+}
+@media (min-width: 1024px) and (max-wodth: 1200px){
+
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+.top-bar-text-main{
+    font-size: 35px;
+}
+.top-bar-text-more{
+    font-size: 20px;
+}
+}
+@media (max-width: 767px) and (min-width: 481px) {
+    .top-bar-text-main{
+    font-size: 30px;
+}
+.top-bar-text-more{
+    font-size: 15px;
+}
+}
+@media (max-width: 480px) {
+    .item-img{
+        width: 250px;
+        height: 200px;
+    }
+    .top-bar-text-main{
+    font-size: 25px;
+}
+.top-bar-text-more{
+    font-size: 12px;
+}
+}

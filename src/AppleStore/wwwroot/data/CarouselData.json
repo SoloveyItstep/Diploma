@@ -1,0 +1,20 @@
+﻿[
+    {
+        "href": "#",
+        "name": "watch",
+        "src": "../images/HomeLayout/carousel/banner_1.png",
+        "text": "lorem ipsum"
+    },
+    {
+        "href": "#",
+        "name": "tv",
+        "src": "../images/HomeLayout/carousel/banner_2.png",
+        "text": "lorem ipsum 2"
+    },
+    {
+        "href": "#",
+        "name": "iphone",
+        "src": "../images/HomeLayout/carousel/banner_3.png",
+        "text": "lorem ipsum 3"
+    }
+]

@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0-*",
+  "description": "Store.Repository Class Library",
+  "authors": [ "Vladimir" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+    "frameworks": {
+        "net451": {
+            "frameworkAssemblies": {
+                "System.Reflection.Context": "4.0.0.0",
+                "System.Runtime": "4.0.10.0"
+            },
+            "dependencies": {
+                "Microsoft.CSharp": "4.0.1-beta-23516",
+                "System.Collections": "4.0.11-beta-23516",
+                "System.Linq": "4.0.1-beta-23516",
+                "System.Runtime": "4.0.21-beta-23516",
+                "System.Threading": "4.0.11-beta-23516",
+                "Store.Entity": ""
+            }
+        }
+    },
+    "dependencies": {
+        "EntityFramework.Core": "7.0.0-rc1-final",
+        "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+        "Newtonsoft.Json": "8.0.2"
+    }
+}

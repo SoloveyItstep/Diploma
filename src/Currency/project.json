@@ -1,0 +1,37 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Currency Console Application",
+  "authors": [ "Vladimir" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "compilationOptions": {
+    "emitEntryPoint": true
+  },
+
+    "dependencies": {
+        "Microsoft.CSharp": "4.0.1-beta-23516",
+        "Newtonsoft.Json": "8.0.2",
+        "System.Runtime": "4.0.21-beta-23516",
+        
+        "System.Linq": "4.0.1-beta-23516",
+        "System.Threading": "4.0.11-beta-23516"
+    },
+
+  "commands": {
+    "Currency": "Currency"
+  },
+
+  "frameworks": {
+    "dnx451": {
+        "dependencies": {
+        }
+    },
+    "dnx51": {
+        "dependencies": {
+        }
+    }
+    
+  }
+}

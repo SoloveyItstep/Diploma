@@ -1,0 +1,241 @@
+﻿@{
+    Layout = "_HomeLayout";
+    //Layout = null;
+    ViewBag.Title = "Mac";
+}
+@section Styles{
+    <link asp-href-include="~/css/Mac/*.css" asp-append-version="true" type="text/css" rel="stylesheet" />
+}
+<div class="route">
+    <div class="top-bar">
+        <div class="top-bar-text">
+            <span class="top-bar-text-main">Mac</span><br />
+            <span class="top-bar-text-more">Help your self</span>
+        </div>
+        <div class="top-img-bar">
+            <img src="~/images/Data/Mac/mac.jpg" class="nav-img" />
+        </div><!--end div-->
+        <div class="link">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="col-sm-1 top-link-panel">
+                            <a href="/Home/Index" title="Home" class="top-link-panel-text">Home</a>
+                        </div><!--end div col-1-->
+                        <div class="col-sm-1 top-link-panel">
+                            <span class="top-link-panel-text">Mac</span>
+                        </div><!--end div col-1-->
+                    </div><!--end div col-12-->
+                </div><!--end div row-->
+            </div><!--end div container-->
+        </div><!--end div link-->
+    </div><!--end div top-bar-->
+    <div class="ipad-view">
+        <div class="filter">
+            <div class="filter-image-div">
+                <img src="~/images/HomeLayout/search.png" id="filter-img" />
+            </div><!--end div filter-image-div-->
+            <div class="filter-data">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 proc">
+                            <div class="col-lg-12 filter-panel">
+                                <span ng-if="language == 'EN'">Processor</span>
+                                <span ng-if="language == 'RU'">Процессор</span>
+                            </div>
+                            <div class="col-lg-12 filter-item" ng-repeat="core in filters.processor">
+                                <div class="filter-checkbox-div">
+                                    <input type="checkbox" class="filter-checkbox" id="processor{{$index}}" 
+                                           name="check" onclick="FilterPosition()" ng-click="processorfilter(core)"/>
+                                    <label for="processor{{$index}}"><span>{{core}}&nbsp;Core</span></label>
+                                </div><!--end div filter-checkbox-div-->
+                            </div><!--end div filter-item-->
+                        </div><!--end div proc-->
+                        <!--=========================-->
+                        <div class="col-lg-12 screendiagonal">
+                            <div class="col-lg-12 filter-panel">
+                                <span ng-if="language == 'EN'">Screen Diagonal</span>
+                                <span ng-if="language == 'RU'">Диагональ экрана</span>
+                            </div>
+                            <div class="col-lg-12 filter-item" ng-repeat="diagonal in filters.screendiagonal">
+                                <div class="filter-checkbox-div">
+                                    <input type="checkbox" class="filter-checkbox"
+                                           id="screendiagonal{{$index}}" name="check"
+                                           onclick="FilterPosition()" ng-click="diaginalfilter(diagonal)" />
+                                    <label for="screendiagonal{{$index}}">
+                                        <span>{{diagonal}}"&nbsp;</span>
+                                    </label>
+                                </div><!--end div filter-checkbox-div-->
+                            </div><!--end div filter-item-->
+                        </div><!--end div screendiagonal-->
+                        <!--=========================-->
+                        <div class="col-lg-12 screencoverage">
+                            <div class="col-lg-12 filter-panel">
+                                <span ng-if="language == 'EN'">Screen Resolution</span>
+                                <span ng-if="language == 'RU'">Разришение экрана</span>
+                            </div>
+                            <div class="col-lg-12 filter-item" ng-repeat="resolution in filters.screenresolution">
+                                <div class="filter-checkbox-div">
+                                    <input type="checkbox" class="filter-checkbox"
+                                           id="screenresolution{{$index}}" name="check"
+                                           onclick="FilterPosition()" ng-click="resolutionfilter(resolution)"/>
+                                    <label for="screenresolution{{$index}}"><span>{{resolution}}</span></label>
+                                </div><!--end div filter-checkbox-div-->
+                            </div><!--end div filter-item-->
+                        </div><!--end div screencoverage-->
+                        <!--=========================-->
+                        <div class="col-lg-12 ram">
+                            <div class="col-lg-12 filter-panel">
+                                <span ng-if="language == 'EN'">RAM</span>
+                                <span ng-if="language == 'RU'">Оперативная память</span>
+                            </div>
+                            <div class="col-lg-12 filter-item" ng-repeat="r in filters.ram">
+                                <div class="filter-checkbox-div">
+                                    <input type="checkbox" class="filter-checkbox" id="ram{{$index}}"
+                                           name="check" onclick="FilterPosition()" ng-click="ramfilter(r)"/>
+                                    <label for="ram{{$index}}"><span>{{r}}&nbsp;Gb</span></label>
+                                </div><!--end div filter-checkbox-div-->
+                            </div><!--end div filter-item-->
+                        </div><!--end div ram-->
+                        <!--=========================-->
+                        <div class="col-lg-12 hd">
+                            <div class="col-lg-12 filter-panel">
+                                <span ng-if="language == 'EN'">SSD Memory</span>
+                                <span ng-if="language == 'RU'">Память</span>
+                            </div>
+                            <div class="col-lg-12 filter-item" ng-repeat="h in filters.hd">
+                                <div class="filter-checkbox-div">
+                                    <input type="checkbox" class="filter-checkbox" id="hd{{$index}}"
+                                           name="check" onclick="FilterPosition()" ng-click="hdfilter(h)" />
+                                    <label for="hd{{$index}}"><span>{{h}}&nbsp;Gb</span></label>
+                                </div><!--end div filter-checkbox-div-->
+                            </div><!--end div filter-item-->
+                        </div><!--end div hd-->
+                        <!--=========================-->
+                        <div class="col-lg-12 network">
+                            <div class="col-lg-12 filter-panel">
+                                <span ng-if="language == 'EN'">Network</span>
+                                <span ng-if="language == 'RU'">Связь</span>
+                            </div>
+                            <div class="col-lg-12 filter-item" ng-repeat="net in filters.network">
+                                <div class="filter-checkbox-div">
+                                    <input type="checkbox" class="filter-checkbox" id="network{{$index}}"
+                                           name="check" ng-click="networkfilter(net)"/>
+                                    <label for="network{{$index}}"><span>{{net}}&nbsp;</span></label>
+                                </div><!--end div filter-checkbox-div-->
+                            </div><!--end div filter-item-->
+                        </div><!--end div hd-->
+                    </div><!--end div row-->
+                </div><!--end div container (inside filter-items)-->
+            </div><!--end div filter-items-->
+        </div><!--end div filter-->
+        <div class="items">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 ipad-items" ng-repeat="element in elements">
+                <div class="item-hover" ng-click="route(element.AppleID)">
+                    <div class="element-a-link">
+                        <div class="container">
+                            <div class="row element-hover-text">
+
+                                <div class="element-hover-text-div">
+                                    <span ng-if="language == 'EN'">Processor: &nbsp;</span>
+                                    <span ng-if="language == 'RU'">Процессор: &nbsp;</span>
+                                    <span>{{element.ProductDetails | GetProcessor }} Core</span>
+                                </div><!--end div processor-->
+
+                                <div class="element-hover-text-div">
+                                    <span ng-if="language == 'EN'">RAM: &nbsp;</span>
+                                    <span ng-if="language == 'RU'">Оперативная память: &nbsp;</span>
+                                    <span>{{element.ProductDetails | GetRam }}</span>
+                                </div><!--end div RAM-->
+
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="col-lg-2 col-lg-offset-1
+                                                col-md-3 col-md-offset-1
+                                                col-sm-4 col-sm-offset-1
+                                                col-xs-8 col-xs-offset-2">
+                                        <div class="learn-more-button" ng-if="language == 'EN'">
+                                            LEARN MORE >
+                                        </div>
+                                        <div class="learn-more-button" ng-if="language == 'RU'">
+                                            Узнать больше
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!--end div element-hover-text-->
+                        </div><!--end div container-->
+                    </div>
+                </div><!--end div item-hover-->
+                <div class="item">
+                    <img ng-src="{{element.AppleImage[0].Path}}" class="item-img" />
+                    <div class="item-name">
+                        {{element.Name}}
+                    </div><!--end div item name-->
+                    <div class="cost">
+                        <div ng-if="language == 'EN'">
+                            <span class="cost-text" lang="en-us">{{element.Price}}$</span>
+                        </div><!--end div if-en-->
+                        <div ng-if="language == 'RU'">
+                            <span class="cost-text" lang="ru-Ru">{{element.Price * currency | number:2}} &#8372;</span>
+                        </div><!--end div if-ru-->
+                    </div><!--end div cost-->
+                </div><!--end div item-->
+            </div><!--end div ipad-item (ng-repeat=items)-->
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 more-item" onclick="resizeMain()"
+                 ng-click="getData(itemslength,false)">
+                <div class="container items-more-main">
+                    <div class="row">
+                        <div class="col-xs-12 more-text">
+                            <span ng-if="language == 'EN'">
+                                Get More<br />
+                                + {{itemsleft}} products
+                            </span>
+                            <span ng-if="language == 'RU'">
+                                Добавить ещё<br />
+                                + {{itemsleft}} товаров
+                            </span>
+                        </div><!--end div col-xs-12-->
+                    </div><!--end div row-->
+                </div><!--end div container (more-item)-->
+            </div><!--end div item-more-->
+            <div class="col-xs-6 paging">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-offset-4 col-xs-4
+                                    col-sm-offset-4 col-sm-4
+                                    col-sm-offset-3 col-sm-4
+                                    col-lg-offset-4 col-sm-4">
+                            <div class="page-items col-xs-2" ng-repeat="page in pages">
+                                <div ng-if="page == active" class="page-item-active">
+                                    {{page}}
+                                </div>
+                                <div ng-if="page == 0" class="page-dots">
+                                    <span>. . . </span>
+                                </div>
+                                <div ng-if="page == activelast && active < activelast"
+                                     class="page-item-active">
+                                    {{page}}
+                                </div>
+                                <div ng-if="page != active && page != activelast && page != 0"
+                                     ng-click="paging(page)" class="page-item">
+                                    {{page}}
+                                </div>
+                            </div>
+
+                        </div><!--end div col-->
+                    </div><!--end div row-->
+                </div><!--end div container < paging-->
+            </div><!--end div paging-->
+        </div><!--end div items-->
+    </div><!--end div ipad-view-->
+</div>
+@section Scripts{
+    <script asp-src-include="~/js/Mac/app/*.js" type="text/javascript"></script>
+    <script asp-src-include="~/js/Mac/*.js" type="text/javascript"></script>
+    @*<script asp-src-include="~/js/ipad/Routing.js" type="text/javascript"></script>*@
+    <script type="text/javascript">
+        $(window).load(function () {
+            resizeMain();
+            FilterPanel();
+        });
+    </script>
+}

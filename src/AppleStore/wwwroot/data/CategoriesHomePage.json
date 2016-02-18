@@ -1,0 +1,44 @@
+﻿[
+    {
+        "href": "Watch/Index",
+        "name": "Watch",
+        "src": "../images/HomeLayout/Categories/watch.png",
+        "text": "Smart time"
+    },
+    {
+        "href": "iPhone/Index",
+        "name": "iPhone",
+        "src": "../images/HomeLayout/Categories/ipod.png",
+        "text": "All world inside"
+    },
+    {
+        "href": "iPad/Index",
+        "name": "iPad",
+        "src": "../images/HomeLayout/Categories/ipad.png",
+        "text": "Change is everithing"
+    },
+    {
+        "href": "iPod/Index",
+        "name": "iPod",
+        "src": "../images/HomeLayout/Categories/ipod.png",
+        "text": "Music around you"
+    },
+    {
+        "href": "Mac/Index",
+        "name": "Mac",
+        "src": "../images/HomeLayout/Categories/macbook.jpg",
+        "text": "Help your self"
+    },
+    {
+        "href": "Accessories/Index",
+        "name": "Accessories",
+        "src": "../images/HomeLayout/Categories/accses.jpg",
+        "text": "All what you need"
+    },
+    {
+        "href": "TV/Index",
+        "name": "TV",
+        "src": "../images/HomeLayout/Categories/tv.jpg",
+        "text": "Ask more of your television"
+    }
+]
