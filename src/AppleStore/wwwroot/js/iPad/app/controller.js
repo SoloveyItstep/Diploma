@@ -38,7 +38,6 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     $scope.ipads = [];
     $scope.elements = [];
     $scope.filters = [];
-    $scope.filtersRU = [];
     $scope.filters.processor = [];
     $scope.filters.screendiagonal = [];
     $scope.filters.screenresolution = [];
@@ -49,7 +48,7 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     $http.get("/api/apple/category/ipad").success(function (data) {
         $scope.ipads = data;
         ipadData = data;
-        console.log(data);
+        //console.log(data);
         for (var i = 0; i < 8 && i < data.length; ++i) { //8
             $scope.elements.push(data[i]);
         }
@@ -126,7 +125,8 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
 
         $scope.maxpages = Math.ceil($scope.ipads.length / 8); //9 !!! +1
         $scope.pages = [];
-        for (var i = 1; i < 7 && i < $scope.maxpages; ++i)
+
+        for (var i = 1; i < 7 && i <= $scope.maxpages; ++i)
             $scope.pages.push(i);
     }
     //==============filter functions=====================
@@ -203,7 +203,7 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             $scope.hdArr.forEach(function (element, index, array) {
                 if (element == hd) {
                     $scope.hdArr.remove(index);
-                    console.log("removed - " + hd);
+                    //console.log("removed - " + hd);
                 }
             });
         }

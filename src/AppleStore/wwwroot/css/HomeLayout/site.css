@@ -16,7 +16,6 @@ body{
     overflow: hidden;
 
 }
-
 /*=====Top navbar=====*/
 .top-navbar{
     width: 100%;
@@ -74,159 +73,6 @@ body{
         transform: rotate(90deg);
     }
 }
-
-/*========Carousel=========*/
-/*.carousel-main{
-    position: relative;
-    max-width: 1366px;
-    overflow: hidden;
-    background-color: red;
-    margin-top: 0px;
-}
-.carousel-item:nth-child(1){
-    position: absolute;
-    background-color: white;
-    transform: translateY(0%);
-    animation: carousel1 21s cubic-bezier(0.645, 0.195, 0.880, 0.590) infinite forwards;
-}
-.carousel-item:nth-child(2){
-    position: absolute;
-    background-color: white;
-    transform: translateY(100%);
-    animation: carousel2 21s cubic-bezier(0.645, 0.195, 0.880, 0.590) infinite forwards;
-}
-.carousel-item:nth-child(3){
-    position: absolute;
-    background-color: white;
-    transform: translateY(-100%);
-    animation: carousel3 21s cubic-bezier(0.645, 0.195, 0.880, 0.590) infinite forwards;
-}
-.carousel-title{
-    position: absolute;
-    margin-top: -100px;
-    margin-left: 100px;
-}
-.img{
-    max-width:1366px;
-    width: 100%;
-    height: auto;
-}
-
-#radio1{
-    position: absolute;
-    margin-top: 150px;
-    margin-left: 150px;
-    border: solid 10px inherit;
-}
-#radio2{
-    position: absolute;
-    margin-top: 150px;
-    margin-left: 170px;
-    border-color: #4d4c51;
-}
-#radio3{
-    position: absolute;
-    margin-top: 150px;
-    margin-left: 190px;
-    border-color: #4d4c51;
-}*/
-
-/*@keyframes carousel1{
-    0%,29.5%{
-        transform: translateY(0%);
-    }
-    10%{
-        z-index: auto;
-    }
-    37%{
-        opacity: 1;
-        transform: translateY(-100%);
-    }
-    40%{
-        opacity: 0;
-        transform: translateY(-100%);
-    }
-    41%{
-        opacity:0;
-        transform: translateY(-100%);
-    }
-    46%{
-        opacity: 0;
-        transform: translateY(120%);
-    }
-    48%{
-        opacity: 0;
-    }
-    55%{
-        opacity: 1;
-    }
-    59%{
-        transform: translateY(120%);
-    }
-    65.5%,94%{
-        transform: translateY(100%);
-        z-index: 1;
-    }
-    98%{
-        transform: translateY(0%);
-    }
-}
-@keyframes carousel2{
-    0%,29%{
-        opacity: 1;
-        transform: translateY(100%);
-    }
-    36%,60%{
-        opacity: 1;
-        transform: translateY(0%);
-    }
-    67%{
-        opacity: 1;
-        transform: translateY(-100%);
-    }
-    70%,72%{
-        opacity: 0;
-        transform: translateY(-100%);
-    }
-    74%{
-        opacity: 0;
-        transform: translateY(-100%);
-    }
-    76% {
-        transform: translateY(120%);
-    }
-    78%,92%{
-        opacity: 1;
-        transform: translateY(120%);
-    }
-    98%{
-        transform: translateY(100%);
-    }
-}
-@keyframes carousel3{
-    0%,2% {
-        opacity: 0;
-        transform: translateY(-100%);
-    }
-    6%,25%{
-        z-index: auto;
-        opacity: 0;
-        transform: translateY(120%);
-    }
-    27%{
-        opacity: 1;
-    }
-    36%,59%{
-        transform: translateY(100%);
-    }
-    66%,94%{
-        transform: translateY(0%);
-    }
-    98%{
-        transform: translateY(-100%);
-        z-index: 0;
-    }
-}*/
 
 /*==============Menu line====================*/
 .menu-line{
@@ -300,35 +146,29 @@ body{
     60%     { transform: rotateZ(16deg); }
     100%    { transform: translateY(100%) rotateZ(17deg); }
 }
-
 /* slide in from the bottom */
 @keyframes slideOutLeft {
     to      { transform: translateX(-100%); }
 }
-
 /* rotate out newspaper */
 @keyframes rotateOutNewspaper {
     to      { transform: translateZ(-3000px) rotateZ(360deg); opacity: 0; }
 }
-
 /* entering animations --------------------------------------- */
 /* scale up */
 @keyframes scaleUp {
     from    { opacity: 0.3; -webkit-transform: scale(0.8); }
 }
-
 /* slide in from the right */
 @keyframes slideInRight {
     from    { transform:translateX(100%); }
     to      { transform: translateX(0);}
 }
-
 /* slide in from the bottom */
 @keyframes slideInUp {
     from    { transform:translateY(100%); }
     to      { transform: translateY(0); }
 }
-
 
 .ng-enter           { animation: slideInRight 1s both ease-in; }
 .ng-leave           { animation: rotateFall 0.5s both ease-in; }

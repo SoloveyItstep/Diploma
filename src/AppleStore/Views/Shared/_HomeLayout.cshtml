@@ -4,24 +4,25 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link asp-href-include="~/css/HomeLayout/*.css" asp-append-version="true" rel="stylesheet" type="text/css" />
-    <link asp-href-include="~/css/HomeLayout/preLoader.css" asp-append-version="true" rel="stylesheet" type="text/css" />
-    <link asp-href-include="~/css/frameworks/*.css" rel="stylesheet" type="text/css"/>
-    <link asp-href-include="~/css/frameworks/animate.css" rel="stylesheet" type="text/css"/>
+    @*<link asp-href-include="~/css/HomeLayout/preLoader.css" asp-append-version="true" rel="stylesheet" type="text/css" />*@
+    <link asp-href-include="~/css/frameworks/*.css" asp-href-exclude="~/css/frameworks/animate.css"
+           rel="stylesheet" type="text/css"/>
+    @*<link asp-href-include="~/css/frameworks/animate.css" rel="stylesheet" type="text/css"/>*@
     @RenderSection("Styles",required: false)
 </head>
 <!--#4d4c51-->
 <body ng-app="storeHome" style="background-color: lightblue;">
+    <div class="dark_background">
+    </div>
+    <div class="authorization">
+        <div class="close-popup"></div>
+    </div>
     <div class="controller" ng-controller="SearchCtrl">
-        @*ng-if="loader == false"*@
         <div class="pre-loader" ng-if="loader == false">
-            @*<div class="loading-greeting">
-                <span>Loading...</span>
-            </div>*@<!--end div loading-greeting-->
             <div class="round">
-                
             </div><!--end div round-->
         </div><!--end div pre-loader-->
-
+        
         <div ng-view class="main" >
            
             <div class="top-navbar">

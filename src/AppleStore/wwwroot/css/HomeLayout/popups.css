@@ -1,0 +1,50 @@
+﻿.dark_background{
+    /*display: none;*/
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    bottom: 0px;
+    z-index: 5;
+    background: lightgray;
+    opacity: 0.8;
+}
+.authorization{
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    width: 700px;
+    height: 400px;
+    margin-top: -200px;
+    margin-left: -350px;
+    z-index: 6;
+    background: white;
+}
+.close-popup{
+    position:absolute;
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    margin-top: -25px;
+    left: 680px;
+}
+.close-popup:before,.close-popup:after{
+    content: '';
+    position:absolute;
+    width: 23px;
+    height: 2px;
+    background-color:white;
+    border-radius: 2px;
+}
+.close-popup:before{
+    -webkit-transform:rotate(45deg);
+    -moz-transform:rotate(45deg);
+    transform:rotate(45deg);
+}
+.close-popup:after{
+    -webkit-transform:rotate(-45deg);
+    -moz-transform:rotate(-45deg);
+    transform:rotate(-45deg);
+}
+
+

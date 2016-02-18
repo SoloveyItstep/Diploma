@@ -20,6 +20,7 @@
 /// <reference path="js/homelayout/app/controller.js" />
 /// <reference path="js/homelayout/classcontainersize.js" />
 /// <reference path="js/homelayout/menu.js" />
+/// <reference path="js/homelayout/popup.js" />
 /// <reference path="js/homelayout/resizemain.js" />
 /// <reference path="js/homelayout/search.js" />
 /// <reference path="js/ipad/app/app.js" />
