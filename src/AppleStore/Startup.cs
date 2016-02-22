@@ -68,7 +68,7 @@ namespace AppleStore
             services.AddSession(session =>
             {
                 session.IdleTimeout = TimeSpan.FromMinutes(30);
-                session.CookieName = ".StoreCookie";
+                session.CookieName = ".Store";
             });
 
             // Add application services.
@@ -126,7 +126,12 @@ namespace AppleStore
 
             app.UseIdentity();
             app.UseSession();
-
+            app.UseCookieAuthentication((cookieOptions) =>
+            {
+                cookieOptions.AutomaticAuthenticate = true;
+                cookieOptions.AutomaticChallenge = true;
+                cookieOptions.CookieName = ".StoreCookie";
+            });
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
 
             app.UseMvc(routes =>

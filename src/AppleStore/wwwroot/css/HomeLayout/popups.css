@@ -1,4 +1,8 @@
-﻿.dark_background{
+﻿@font-face{
+    font-family: OpenSans-Light; /* Гарнитура шрифта */
+    src: url(../../fonts/HomeLayout/OpenSans-Light.ttf); /* Путь к файлу со шрифтом */
+}
+.dark_background{
     /*display: none;*/
     position: fixed;
     width: 100%;
@@ -11,24 +15,30 @@
 }
 .authorization{
     position:fixed;
-    top: 50%;
+    top: 20%;
     left: 50%;
-    width: 700px;
+    width: 500px;
     height: 400px;
-    margin-top: -200px;
-    margin-left: -350px;
+    margin-left: -250px;
     z-index: 6;
     background: white;
 }
-.close-popup{
+.close-popup-authorization{
     position:absolute;
     width: 25px;
     height: 25px;
     background-color: transparent;
     margin-top: -25px;
-    left: 680px;
+    /*left: 680px;*/
+    right:0px;
 }
-.close-popup:before,.close-popup:after{
+.close-popup-authorization:hover{
+    cursor:pointer;
+}
+.close-popup-authorization:hover:before, .close-popup-authorization:hover:after{
+    background-color: lightgray;
+}
+.close-popup-authorization:before,.close-popup-authorization:after{
     content: '';
     position:absolute;
     width: 23px;
@@ -36,15 +46,29 @@
     background-color:white;
     border-radius: 2px;
 }
-.close-popup:before{
+.close-popup-authorization:before{
     -webkit-transform:rotate(45deg);
     -moz-transform:rotate(45deg);
     transform:rotate(45deg);
 }
-.close-popup:after{
+.close-popup-authorization:after{
     -webkit-transform:rotate(-45deg);
     -moz-transform:rotate(-45deg);
     transform:rotate(-45deg);
 }
-
+.top-nav-authorization{
+    height: 70px;
+    background: lightgray;
+}
+.authorization-top-text{
+    margin-top: 10px;
+    margin-left: 30px;
+}
+.authorization-top-text span{
+    font-family: OpenSans-Light;
+    font-size: 30px;
+}
+.authorization-form{
+    height: 330px;
+}
 

@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using System.Collections.Generic
+@using Microsoft.AspNet.Http
+@using Microsoft.AspNet.Http.Authentication
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -12,12 +17,29 @@
 </head>
 <!--#4d4c51-->
 <body ng-app="storeHome" style="background-color: lightblue;">
-    <div class="dark_background">
-    </div>
-    <div class="authorization">
-        <div class="close-popup"></div>
-    </div>
     <div class="controller" ng-controller="SearchCtrl">
+        <div class="dark_background">
+        </div><!--end div dark_background-->
+        <div class="authorization">
+            <div class="close-popup-authorization"></div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 top-nav-authorization">
+                        <div class="authorization-top-text">
+                            <span ng-if="language == 'EN'">Login</span>
+                            <span ng-if="language == 'RU'">Вход</span>
+                        </div><!--end div authorization-top-text-->
+                    </div><!--end div top-nav-authorization-->
+                    <div class="col-xs-12 authorization-form">
+                        <form asp-controller="User" asp-action="login" method="post">
+                            <label asp-for="login"></label>
+                            <input asp-for="login" id="login" type="text" />
+                        </form>
+                    </div>
+                </div><!--end div row-->
+            </div><!--end div container-fluid < authorization-->
+        </div><!--end div authorization-->
+    <!--=================================================-->
         <div class="pre-loader" ng-if="loader == false">
             <div class="round">
             </div><!--end div round-->
@@ -55,7 +77,7 @@
                             </a><!--end a class=top-navbar-item search-img-->
                         </div><!--end div search col-->
                         <div class="col-xs-2">
-                            <a href="#" class="navbar-item  no-nav">
+                            <a href="#" class="navbar-item  no-nav lk">
                                 <img src="~/images/HomeLayout/lk.png" id="lk-img"
                                      onmouseover="this.src = '/images/HomeLayout/lk_hover.png'"
                                      onmouseout="this.src = '/images/HomeLayout/lk.png'" />
@@ -188,6 +210,7 @@
         Load();
         SearchPanelHide();
         MenuLineBlur();
-        setTimeout(containerSize,500);
+        setTimeout(containerSize, 500);
+        PopupStart();
     });
 </script>
