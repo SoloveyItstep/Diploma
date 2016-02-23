@@ -11,6 +11,8 @@
     var ipod = $(".ipod");
     var accessories = $(".accessories");
     var bottomNavbar = $(".bottom-navbar");
+    var popup = $(".popup");
+    
     var win = $(window);
     
     var w = parseInt((ipad.width() * 0.6).toString());
@@ -78,5 +80,14 @@
         bottomNavbarH = bottomNavbar.offset().top + 600;
         $("html").height(bottomNavbarH);
     });
+
+    //Popups
+    //$.post("/Partials/Register", function (partial) {
+    //    popup.html(partial);
+    //    $("#registerHidden").val("/Home/Index");
+    //});
+
+    
+
 };
 

@@ -219,7 +219,9 @@
 .mac:hover .mac-data-text{
     bottom: 25%;
 }
-
+.carousel-indicators{
+    z-index: 2;
+}
 @media (min-width: 1200px){
     .title-text{
         font-size: 4em;

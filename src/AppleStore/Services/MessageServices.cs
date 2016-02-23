@@ -16,6 +16,11 @@ namespace AppleStore.Services
             return Task.FromResult(0);
         }
 
+        public Task SendEmailToConfirm(string email, string subject, string key, string userName,String userID)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task SendSmsAsync(string number, string message)
         {
             // Plug in your SMS service here to send a text message.

@@ -8,5 +8,6 @@ namespace AppleStore.Services
     public interface IEmailSender
     {
         Task SendEmailAsync(string email, string subject, string message);
+        Task SendEmailToConfirm(String email, String subject, String key, String userName, String userID);
     }
 }

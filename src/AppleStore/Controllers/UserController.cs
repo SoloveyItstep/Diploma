@@ -35,5 +35,11 @@ namespace AppleStore.Controllers
             else
                 HttpContext.Session.SetString("language", "en");
         }
+
+        [Route("currentuser")]
+        public String CurrentUser()
+        {
+            return User.Identity.Name;
+        }
     }
 }

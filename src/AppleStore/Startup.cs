@@ -18,6 +18,7 @@ using Store.Repository.Repositories;
 using Store.Repository.UnitOfWorks;
 using Store.Context.Context;
 using Currency;
+using AppleStore.Services.MessageSender;
 
 namespace AppleStore
 {
@@ -72,8 +73,8 @@ namespace AppleStore
             });
 
             // Add application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<IEmailSender, MessageService>();
+            services.AddTransient<ISmsSender, MessageService>();
             services.AddScoped<IStoreContext, StoreContext>();
             services.AddTransient<IAppleRepository<Apple>, AppleRepository>();
             services.AddTransient<ICategoriesRepository<Categories>, CategoriesRepository>();
@@ -85,6 +86,7 @@ namespace AppleStore
             services.AddTransient<ICurrencyRepository<Store.Entity.Currency>, CurrencyRepository>();
             services.AddTransient<IUnitOfWork,UnitOfWork>();
             services.AddTransient<ICurrencyUSD, CurrencyUSD>();
+            //services.Configure<AuthMessageSenderOptions>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -159,3 +161,4 @@ namespace AppleStore
 
 //=====restore packages=======
 //dnu restore
+//ApplicationDbContext

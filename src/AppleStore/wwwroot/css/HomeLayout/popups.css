@@ -17,10 +17,16 @@
     position:fixed;
     top: 20%;
     left: 50%;
-    width: 500px;
-    height: 400px;
-    margin-left: -250px;
+    width: 600px;
+    height: 430px;
+    margin-left: -300px;
     z-index: 6;
+    
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.popup{
+    height: 400px;
     background: white;
 }
 .close-popup-authorization{
@@ -31,6 +37,7 @@
     margin-top: -25px;
     /*left: 680px;*/
     right:0px;
+    
 }
 .close-popup-authorization:hover{
     cursor:pointer;
@@ -43,8 +50,9 @@
     position:absolute;
     width: 23px;
     height: 2px;
-    background-color:white;
+    background-color:black;
     border-radius: 2px;
+    z-index: 5;
 }
 .close-popup-authorization:before{
     -webkit-transform:rotate(45deg);
@@ -71,4 +79,64 @@
 .authorization-form{
     height: 330px;
 }
+
+.popup-input{
+    width: 250px;
+    height: 35px;
+    margin: 10px;
+    margin-bottom: 5px;
+    background: lightgray;
+    padding-left: 10px;
+    box-shadow: none;
+    border: none;
+    font-size: 15px;
+    color: #989898;
+}
+.form-title{
+    top: 0px;
+    height: 60px;
+    padding-top: 10px;
+}
+.form-title span{
+    font-family: OpenSans-Light;
+    font-size: 25px;
+    left: 10px;
+    margin-left: 10px;
+}
+.popup-input:focus{
+    box-shadow: none;
+    border: 2px solid #989898;
+}
+.popup-input input:focus{
+    box-shadow: none;
+    border: none;
+}
+.popup-input > textarea:focus, .popup-input > input:focus{
+    outline: none;
+}
+textarea:-webkit-autofill, input:-webkit-autofill{
+    background: lightgray;
+}
+
+@media (min-width: 1200px){
+    
+}
+@media (min-width: 1024px) and (max-wodth: 1200px){
+    
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+    
+}
+@media (max-width: 767px) and (min-width: 481px) {
+    .authorization {
+        top: 10%;
+    }
+}
+@media (max-width: 480px) {
+    .authorization {
+        top: 5%;
+        height: 90%;
+    }
+}
+
 

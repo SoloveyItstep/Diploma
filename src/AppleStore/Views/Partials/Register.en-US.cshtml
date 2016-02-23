@@ -1,0 +1,42 @@
+﻿@model AppleStore.ViewModels.Account.RegisterViewModel
+
+    <div class="form-title col-xs-12">
+        <span>Registration</span>
+    </div>
+    <form asp-controller="Auth" asp-action="Register" method="post" role="form">
+
+        <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
+        <div class="col-xs-6">
+            <input type="text" asp-for="UserName" placeholder="User name" class="popup-input" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+        <div class="col-xs-6">
+            <input type="text" asp-for="Password" class="popup-input" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="col-xs-6">
+            <input type="text" asp-for="Phone" class="popup-input" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+        <div class="col-xs-6">
+            <input type="text" asp-for="ConfirmPassword" class="popup-input" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+        <div class="col-xs-6">
+            <input type="text" asp-for="City" class="popup-input" />
+            <span asp-validation-for="City" class="text-danger "></span>
+            <input type="text" asp-for="Address" class="popup-input" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+            <input type="text" asp-for="Email" class="popup-input" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <input type="hidden" id="registerHidden" name="returnUrl" value="" />
+        <div class="col-xs-6">
+            <span>data text</span><br />
+            <button type="submit" class="popup-register-button" ng-click="register()">Register</button>
+        </div>
+
+
+    </form>
+
+

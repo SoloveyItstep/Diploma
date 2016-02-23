@@ -1,0 +1,7 @@
+﻿@model AppleStore.ViewModels.Account.LoginViewModel
+
+<form asp-controller="Auth" asp-action="Login" method="post" role="form">
+    <input type="text" asp-for="Login" class="popup-input"  />
+    <input type="text" asp-for="Password" class="popup-input"/>
+    <button type="submit" class="login-button">Login</button>
+</form>

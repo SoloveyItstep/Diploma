@@ -1,1 +1,1 @@
-﻿var app = angular.module('storeHome', ['ui.bootstrap']);
+﻿//var app = angular.module('storeHome', []);

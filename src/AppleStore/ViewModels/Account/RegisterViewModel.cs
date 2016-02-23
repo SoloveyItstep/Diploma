@@ -9,6 +9,26 @@ namespace AppleStore.ViewModels.Account
     public class RegisterViewModel
     {
         [Required]
+        [RegularExpression(pattern: @"[^123456789<>!.,{}[]()]")]
+        [StringLength(maximumLength: 15, MinimumLength = 2)]
+        [Display(Name = "User name")]
+        public String UserName { get; set; }
+
+        [Required]
+        [RegularExpression(pattern: @"[^123456789<>!.,{}[]()]")]
+        [StringLength(maximumLength: 15, MinimumLength = 2)]
+        public String City { get; set; }
+
+        [Required]
+        [RegularExpression(@"\d{6,18}")]
+        public long Phone { get; set; }
+
+        [Required]
+        [RegularExpression(pattern: @"[^<>!{}[]()]")]
+        [StringLength(maximumLength: 40, MinimumLength = 5)]
+        public String Address { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
