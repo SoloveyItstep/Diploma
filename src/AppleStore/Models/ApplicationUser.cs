@@ -10,7 +10,7 @@ namespace AppleStore.Models
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser
     {
-        [Required]
+        [Required(ErrorMessage = "Max length of city field is 20")]
         [StringLength(maximumLength: 20)]
         public String City { get; set; }
 

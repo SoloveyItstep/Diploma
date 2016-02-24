@@ -1,42 +1,76 @@
 ﻿@model AppleStore.ViewModels.Account.RegisterViewModel
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
 
 <div class="form-title col-xs-12">
     <span>Реристрация</span>
 </div>
-<form asp-controller="Auth" asp-action="Register" method="post" role="form">
-
-    <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
-    <div class="col-xs-6">
-        <input type="text" asp-for="UserName" class="popup-input" />
-        <span asp-validation-for="UserName" class="text-danger"></span>
-    </div>
-    <div class="col-xs-6">
-        <input type="text" asp-for="Password" class="popup-input" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    <div class="col-xs-6">
-        <input type="text" asp-for="Phone" class="popup-input" />
-        <span asp-validation-for="Phone" class="text-danger"></span>
-    </div>
-    <div class="col-xs-6">
-        <input type="text" asp-for="ConfirmPassword" class="popup-input" />
-        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-    </div>
-    <div class="col-xs-6">
-        <input type="text" asp-for="City" class="popup-input" />
-        <span asp-validation-for="City" class="text-danger "></span>
-        <input type="text" asp-for="Address" class="popup-input" />
-        <span asp-validation-for="Address" class="text-danger"></span>
-        <input type="text" asp-for="Email" class="popup-input" />
-        <span asp-validation-for="Email" class="text-danger"></span>
+<form asp-controller="Auth" asp-action="Register" autocomplete="off" method="post" role="form">
+    @*@Html.ValidationSummary(true)*@
+    <div asp-validation-summary="ValidationSummary.All" class="text-danger">
+        <div class="col-xs-6">
+            <input type="text" asp-for="UserName" placeholder="Имя пользователя" class="popup-input" />
+            @*<span asp-validation-for="UserName" class="text-danger"></span>*@
+        </div>
+        <div class="col-xs-6">
+            <input type="text" asp-for="Password" placeholder="Пароль" class="popup-input" />
+            @*<span asp-validation-for="Password" class="text-danger"></span>*@
+        </div>
+        <div class="col-xs-6">
+            <input type="text" asp-for="Phone" placeholder="Телефон" value="" class="popup-input" />
+            @*<span asp-validation-for="Phone" class="text-danger"></span>*@
+        </div>
+        <div class="col-xs-6">
+            <input type="text" asp-for="ConfirmPassword" placeholder="Повторите Пароль" class="popup-input" />
+            @*<span asp-validation-for="ConfirmPassword" class="text-danger"></span>*@
+        </div>
+        <div class="col-xs-6">
+            <input type="text" asp-for="City" placeholder="Город" class="popup-input" />
+            @*<span asp-validation-for="City" class="text-danger "></span>*@
+            <input type="text" asp-for="Address" placeholder="Адрес" class="popup-input" />
+            @*<span asp-validation-for="Address" class="text-danger"></span>*@
+            <input type="text" asp-for="Email" placeholder="Email" class="popup-input" />
+            @*<span asp-validation-for="Email" class="text-danger"></span>*@
+        </div>
     </div>
     <input type="hidden" id="registerHidden" name="returnUrl" value="" />
     <div class="col-xs-6">
-        <span>data text</span><br />
-        <button type="submit" class="popup-register-button">Зарегистрироваться</button>
+        <br />
+        <span class="popup-register-info">Все поля обязательны для заполнения</span><br />
+        <button type="button" class="popup-register-button">Зарегистрироваться</button>
+        <br /><br />
+        <span class="text-danger error-text"></span><br />
     </div>
 
 
 </form>
-
+<script type="text/javascript">
+    function load() {
+        setTimeout(function () {
+            $(".authorization").css("left", "50%");
+            $(".authorization").css("margin-left", "-300px");
+        }, 500);
+    }
+    var loc = $(location).attr('pathname');
+    $("#registerHidden").val(loc);
+    $(".authorization").css("left", "50%");
+    $(".authorization").css("margin-left", "-300px");
+    $(".popup-register-button").click(function (data) {
+        $.ajax({
+            type: "POST",
+            url: "/Auth/Register",
+            data: $(".reg-form").serialize(),
+            success: function (response) {
+                if (response != "true") {
+                    $(".error-text").html(response);
+                }
+                else if (response == "true") {
+                    $(".error-text").html("Проверьте свой Email и подтвердите его для окончания регистрации!");
+                    setTimeout(function () {
+                        $(".error-text").html("");
+                    }, 10000);
+                }
+            }
+        });
+    });
+</script>
 

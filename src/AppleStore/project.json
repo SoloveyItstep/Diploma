@@ -51,6 +51,9 @@
         "dnx451": {
             "frameworkAssemblies": {
                 "System.Web": "4.0.0.0"
+            },
+            "dependencies": {
+                "MD5Lib": "1.0.0-*"
             }
         }
     },

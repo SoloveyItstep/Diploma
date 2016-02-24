@@ -34,6 +34,16 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         }
         $http.get("/api/user/changelanguage");
     };
+    $scope.UserName = "";
+    $http.get("/api/user/currentuser").success(function (user) {
+        if (user != null && user != "") {
+            
+            $scope.UserName = user;
+            $("#lk").attr("onmouseout", "this.src = '/images/HomeLayout/lk.png'");
+            $("#lk").attr("onmouseover", "this.src = '/images/HomeLayout/lk_hover.png'");
+
+        }
+    });
     //==================Mac data==============================
     $scope.mac = [];
     $scope.elements = [];
@@ -127,6 +137,12 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         for (var i = 1; i < 7 && i <= $scope.maxpages; ++i)
             $scope.pages.push(i);
     }
+
+    $scope.popupLK = function(){
+        $http.post("/Partials/Login").success(function (page) {
+            $(".popup").html(page);
+        });
+    };
     //==============filter functions=====================
     $scope.processorArr = [];
     $scope.diagonalArr = [];

@@ -9,22 +9,22 @@ namespace AppleStore.ViewModels.Account
     public class RegisterViewModel
     {
         [Required]
-        [RegularExpression(pattern: @"[^123456789<>!.,{}[]()]")]
+        [RegularExpression(pattern: @"[a-zA-Zа-яА-Я0-9_\- ]{2,15}$")]
         [StringLength(maximumLength: 15, MinimumLength = 2)]
         [Display(Name = "User name")]
         public String UserName { get; set; }
 
         [Required]
-        [RegularExpression(pattern: @"[^123456789<>!.,{}[]()]")]
+        [RegularExpression(pattern: @"[a-zA-Zа-яА-Я0-9_\- ]{2,15}$")]
         [StringLength(maximumLength: 15, MinimumLength = 2)]
         public String City { get; set; }
 
         [Required]
-        [RegularExpression(@"\d{6,18}")]
-        public long Phone { get; set; }
+        [RegularExpression(@"^\+?[0-9]{3,5}-?[0-9\-]+$")]
+        public String Phone { get; set; }
 
         [Required]
-        [RegularExpression(pattern: @"[^<>!{}[]()]")]
+        [RegularExpression(pattern: @"[^<>!{}]+")]
         [StringLength(maximumLength: 40, MinimumLength = 5)]
         public String Address { get; set; }
 

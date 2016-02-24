@@ -15,28 +15,27 @@
 }
 .authorization{
     position:fixed;
-    top: 20%;
+    top: 15%;
     left: 50%;
-    width: 600px;
-    height: 430px;
+    max-width: 600px;
+    height: 400px;
     margin-left: -300px;
     z-index: 6;
-    
+    background: white;
     overflow-x: hidden;
     overflow-y: auto;
 }
-.popup{
+/*.popup{
+    margin-top: 50px;
     height: 400px;
     background: white;
-}
+}*/
 .close-popup-authorization{
     position:absolute;
     width: 25px;
     height: 25px;
-    background-color: transparent;
-    margin-top: -25px;
-    /*left: 680px;*/
-    right:0px;
+    margin-top: 25px;
+    right:2px;
     
 }
 .close-popup-authorization:hover{
@@ -50,11 +49,12 @@
     position:absolute;
     width: 23px;
     height: 2px;
-    background-color:black;
+    background-color:gray;
     border-radius: 2px;
-    z-index: 5;
+    z-index: 7;
 }
 .close-popup-authorization:before{
+    
     -webkit-transform:rotate(45deg);
     -moz-transform:rotate(45deg);
     transform:rotate(45deg);
@@ -81,9 +81,11 @@
 }
 
 .popup-input{
-    width: 250px;
+    width: 270px;
     height: 35px;
-    margin: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
     margin-bottom: 5px;
     background: lightgray;
     padding-left: 10px;
@@ -91,6 +93,7 @@
     border: none;
     font-size: 15px;
     color: #989898;
+    font-family: OpenSans-Light;
 }
 .form-title{
     top: 0px;
@@ -100,23 +103,71 @@
 .form-title span{
     font-family: OpenSans-Light;
     font-size: 25px;
-    left: 10px;
-    margin-left: 10px;
+    left: 15px;
+    margin-left: 15px;
 }
 .popup-input:focus{
     box-shadow: none;
     border: 2px solid #989898;
+    padding-left: 8px;
 }
 .popup-input input:focus{
     box-shadow: none;
     border: none;
 }
-.popup-input > textarea:focus, .popup-input > input:focus{
+textarea:focus, input:focus{
     outline: none;
 }
-textarea:-webkit-autofill, input:-webkit-autofill{
-    background: lightgray;
+.popup-register-button{
+    width: 270px;
+    height: 45px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    background: #4d4c51;
+    padding-left: 10px;
+    box-shadow: none;
+    border: none;
+    font-size: 20px;
+    color: white;
+    font-family: OpenSans-Light;
 }
+.popup-register-info{
+
+}
+.popup-register-info{
+    margin-left: 15px;
+    color: black;
+}
+.login-page{
+    width: 350px;
+    height: 400px;
+}
+.login-middle{
+    margin-top: 50px;
+}
+.login-button{
+    background-color: #4d4c51;
+    color: white;
+    font-family: OpenSans-Light;
+    width: 120px;
+    height: 35px;
+    box-shadow: none;
+    border: none;
+}
+.popup{
+    position: relative;
+    margin-top: -10px;
+}
+.social-login{
+    position: absolute;
+    bottom: 0px;
+    height: 50px;
+    background: lightgray;
+    width: 100%;
+}
+
 
 @media (min-width: 1200px){
     

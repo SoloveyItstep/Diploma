@@ -8,6 +8,7 @@
     "jquery-validation-unobtrusive": "3.2.4",
     "angular-animate": "1.4.6",
     "angular": "1.4.6",
-    "angular-route": "1.4.6"
+    "angular-route": "1.4.6",
+    "modernizr": "3.0.0"
   }
 }

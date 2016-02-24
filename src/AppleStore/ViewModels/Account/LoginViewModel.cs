@@ -8,8 +8,9 @@ namespace AppleStore.ViewModels.Account
 {
     public class LoginViewModel
     {
-        [Required]
-        public string Login { get; set; }
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

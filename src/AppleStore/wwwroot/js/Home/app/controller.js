@@ -5,7 +5,6 @@ app.controller("SearchCtrl", function ($scope, $http) {
     $http.get("/api/apple/categories").success(function (data) {
 
     });
-
     $scope.goods = [];
     $http.get("/api/apple/categories").success(function (data) {
         for (var i = 0; i < data.length; ++i) {
@@ -33,21 +32,24 @@ app.controller("SearchCtrl", function ($scope, $http) {
     };
     
     $scope.popupLK = function(){
-        if ($scope.userName == "") {
-            //need logout
-            $http.post("/Partials/Register/" + $scope.language).success(function (page) {
-                //console.log(page);
-                $(".popup").html(page);
-            });
-        }
-        else {
-            //need login
-        }
+        $http.post("/Partials/Login").success(function (page) {
+            $(".popup").html(page);
+        });
     };
     $scope.register = function (data) {
         console.log("clicked");
         console.log(data);
     }
+    $scope.UserName = "";
+    $http.get("/api/user/currentuser").success(function (user) {
+        if (user != null && user != "") {
+            
+            $scope.UserName = user;
+            $("#lk").attr("onmouseout", "this.src = '/images/HomeLayout/lk.png'");
+            $("#lk").attr("onmouseover", "this.src = '/images/HomeLayout/lk_hover.png'");
+
+        }
+    });
 })
 .controller("CarouselCtrl", function ($scope, $http) {
     $http.get("../data/CarouselData.json").success(function (data) {

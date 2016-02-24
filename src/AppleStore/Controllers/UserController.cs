@@ -18,8 +18,8 @@ namespace AppleStore.Controllers
             String language = HttpContext.Session.GetString("language");
             if (language == null)
             {
-                HttpContext.Session.SetString("language", "en");
-                language = "en";
+                HttpContext.Session.SetString("language", "EN");
+                language = "EN";
             }
             return language;
         }
@@ -29,11 +29,11 @@ namespace AppleStore.Controllers
         {
             String language = HttpContext.Session.GetString("language");
             if (language == null)
-                HttpContext.Session.SetString("language", "en");
-            else if (language == "en")
-                HttpContext.Session.SetString("language", "ru");
+                HttpContext.Session.SetString("language", "EN");
+            else if (language == "EN")
+                HttpContext.Session.SetString("language", "RU");
             else
-                HttpContext.Session.SetString("language", "en");
+                HttpContext.Session.SetString("language", "EN");
         }
 
         [Route("currentuser")]

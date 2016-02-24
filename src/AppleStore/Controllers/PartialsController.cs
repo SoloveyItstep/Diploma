@@ -3,6 +3,7 @@ using AppleStore.Models;
 using System.Security.Claims;
 using System;
 using AppleStore.ViewModels.Account;
+using Microsoft.AspNet.Http;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,20 +17,31 @@ namespace AppleStore.Controllers
         {
             this.userContext = context;
         }
-        //[HttpPost]
+        [HttpPost]
         public IActionResult Login()
         {
-
-            return PartialView(new LoginViewModel());
+            String language = HttpContext.Session.GetString("language");
+            if (language == "EN" || language == null)
+                return PartialView("Login.en-US", new LoginViewModel());
+            return PartialView("Login.ru-RU", new LoginViewModel());
         }
+
         [HttpPost]
-        public IActionResult Register(String id)
+        public IActionResult Register()
         {
-            if(id == "EN")
+            String language = HttpContext.Session.GetString("language");
+            if(language == "EN" || language == null)
                 return PartialView("Register.en-US",new RegisterViewModel());
             return PartialView("Register.ru-RU", new RegisterViewModel());
         }
 
-        
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            String language = HttpContext.Session.GetString("language");
+            if (language == "EN" || language == null)
+                return PartialView("LogOut.en-US", User.Identity.Name);
+            return PartialView("LogOut.ru-RU", User.Identity.Name);
+        }
     }
 }

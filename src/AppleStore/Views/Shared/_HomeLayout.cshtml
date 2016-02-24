@@ -20,6 +20,7 @@
     <div ng-controller="popupCtrl">
         <div class="dark_background">
         </div><!--end div dark_background-->
+        
         <div class="authorization">
             <div class="close-popup-authorization"></div>
             <div class="popup">
@@ -66,8 +67,8 @@
                             </a><!--end a class=top-navbar-item search-img-->
                         </div><!--end div search col-->
                         <div class="col-xs-2">
-                            <a href="#" class="navbar-item  no-nav lk" ng-click="popupLK()">
-                                <img src="~/images/HomeLayout/lk.png" id="lk-img"
+                            <a href="#" class="navbar-item  no-nav lk" title="{{UserName}}" ng-click="popupLK()">
+                                <img src="~/images/HomeLayout/lk.png" id="lk-img" 
                                      onmouseover="this.src = '/images/HomeLayout/lk_hover.png'"
                                      onmouseout="this.src = '/images/HomeLayout/lk.png'" />
                             </a><!--end a class=top-navbar-item lk-img-->

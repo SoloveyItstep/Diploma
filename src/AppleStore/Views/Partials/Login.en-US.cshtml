@@ -1,7 +1,68 @@
 ﻿@model AppleStore.ViewModels.Account.LoginViewModel
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+<div class="login-page">
+    <div class="form-title col-xs-12">
+        <span>Login</span>
+    </div>
+    <form asp-controller="Auth" asp-action="Login" class="log-form" autocomplete="off" method="post" role="form">
+        <div asp-validation-summary="ValidationSummary.All" class="text-danger">
+            <div class="col-xs-12">
+                <input type="text" asp-for="Email" placeholder="Email" class="popup-input" />
+            </div>
+            <div class="col-xs-12">
+                <input type="text" asp-for="Password" placeholder="Password" class="popup-input" />
+            </div>
+            <div class="col-xs-12 login-middle">
+                <div class="col-xs-6 login-links">
+                    <a href="#" class="gotoreg">Register</a><br />
+                    <a href="#">Forgot password</a>
+                </div>
+                <div class="col-xs-6">
+                    <button type="button" class="login-button">Login</button>
+                </div>
+            </div>
+        </div>
+        <span class="text-danger error-text"></span><br />
+    </form>
+    <div class="social-login">
+        <div class="col-xs-offset-6 col-xs-6">
 
-<form asp-controller="Auth" asp-action="Login" method="post" role="form">
-    <input type="text" asp-for="Login" class="popup-input"  />
-    <input type="text" asp-for="Password" class="popup-input"/>
-    <button type="submit" class="login-button">Login</button>
-</form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function load(){
+        setTimeout(function () {
+            $(".authorization").css("left", "50%");
+            $(".authorization").css("margin-left", "-175px");
+        }, 500);
+    }
+    $(".authorization").css("left", "50%");
+    $(".authorization").css("margin-left", "-175px");
+    $(".popup-input").css("margin-left", "25px");
+    $(".login-button").click(function (data) {
+        $.ajax({
+            type: "POST",
+            url: "/Auth/Login",
+            data: $(".log-form").serialize(),
+            success: function (response) {
+                if (response != "true") {
+                    $(".error-text").html(response);
+                }
+                else if (response == "true") {
+
+                }
+            }
+        });
+    });
+    $(".gotoreg").click(function () {
+        $.ajax({
+            url: "/Partials/Register",
+            type: "POST",
+            success: function (page) {
+                $(".popup").html(page);
+            }
+        });
+    });
+</script>
+

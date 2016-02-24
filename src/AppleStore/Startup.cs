@@ -19,6 +19,7 @@ using Store.Repository.UnitOfWorks;
 using Store.Context.Context;
 using Currency;
 using AppleStore.Services.MessageSender;
+using AppleStore.Models.RegisterLogin;
 
 namespace AppleStore
 {
@@ -86,6 +87,8 @@ namespace AppleStore
             services.AddTransient<ICurrencyRepository<Store.Entity.Currency>, CurrencyRepository>();
             services.AddTransient<IUnitOfWork,UnitOfWork>();
             services.AddTransient<ICurrencyUSD, CurrencyUSD>();
+            services.AddTransient<IRegisterLoginErrorsLanguage, RegisterLoginErorsLanguage>();
+            services.AddTransient<IMD5Hash, MD5Hash>();
             //services.Configure<AuthMessageSenderOptions>(Configuration);
         }
 
