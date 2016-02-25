@@ -34,6 +34,7 @@ app.controller("SearchCtrl", function ($scope, $http) {
     $scope.popupLK = function(){
         $http.post("/Partials/Login").success(function (page) {
             $(".popup").html(page);
+            $scope.GetUserName();
         });
     };
     $scope.register = function (data) {
@@ -50,6 +51,16 @@ app.controller("SearchCtrl", function ($scope, $http) {
 
         }
     });
+    $scope.GetUserName = function () {
+        setTimeout(function () {
+            $http.get("/api/user/currentuser").success(function (user) {
+                if (user != null && user != "") {
+                    $scope.UserName = user;
+                    $(".lk").attr("title", user);
+                }
+            });
+        }, 2000);
+    };
 })
 .controller("CarouselCtrl", function ($scope, $http) {
     $http.get("../data/CarouselData.json").success(function (data) {

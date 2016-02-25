@@ -1,1 +1,42 @@
-﻿
+﻿@model String
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+
+<div class="loggedin-page">
+    <div class="col-xs-12 loggedin-title">
+        <span>Инфо</span>
+    </div>
+    <div class="loggedin-info-text">
+        <div class="col-xs-12">
+            <span>Вы авторизированы</span><br />
+            <span>как @Model</span>
+        </div>
+        <span class="error-text text-danger"></span>
+    </div>
+    <div class="loggedin-byttons">
+        <button type="button" class="popup-register-button logout">Выход</button>
+        <br /><br />
+        <button type="button" class="popup-register-button cancel-logout">Отмена</button>
+    </div>
+</div>
+<script type="text/javascript">
+    $(".authorization").css("left", "57%");
+    $(".logout").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/Auth/Logout",
+            success: function (response) {
+                if (response == false) {
+                    $(".error-text").html("Произошла ошибка<br/>Пожалуйста повторите попытку позднее");
+                }
+                else if (response == true) {
+                    $(".dark_background").trigger("click");
+                    $(".lk").attr("title", "");
+                }
+            }
+        });
+    });
+    $(".cancel-logout").click(function () {
+        $(".dark_background").trigger("click");
+    });
+</script>
+

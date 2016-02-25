@@ -135,6 +135,7 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     $scope.popupLK = function(){
         $http.post("/Partials/Login").success(function (page) {
             $(".popup").html(page);
+            $scope.GetUserName();
         });
     };
     $scope.UserName = "";
@@ -144,9 +145,19 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             $scope.UserName = user;
             $("#lk").attr("onmouseout", "this.src = '/images/HomeLayout/lk.png'");
             $("#lk").attr("onmouseover", "this.src = '/images/HomeLayout/lk_hover.png'");
-
+            $(".lk").attr("title", user);
         }
     });
+    $scope.GetUserName = function () {
+        setTimeout(function () {
+            $http.get("/api/user/currentuser").success(function (user) {
+                if (user != null && user != "") {
+                    $scope.UserName = user;
+                    $(".lk").attr("title", user);
+                }
+            });
+        }, 2000);
+    };
     //==============filter functions=====================
     $scope.processorArr = [];
     $scope.diagonalArr = [];

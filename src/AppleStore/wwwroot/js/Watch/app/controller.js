@@ -109,10 +109,21 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         }
     });
 
-    $scope.popupLK = function(){
+    $scope.popupLK = function () {
         $http.post("/Partials/Login").success(function (page) {
             $(".popup").html(page);
+            $scope.GetUserName();
         });
+    };
+    $scope.GetUserName = function () {
+        setTimeout(function () {
+            $http.get("/api/user/currentuser").success(function (user) {
+                if (user != null && user != "") {
+                    $scope.UserName = user;
+                    $(".lk").attr("title", user);
+                }
+            });
+        }, 2000);
     };
     //==============filter functions=====================
     $scope.strapmaterialArr = [];
@@ -206,7 +217,7 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         else {
             $scope.watch = Watch;
         }
-        //console.log("ipads length - " + $scope.watch.length);
+        console.log("ipads length - " + $scope.watch.length);
         $scope.active = 1;
         $scope.activelast = 1;
         $scope.itemslength = 0;
@@ -319,15 +330,14 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         }
     }
 
-
     $scope.paging = function (page) {
         $scope.itemslength = 8;
         $scope.active = page;
         $scope.activelast = page;
         $scope.pages = [];
         $scope.elements = [];
-        $scope.maxpages = Math.ceil($scope.mac.length / 8);
-        var left = $scope.mac.length - page * 8;
+        $scope.maxpages = Math.ceil($scope.watch.length / 8);
+        var left = $scope.watch.length - page * 8;
         if (left < 0)
             $scope.itemsleft = 0;
         else if (left > 7)
@@ -368,8 +378,8 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         var end = start + (($scope.activelast - $scope.active) * 8) + 8;
         $scope.elements = [];
         //add elements
-        for (var i = start; i < end && i < $scope.mac.length; ++i) {
-            $scope.elements.push($scope.mac[i]);
+        for (var i = start; i < end && i < $scope.watch.length; ++i) {
+            $scope.elements.push($scope.watch[i]);
         }
 
         resizeMain();

@@ -21,6 +21,14 @@ namespace AppleStore.Controllers
         public IActionResult Login()
         {
             String language = HttpContext.Session.GetString("language");
+            String user = User.Identity.Name;
+            if (user != null && user != "")
+            {
+                if (language == "EN" || language == null)
+                    return PartialView("LogOut.en-US", user);
+                return PartialView("LogOut.ru-RU", user);
+            }
+            
             if (language == "EN" || language == null)
                 return PartialView("Login.en-US", new LoginViewModel());
             return PartialView("Login.ru-RU", new LoginViewModel());

@@ -50,7 +50,14 @@
                     $(".error-text").html(response);
                 }
                 else if (response == "true") {
-
+                    $(".dark_background").trigger("click");
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/user/currentuser",
+                        success: function (userName) {
+                            $(".lk").attr("title", userName);
+                        }
+                    });
                 }
             }
         });
