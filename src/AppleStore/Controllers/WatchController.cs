@@ -4,6 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Store.Repository.UnitOfWorks;
+using Store.Entity;
+using Microsoft.AspNet.Http;
+using AppleStore.Models;
+using AppleStore.ViewModels.Account;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -31,10 +35,25 @@ namespace AppleStore.Controllers
             return new ObjectResult(mac);
         }
 
-        [Route("element/{id}")]
-        public IActionResult WatchItem(Int32 id)
+        [Route("{id}")]
+        public async Task<IActionResult> WatchItem(Int32 id)
         {
-            return View(id);
+            HttpContext.Session.SetInt32("currentitem", id);
+            var watch = await unitOfWork.Apple.Find(a => a.AppleID == id);
+            String language = GetLanguage();
+            ViewBag.Name = watch.Name;
+            if (language == "EN")
+                return View("WatchItem.en-US",new LoginViewModel());
+            return View("WatchItem.ru-RU", new LoginViewModel());
         }
+
+        private String GetLanguage()
+        {
+            String language = HttpContext.Session.GetString("language");
+            if (language == null)
+                language = "EN";
+            return language;
+        }
+
     }
 }

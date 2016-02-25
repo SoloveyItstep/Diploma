@@ -46,8 +46,9 @@ app.controller("SearchCtrl", function ($scope, $http) {
         if (user != null && user != "") {
             
             $scope.UserName = user;
-            $("#lk").attr("onmouseout", "this.src = '/images/HomeLayout/lk.png'");
-            $("#lk").attr("onmouseover", "this.src = '/images/HomeLayout/lk_hover.png'");
+            $(".lk").attr("title", user);
+            $("#lk-img").attr("src", "/images/HomeLayout/lk_login.png");
+            $("#lk-img").attr("onmouseout", "this.src = '/images/HomeLayout/lk_login.png'");
 
         }
     });
@@ -57,6 +58,8 @@ app.controller("SearchCtrl", function ($scope, $http) {
                 if (user != null && user != "") {
                     $scope.UserName = user;
                     $(".lk").attr("title", user);
+                    $("#lk-img").attr("src", "/images/HomeLayout/lk_login.png");
+                    $("#lk-img").attr("onmouseout", "this.src = '/images/HomeLayout/lk_login.png'");
                 }
             });
         }, 2000);

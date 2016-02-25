@@ -6,6 +6,16 @@
     var subm = $(".popup-register-button");
     var regForm = $(".reg-form");
 
+    $.ajax({
+        type: "GET",
+        url: "/api/user/currentuser",
+        success: function (userName) {
+            $(".lk").attr("title", userName);
+            $("#lk-img").attr("src", "/images/HomeLayout/lk_login.png");
+            $("#lk-img").attr("onmouseout", "this.src = '/images/HomeLayout/lk_login.png'");
+        }
+    });
+
     //dark background click
     darkBackground.click(function () {
         if (!authorization.hasClass("hidden")) {
@@ -47,4 +57,38 @@
         }, 2500);
     });
     
+    var main = $(".main");
+    var nav = $(".bottom-navbar");
+    setTimeout(function () {
+        var y = nav.offset().top + nav.height();
+        main.height(y);
+        FilterPosition();
+    }, 100);
+    setTimeout(function () {
+        var y = nav.offset().top + nav.height();
+        main.height(y);
+    },1000);
+    setTimeout(function () {
+        var y = nav.offset().top + nav.height();
+        main.height(y);
+    }, 5000);
+
+}
+
+function ReloadMain(){
+    var main = $(".main");
+    var nav = $(".bottom-navbar");
+    setTimeout(function () {
+        var y = nav.offset().top + nav.height();
+        main.height(y);
+        FilterPosition();
+    }, 100);
+    setTimeout(function () {
+        var y = nav.offset().top + nav.height();
+        main.height(y);
+    },1000);
+    setTimeout(function () {
+        var y = nav.offset().top + nav.height();
+        main.height(y);
+    }, 5000);
 }

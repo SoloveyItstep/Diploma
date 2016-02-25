@@ -63,42 +63,10 @@ namespace AppleStore.Controllers
             {
                 model.RememberMe = true;
                 var user = userManager.Users.Where(u => u.Email == model.Email).FirstOrDefault();
-                var result = SignInResult.Success;
-
-                if (user == null)
-                    result = SignInResult.Failed;
-                else
-                {
-                    PasswordVerificationResult virification = md5.VerifyHashedPassword(user, 
-                        user.PasswordHash, model.Password);
-                    if (user.Email == model.Email && virification == PasswordVerificationResult.Success)
-                        result = SignInResult.Success;
-                }
-
-                if (result.Succeeded)
-                {
-                    logger.LogInformation(1, "User logged in.");
-                    await signInManager.SignInAsync(user, isPersistent: false);
-                    return "true";
-                }
-                if (result.IsLockedOut)
-                {
-                    logger.LogWarning(2, "User account locked out.");
-                    return "true";
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return "Invalid Email or Password";
-                }
+                var result = CanLogin(user, model);
+                return await LoginMethod(user, result);                
             }
-            else if(User.Identity.Name != null)
-            {
-                //await signInManager.SignOutAsync();
-                return "false";
-            }
-            return "false";
-            
+            return "false";           
         }
 
         [ValidateAntiForgeryToken]
@@ -106,38 +74,46 @@ namespace AppleStore.Controllers
         {
             if (ModelState.IsValid && User.Identity.Name == null)
             {
-                var us = userManager.Users.Where(u => u.Email == model.Email).FirstOrDefault();
-                if (us != null)
-                {
+                var user = CreateUser(model);
+                if (user == null)
                     return " - This Email is already registered";
-                }
-                var user = new ApplicationUser
-                {
-                    UserName = model.UserName,
-                    Email = model.Email,
-                    Address = model.Address,
-                    City = model.City,
-                    PhoneNumber = model.Phone.ToString()
-                };
-
-                String key = md5.HashPassword(user, model.Password);
-                   
-                user.PasswordHash = key;
-                HttpContext.Session.SetObjectAsJson("UserPreRegister", user);
-                HttpContext.Session.SetString("pass", model.Password);
-                if (returnUrl == null || returnUrl == "/")
-                    returnUrl = "/Home/Index";
-                HttpContext.Session.SetString("url", returnUrl);
-                emailSender.SendEmailToConfirm(model.Email, "", key, model.UserName, "1");
+                SaveDataToSession(user, returnUrl, model);
+                emailSender.SendEmailToConfirm(model.Email, "", user.PasswordHash, model.UserName, "1");
                 return "true";
             }
             else if (User.Identity.Name != null)
-            {
-                signInManager.SignOutAsync();
                 return "- User is already loged in.<br/> &nbsp;&nbsp; To register new User you have to loggedout first";
+
+            return CreateRegistrationErrors();
+        }
+
+        public async Task<IActionResult> ConfirmEmail(String id,String userID)
+        {
+            var user = HttpContext.Session.GetObjectFromJson<ApplicationUser>("UserPreRegister");
+            if(user == null)
+                return RedirectToAction("Error", "Email was not confirmed");
+            var password = HttpContext.Session.GetString("pass");
+            var keyExist = md5.VirifyHashadPasswords(user.PasswordHash, id);
+                
+            if(keyExist != PasswordVerificationResult.Success)
+                return RedirectToAction("Error", "Password Incorrect");
+            
+            var result = await userManager.CreateAsync(user);
+            if (result.Succeeded)
+            {
+                await signInManager.SignInAsync(user, isPersistent: false);
+                logger.LogInformation(3, "User created a new account with password.");
+                String[] url = GetReturnUrl();
+                return RedirectToAction(url[0],url[1]);
             }
+                AddErrors(result);
+                return new ObjectResult("User already exist");
+        }
+
+        private String CreateRegistrationErrors()
+        {
             String language = HttpContext.Session.GetString("language");
-            if(language == null)
+            if (language == null)
             {
                 HttpContext.Session.SetString("language", "EN");
                 language = "EN";
@@ -146,44 +122,86 @@ namespace AppleStore.Controllers
             return errors;
         }
 
-        public async Task<IActionResult> ConfirmEmail(String id,String userID)
+        private async Task<String> LoginMethod(ApplicationUser user,SignInResult result)
         {
-            var user = HttpContext.Session.GetObjectFromJson<ApplicationUser>("UserPreRegister");
-            if(user == null)
+            if (result.Succeeded)
             {
-                return RedirectToAction("Error", "Email was not confirmed");
+                logger.LogInformation(1, "User logged in.");
+                await signInManager.SignInAsync(user, isPersistent: false);
+                return "true";
             }
-            var password = HttpContext.Session.GetString("pass");
-            var keyExist = md5.VirifyHashadPasswords(user.PasswordHash, id);
-                
+            if (result.IsLockedOut)
+            {
+                logger.LogWarning(2, "User account locked out.");
+                return "true";
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return "Invalid Email or Password";
+            }
+        }
 
-            if(keyExist != PasswordVerificationResult.Success)
+        private SignInResult CanLogin(ApplicationUser user, LoginViewModel model)
+        {
+            var result = SignInResult.Success;
+
+            if (user == null)
+                result = SignInResult.Failed;
+            else
             {
-                return RedirectToAction("Error", "Password Incorrect");
+                PasswordVerificationResult virification = md5.VerifyHashedPassword(user,
+                    user.PasswordHash, model.Password);
+                if (user.Email == model.Email && virification == PasswordVerificationResult.Success)
+                    result = SignInResult.Success;
             }
+            return result;
+        }
+
+        private void SaveDataToSession(ApplicationUser user, String returnUrl, RegisterViewModel model)
+        {
+            HttpContext.Session.SetObjectAsJson("UserPreRegister", user);
+            HttpContext.Session.SetString("pass", model.Password);
+            if (returnUrl == null || returnUrl == "/")
+                returnUrl = "/Home/Index";
+            HttpContext.Session.SetString("url", returnUrl);
+        }
+
+        private String[] GetReturnUrl()
+        {
             var urlObj = HttpContext.Session.GetString("url");
             String url = String.Empty;
             if (urlObj != null)
                 url = urlObj.ToString();
-            var result = await userManager.CreateAsync(user);
-            if (result.Succeeded)
+            String[] arr = { "Index", "Home" };
+            String[] ar = {"",""};
+            if (url != null)
             {
-                await signInManager.SignInAsync(user, isPersistent: false);
-                logger.LogInformation(3, "User created a new account with password.");
-                if (url != null)
-                {
-                    String[] arr = url.Split('/');
-                    return RedirectToAction(arr[2],arr[1]);
-                }
-                return RedirectToAction("Index", "Home");
+                ar = url.Split('/');
+                arr[0] = ar[2];
+                arr[1] = ar[1];
             }
-            else
+            return arr;
+        }
+
+        private ApplicationUser CreateUser(RegisterViewModel model)
+        {
+            var us = userManager.Users.Where(u => u.Email == model.Email).FirstOrDefault();
+            if (us != null)
+                return null;
+            var user = new ApplicationUser
             {
-                AddErrors(result);
-                return new ObjectResult("User already exist");
-            }
-            
-            
+                UserName = model.UserName,
+                Email = model.Email,
+                Address = model.Address,
+                City = model.City,
+                PhoneNumber = model.Phone.ToString()
+            };
+
+            String key = md5.HashPassword(user, model.Password);
+
+            user.PasswordHash = key;
+            return user;
         }
 
         private void AddErrors(IdentityResult result)

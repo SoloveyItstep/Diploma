@@ -31,6 +31,8 @@
                 else if (response == true) {
                     $(".dark_background").trigger("click");
                     $(".lk").attr("title", "");
+                    $("#lk-img").attr("src", "/images/HomeLayout/lk.png");
+                    $("#lk-img").attr("onmouseout", "this.src = '/images/HomeLayout/lk.png'");
                 }
             }
         });

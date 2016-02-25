@@ -1,0 +1,106 @@
+﻿@font-face{
+    font-family: OpenSans-Light; /* Гарнитура шрифта */
+    src: url(../../fonts/HomeLayout/OpenSans-Light.ttf); /* Путь к файлу со шрифтом */
+}
+
+.main-image{
+    position: relative;
+    display: block;
+    max-width: 400px;
+    max-height: 400px;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 5%;
+    top: 5%;
+}
+.ident{
+    height: 20px;
+}
+.images-list{
+    position: relative;
+    display: block;
+    max-width: 130px;
+    max-height: 130px;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 5%;
+    top: 5%;
+}
+.image-border{
+    border: 3px solid #4d4c51;
+}
+.item-title{
+    position:relative;
+    margin-top: 5%;
+}
+.item-title span{
+    font-family: OpenSans-Light;
+    font-size: 45px;
+}
+.price{
+    font-family: OpenSans-Light;
+    font-size: 30px;
+    /*font-weight: 900;*/
+}
+.price span{
+    font-size: 40px;
+}
+.cart-button-column{
+    margin-top: 20px;
+}
+.cart-button{
+    width: 300px;
+    height: 60px;
+    background: #4d4c51;
+    color: white;
+    font-family:OpenSans-Light;
+    font-size: 20px;
+    text-align: center;
+}
+.cart-button:focus,.cart-button:active{
+    box-shadow: none;
+    border: none;
+    outline: none;
+}
+.small{
+    display: none;
+}
+.goback-link{
+    color: black;
+    font-family: OpenSans-Light;
+    font-size: 18px;
+}
+.goback-link:hover{
+    text-decoration: none;
+    color: black;
+}
+.ident2{
+    height: 50px;
+}
+
+@media (min-width: 1200px){
+    
+}
+@media (min-width: 1024px) and (max-wodth: 1200px){
+    
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+    
+}
+@media (max-width: 767px) and (min-width: 481px) {
+    .big{
+        display: none;
+    }
+    .small{
+        display: block;
+    }
+}
+@media (max-width: 480px) {
+    .big{
+        display: none;
+    }
+    .small{
+        display: block;
+    }
+}
+

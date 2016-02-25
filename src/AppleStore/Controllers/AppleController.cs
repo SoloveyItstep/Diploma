@@ -8,6 +8,8 @@ using Microsoft.Data.Entity;
 using Store.Repository.UnitOfWorks;
 using Currency;
 using Currency.Entity;
+using Microsoft.AspNet.Http;
+using AppleStore.Models;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -59,7 +61,6 @@ namespace AppleStore.Controllers
             return new ObjectResult(apple);
         }
 
-        // GET: /<controller>/
         [Route("")]
         public IActionResult Index()
         {
@@ -109,8 +110,27 @@ namespace AppleStore.Controllers
         [Route("element/{id}")]
         public async Task<IActionResult> GetApple(Int32 id)
         {
-            var ipad = await unitOfWork.Apple.GetOneInclude(id);
-            return new ObjectResult(ipad);
+            var item = await unitOfWork.Apple.GetOneInclude(id);
+            return new ObjectResult(item);
+        }
+
+        [Route("getitemid")]
+        public Int32 GetCurrentItemID()
+        {
+            Int32? id = HttpContext.Session.GetInt32("currentitem");
+            return id == null? -1: Int32.Parse(id.ToString());
+        }
+
+        [Route("cart/{id}")]
+        [HttpPost]
+        public Boolean AddToCart(Int32 id)
+        {
+            IList<Int32> cart = HttpContext.Session.GetObjectFromJson<IList<Int32>>("cart");
+            if (cart == null)
+                cart = new List<Int32>();
+            cart.Add(id);
+            HttpContext.Session.SetObjectAsJson("cart", cart);
+            return true;
         }
 
     }
