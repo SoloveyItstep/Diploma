@@ -17,6 +17,7 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             image.attr("src", $scope.item.AppleImage[index].Path);
             image.fadeIn("fast");
         });
+        
     }
     $http.post("/api/apple/currency").success(function (data) {
         $scope.currency = data;
@@ -36,7 +37,6 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     });
     $http.get("/api/user/currentlanguage").success(function (language) {
         $scope.language = language.toUpperCase();
-
     });
 
     $scope.ChangeLanguage = function (language) {
@@ -46,13 +46,14 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         else {
             $scope.language = "EN";
         }
-        $http.get("/api/user/changelanguage").success(function(response){
-            var url = '/Watch/' + itemID;
+        $http.get("/api/user/changelanguage").success(function (response) {
+            var url = '/Mac/' + itemID;
             $window.location.href = url;
-        });        
+        });
+        
     };
-    //==================Watch data==============================
-    $scope.watch = [];
+    //==================TV data==============================
+    $scope.item = [];
   
     $http.post("/api/apple/getitemid").success(function (data) {
         itemID = data;
@@ -63,8 +64,8 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             $http.get("/api/apple/element/" + data).success(function (m) {
                 console.log(m);
                 if (m != null) {
-                    $scope.watch = m;
-                    $scope.price = $scope.watch.Price * $scope.currency;
+                    $scope.item = m;
+                    $scope.price = $scope.item.Price * $scope.currency;
                     ReloadMain();
                                    }
             });
@@ -114,69 +115,65 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
 })
 .filter('detailsName', function () {
     return function (val) {
-        if (val == "Phone Connection type")
-            return "Соединение с телефоном";
-        else if (val == "Display type")
-            return "Тип дисплея";
-        else if (val == "Sensor")
-            return "Сенсор";
-        else if (val == "Compatibility android")
-            return "Соединение с Android";
-        else if (val == "Compatibility iOS")
-            return "Соединение с iOS";
-        else if (val == "Vibration")
-            return "Соединение с телефоном";
-        else if (val == "Phone Connection type")
-            return "Вибрация";
-        else if (val == "Sound signal")
-            return "Звуковой сигнал";
-        else if (val == "Calls")
-            return "Вызовы";
-        else if (val == "Calendar events")
-            return "События календаря";
-        else if (val == "Social networks")
-            return "Социальные сети";
-        else if (val == "Battery power")
-            return "Мощьность аккумулятора Вт/ч";
-        else if (val == "Battery work time")
-            return "Время работы ч.";
-        else if (val == "Battery charging")
-            return "Заряд батареи";
+        
+        if (val == "Class")
+            return "Класс";
+        else if (val == "Screen diagonal")
+            return "Диагонать экрана";
+        else if (val == "Screen matrix")
+            return "Матрица экрана";
+        else if (val == "Screen coverage")
+            return "Покрытие экрана";
+        else if (val == "Screen resolution")
+            return "Разрешение экрана";
+        else if (val == "Processor core type")
+            return "Тип ядер процессора";
+        else if (val == "Processor frequency")
+            return "Частота процессора GHz";
+        else if (val == "Processor core count")
+            return "Количество ядер";
+        else if (val == "RAM size")
+            return "Обьем оперативной памяти Gb";
         else if (val == "Size")
-            return "Размер мм";
+            return "Размер см";
         else if (val == "Weight")
-            return "Вес г.";
-        else if (val == "Water shock protection")
-            return "Водо-пыле защита";
-        else if (val == "Replacement strap")
-            return "Сменный ремешок";
-        else if (val == "Strap material")
-            return "Материал ремешка";
-        else if (val == "Phone Connection type")
-            return "Соединение с телефоном";
-        else if (val == "Media player")
-            return "Медиа проигрыватель";
-        else if (val == "Camera")
-            return "Камера";
-        else if (val == "Loud voice")
-            return "Громкоговоритель";
-        else if (val == "Pulsometer")
-            return "Пульсометр";
+            return "Вес кг";
+        else if (val == "SSD size")
+            return "Обьем памяти SSD Gb";
         else if (val == "WiFi")
             return "Wi-Fi";
+        else if (val == "Graphics and Video Support")
+            return "Графика и видео";
+        else if (val == "Outside ports")
+            return "Внешние порты";
+        else if (val == "Cardreader")
+            return "Кардридер";
+        else if (val == "Web camera")
+            return "Web камера";
+        else if (val == "Network adapter")
+            return "Сетевой адаптер";
+        else if (val == "Housing material")
+            return "Материал корпуса";
+        else if (val == "Battery power")
+            return "Мощьность Вт/ч";
+        else if (val == "Battery")
+            return "Батарея";
         else
             return val;
+        
     };
 })
 .filter('valueData', function () {
     return function (val) {
-        if (val == "Induction (MagSafe)")
-            return "Индуктивный (MagSafe)";
-        else if (val == "Leather")
-            return "Кожа";
-        else if (val == "Color")
-            return "Цветной";
-        else if (val == "true")
+        if (val == "Glossy")
+            return "Гянцевое";
+        else if (val == "USB-C, headphone, mic-in")
+            return "USB-C, наушники, mic-in";
+        else if (val == "Aluminium")
+            return "Алюминиевый";
+        else if (val == "9h internet browsing, 10h play video,  Li-Pol")
+            return "9 часов в сети интернет, 10 часов проигрывания видео, Li-Pol";
+        else if(val == "true")
             return "есть";
         else if (val == "false")
             return "нет";

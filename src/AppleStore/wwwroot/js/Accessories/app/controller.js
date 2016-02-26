@@ -173,7 +173,6 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
                 $scope.filters.type.push(elem);
             });
         });
-        console.log($scope.filters.type);
         if (infilter) {
             arr = tmpArr;
             tmpArr = [];
@@ -364,7 +363,6 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
                 if (start < 0)
                     start = 1;
             }
-            console.log(start);
             for (var i = start + 1; i < start + 7 && i < $scope.maxpages + 1; ++i) {
                 $scope.pages.push(i);
             }
@@ -397,17 +395,21 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     
     //=============ngRoute===============
     $scope.route = function (id) {
-        var url = '/accessories/element/' + id;
+        var url = '/accessories/' + id;
         $window.location.href = url;
     }
 })
 .filter('GetProcessor', function () {
     return function (arr) {
         for (var i = 0; i < arr.length; ++i) {
-            if (arr[i].DetailNames.Name == "Processor core count") {
-                return arr[i].Value;
+            if (arr[i].DetailNames.Name == "Other") {
+                if (arr[i].Value != "false" && arr[i].Value != "")
+                    return arr[i].Value
+                else
+                    return "No info";
             }
         }
+        return "No info";
     };
 })
 .filter("GetRam", function () {

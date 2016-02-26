@@ -2,14 +2,12 @@
     font-family: OpenSans-Light; /* Гарнитура шрифта */
     src: url(../../fonts/HomeLayout/OpenSans-Light.ttf); /* Путь к файлу со шрифтом */
 }
-.images-list:hover{
-    cursor:pointer;
-}
+
 .main-image{
     position: relative;
     display: block;
     max-width: 400px;
-    height: 400px;
+    height: 300px;
     margin-left:auto;
     margin-right: auto;
     margin-top: 5%;
@@ -27,6 +25,9 @@
     margin-right: auto;
     margin-top: 5%;
     top: 5%;
+}
+.images-list:hover{
+    cursor:pointer;
 }
 .image-border{
     border: 3px solid #4d4c51;

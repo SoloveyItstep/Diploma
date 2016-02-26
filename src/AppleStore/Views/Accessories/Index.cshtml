@@ -81,16 +81,16 @@
                             <div class="row element-hover-text">
 
                                 <div class="element-hover-text-div">
-                                    <span ng-if="language == 'EN'">Processor: &nbsp;</span>
-                                    <span ng-if="language == 'RU'">Процессор: &nbsp;</span>
-                                    <span>{{element.ProductDetails | GetProcessor }} Core</span>
+                                    <span ng-if="language == 'EN'">About: &nbsp;</span>
+                                    <span ng-if="language == 'RU'">О товаре: &nbsp;</span>
+                                    <span>{{element.ProductDetails | GetProcessor }}</span>
                                 </div><!--end div processor-->
 
-                                <div class="element-hover-text-div">
+                                @*<div class="element-hover-text-div">
                                     <span ng-if="language == 'EN'">RAM: &nbsp;</span>
                                     <span ng-if="language == 'RU'">Оперативная память: &nbsp;</span>
                                     <span>{{element.ProductDetails | GetRam }}</span>
-                                </div><!--end div RAM-->
+                                </div>*@<!--end div RAM-->
 
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="col-lg-2 col-lg-offset-1

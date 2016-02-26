@@ -17,6 +17,7 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             image.attr("src", $scope.item.AppleImage[index].Path);
             image.fadeIn("fast");
         });
+        
     }
     $http.post("/api/apple/currency").success(function (data) {
         $scope.currency = data;
@@ -36,7 +37,6 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     });
     $http.get("/api/user/currentlanguage").success(function (language) {
         $scope.language = language.toUpperCase();
-
     });
 
     $scope.ChangeLanguage = function (language) {
@@ -46,13 +46,14 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         else {
             $scope.language = "EN";
         }
-        $http.get("/api/user/changelanguage").success(function(response){
-            var url = '/Watch/' + itemID;
+        $http.get("/api/user/changelanguage").success(function (response) {
+            var url = '/Accessories/' + itemID;
             $window.location.href = url;
-        });        
+        });
+        
     };
-    //==================Watch data==============================
-    $scope.watch = [];
+    //==================TV data==============================
+    $scope.item = [];
   
     $http.post("/api/apple/getitemid").success(function (data) {
         itemID = data;
@@ -63,8 +64,8 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             $http.get("/api/apple/element/" + data).success(function (m) {
                 console.log(m);
                 if (m != null) {
-                    $scope.watch = m;
-                    $scope.price = $scope.watch.Price * $scope.currency;
+                    $scope.item = m;
+                    $scope.price = $scope.item.Price * $scope.currency;
                     ReloadMain();
                                    }
             });
@@ -114,69 +115,27 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
 })
 .filter('detailsName', function () {
     return function (val) {
-        if (val == "Phone Connection type")
-            return "Соединение с телефоном";
-        else if (val == "Display type")
-            return "Тип дисплея";
-        else if (val == "Sensor")
-            return "Сенсор";
-        else if (val == "Compatibility android")
-            return "Соединение с Android";
-        else if (val == "Compatibility iOS")
-            return "Соединение с iOS";
-        else if (val == "Vibration")
-            return "Соединение с телефоном";
-        else if (val == "Phone Connection type")
-            return "Вибрация";
-        else if (val == "Sound signal")
-            return "Звуковой сигнал";
-        else if (val == "Calls")
-            return "Вызовы";
-        else if (val == "Calendar events")
-            return "События календаря";
-        else if (val == "Social networks")
-            return "Социальные сети";
-        else if (val == "Battery power")
-            return "Мощьность аккумулятора Вт/ч";
-        else if (val == "Battery work time")
-            return "Время работы ч.";
-        else if (val == "Battery charging")
-            return "Заряд батареи";
-        else if (val == "Size")
-            return "Размер мм";
-        else if (val == "Weight")
-            return "Вес г.";
-        else if (val == "Water shock protection")
-            return "Водо-пыле защита";
-        else if (val == "Replacement strap")
-            return "Сменный ремешок";
-        else if (val == "Strap material")
-            return "Материал ремешка";
-        else if (val == "Phone Connection type")
-            return "Соединение с телефоном";
-        else if (val == "Media player")
-            return "Медиа проигрыватель";
-        else if (val == "Camera")
-            return "Камера";
-        else if (val == "Loud voice")
-            return "Громкоговоритель";
-        else if (val == "Pulsometer")
-            return "Пульсометр";
-        else if (val == "WiFi")
-            return "Wi-Fi";
+        
+        if (val == "Compatibility")
+            return "Совместимость";
+        else if (val == "Case protection")
+            return "Защита корпуса";
+        else if (val == "Material")
+            return "Материал";
+        else if (val == "Other")
+            return "Другое";
+        else if (val == "Class")
+            return "Класс";
         else
             return val;
+        
     };
 })
 .filter('valueData', function () {
     return function (val) {
-        if (val == "Induction (MagSafe)")
-            return "Индуктивный (MagSafe)";
-        else if (val == "Leather")
-            return "Кожа";
-        else if (val == "Color")
-            return "Цветной";
-        else if (val == "true")
+        if (val == "Full")
+            return "Полное";
+        else if(val == "true")
             return "есть";
         else if (val == "false")
             return "нет";
@@ -188,8 +147,6 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     return function (val) {
         if (val == "WiFi")
             return "Wi-Fi";
-        else if(val == "Battery power")
-            return "Battery power W/h";
         else
             return val;
     };

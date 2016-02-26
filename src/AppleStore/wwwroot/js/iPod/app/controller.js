@@ -448,15 +448,15 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     
     //=============ngRoute===============
     $scope.route = function (id) {
-        var url = '/ipod/element/' + id;
+        var url = '/ipod/' + id;
         $window.location.href = url;
     }
 })
 .filter('GetProcessor', function () {
     return function (arr) {
         for (var i = 0; i < arr.length; ++i) {
-            if (arr[i].DetailNames.Name == "Processor core count") {
-                return arr[i].Value;
+            if (arr[i].DetailNames.Name == "HD size") {
+                return arr[i].Value + " Gb";
             }
         }
     };
@@ -464,11 +464,16 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
 .filter("GetRam", function () {
     return function (arr) {
         for (var i = 0; i < arr.length; ++i) {
-            if (arr[i].DetailNames.Name == "RAM size") {
-                var text = arr[i].Value + " " + arr[i].Measure;
+            if (arr[i].DetailNames.Name == "FM-Radio") {
+                var text = "";
+                if (arr[i].Value == "false")
+                    text += "not avaliable";
+                else if(arr[i].Value != "false")
+                    text += "avaliable";
                 return text;
             }
         }
+        return "No info";
     };
 });
 

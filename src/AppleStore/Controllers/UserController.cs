@@ -25,7 +25,7 @@ namespace AppleStore.Controllers
         }
 
         [Route("changelanguage")]
-        public void ChangeLanguage(String id)
+        public Boolean ChangeLanguage(String id)
         {
             String language = HttpContext.Session.GetString("language");
             if (language == null)
@@ -34,6 +34,7 @@ namespace AppleStore.Controllers
                 HttpContext.Session.SetString("language", "RU");
             else
                 HttpContext.Session.SetString("language", "EN");
+            return true;
         }
 
         [Route("currentuser")]

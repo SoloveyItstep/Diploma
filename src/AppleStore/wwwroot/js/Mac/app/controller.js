@@ -582,7 +582,7 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     
     //=============ngRoute===============
     $scope.route = function (id) {
-        var url = '/mac/element/' + id;
+        var url = '/mac/' + id;
         $window.location.href = url;
     }
 })

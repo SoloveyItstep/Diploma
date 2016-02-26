@@ -17,6 +17,7 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             image.attr("src", $scope.item.AppleImage[index].Path);
             image.fadeIn("fast");
         });
+        
     }
     $http.post("/api/apple/currency").success(function (data) {
         $scope.currency = data;
@@ -36,7 +37,6 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     });
     $http.get("/api/user/currentlanguage").success(function (language) {
         $scope.language = language.toUpperCase();
-
     });
 
     $scope.ChangeLanguage = function (language) {
@@ -47,12 +47,13 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             $scope.language = "EN";
         }
         $http.get("/api/user/changelanguage").success(function(response){
-            var url = '/Watch/' + itemID;
+            var url = '/TV/' + itemID;
             $window.location.href = url;
-        });        
+        });
+        
     };
-    //==================Watch data==============================
-    $scope.watch = [];
+    //==================TV data==============================
+    $scope.item = [];
   
     $http.post("/api/apple/getitemid").success(function (data) {
         itemID = data;
@@ -63,8 +64,8 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             $http.get("/api/apple/element/" + data).success(function (m) {
                 console.log(m);
                 if (m != null) {
-                    $scope.watch = m;
-                    $scope.price = $scope.watch.Price * $scope.currency;
+                    $scope.item = m;
+                    $scope.price = $scope.item.Price * $scope.currency;
                     ReloadMain();
                                    }
             });
@@ -114,69 +115,57 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
 })
 .filter('detailsName', function () {
     return function (val) {
-        if (val == "Phone Connection type")
-            return "Соединение с телефоном";
-        else if (val == "Display type")
-            return "Тип дисплея";
-        else if (val == "Sensor")
-            return "Сенсор";
-        else if (val == "Compatibility android")
-            return "Соединение с Android";
-        else if (val == "Compatibility iOS")
-            return "Соединение с iOS";
-        else if (val == "Vibration")
-            return "Соединение с телефоном";
-        else if (val == "Phone Connection type")
-            return "Вибрация";
-        else if (val == "Sound signal")
-            return "Звуковой сигнал";
-        else if (val == "Calls")
-            return "Вызовы";
-        else if (val == "Calendar events")
-            return "События календаря";
-        else if (val == "Social networks")
-            return "Социальные сети";
-        else if (val == "Battery power")
-            return "Мощьность аккумулятора Вт/ч";
-        else if (val == "Battery work time")
-            return "Время работы ч.";
-        else if (val == "Battery charging")
-            return "Заряд батареи";
+        if (val == "Processor")
+            return "Процессор";
+        else if (val == "Microphone")
+            return "Микрофон";
+        else if (val == "Internet services")
+            return "Интернет сервисы";
+        else if (val == "Remote control")
+            return "Дистанционное управление";
+        else if (val == "Managing with smartphone")
+            return "Соединение со смартфоном";
+        else if (val == "Keyboard and mouse support")
+            return "Клавиатура и мышь";
+        else if (val == "Other")
+            return "Другое";
+        else if (val == "Ethernet")
+            return "Локальная сеть";
+        else if (val == "Audio connection")
+            return "Аудио разьемы";
         else if (val == "Size")
-            return "Размер мм";
+            return "Размер см";
         else if (val == "Weight")
-            return "Вес г.";
-        else if (val == "Water shock protection")
-            return "Водо-пыле защита";
-        else if (val == "Replacement strap")
-            return "Сменный ремешок";
-        else if (val == "Strap material")
-            return "Материал ремешка";
-        else if (val == "Phone Connection type")
-            return "Соединение с телефоном";
-        else if (val == "Media player")
-            return "Медиа проигрыватель";
-        else if (val == "Camera")
-            return "Камера";
-        else if (val == "Loud voice")
-            return "Громкоговоритель";
-        else if (val == "Pulsometer")
-            return "Пульсометр";
+            return "Вес кг";
+        else if (val == "Equipment")
+            return "Комплектация";
         else if (val == "WiFi")
             return "Wi-Fi";
+        else if (val == "Drive")
+            return "Память";
         else
             return val;
     };
 })
 .filter('valueData', function () {
     return function (val) {
-        if (val == "Induction (MagSafe)")
-            return "Индуктивный (MagSafe)";
-        else if (val == "Leather")
-            return "Кожа";
-        else if (val == "Color")
-            return "Цветной";
-        else if (val == "true")
+        if (val == "in remote control")
+            return "в пульте";
+        else if (val == "Netflix, HBO, Hulu and more")
+            return "Netflix, HBO, Hulu и другое";
+        else if (val == "universal with the touchpad, accelerometer and gyroscope")
+            return "универсальный с тачпадом, акселерометром и гироскопом";
+        else if (val == "Integration with iTunes, Game pad")
+            return "Интеграция с iTunes, Game pad";
+        else if (val == "Apple TV, Siri Remote, power cable, cable Lightning-USB for charging the remote control, documentation")
+            return "Apple TV, Siri Remote, кабель питания, кабель Lightning-USB для зарядки пульта ДУ, документация";
+        else if (val == "Integration with iTunes")
+            return "Интеграция с iTunes";
+        else if (val == "Digital optical")
+            return "Цыфровой оптический";
+        else if (val == "Media, documentation, power cable, remote control")
+            return "Медиа, документация, кабель питания, пульт ДУ";
+        else if(val == "true")
             return "есть";
         else if (val == "false")
             return "нет";

@@ -1,0 +1,214 @@
+﻿
+@{
+    Layout = "_HomeLayout";
+    //Layout = null;
+    ViewBag.Title = ViewBag.Name;
+
+}
+@section Styles{
+    <link rel="stylesheet" asp-href-include="~/css/iPod/*.css" />
+    }
+<div class="route">
+    <div class="top-bar">
+        <div class="top-bar-text">
+            <span class="top-bar-text-main">iPod</span><br />
+            <span class="top-bar-text-more">Music around you</span>
+        </div>
+        <div class="top-img-bar">
+            <img src="~/images/Data/iPod/ipod.jpg" class="nav-img" />
+        </div><!--end div-->
+        <div class="link">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="col-sm-2 col-lg-1 col-md-1 col-xs-2 top-link-panel">
+                            <a href="/Home/Index" title="Home" class="top-link-panel-text">Home</a>
+                        </div><!--end div col-1-->
+                        <div class="col-sm-2 col-lg-1 col-md-1 col-xs-2 top-link-panel">
+                            <a href="/iPod/Index" title="iPod" class="top-link-panel-text">iPod</a>
+                        </div><!--end div col-1-->
+                        <div class="col-sm-6 col-lg-4 col-md-5 col-xs-6 top-link-panel">
+                            <span class="top-link-panel-text">{{item.Model}}</span>
+                        </div><!--end div col-2-->
+                    </div><!--end div col-12-->
+                </div><!--end div row-->
+            </div><!--end div container-->
+        </div><!--end div link-->
+    </div><!--end div top-bar-->
+    <div class="col-xs-12 ident"></div>
+    <div class="col-xs-12 ident"></div>
+    
+    <div class="col-lg-12 col-md-12 item-main big">
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="col-xs-12 main-image-div">
+                    <img ng-src="{{item.AppleImage[0].Path}}" class="main-image"/>
+            </div><!--end div main-image-div-->
+            <div class="col-xs-12 ident"></div>
+
+            <div class="col-xs-4" ng-repeat="image in item.AppleImage">
+                <div ng-if="$index == imageIndex">
+                    <img ng-src="{{image.Path}}" class="images-list image-border"/>
+                </div><!--end div current image-->
+                <div ng-if="$index != imageIndex">
+                    <img ng-src="{{image.Path}}" class="images-list" ng-click="changeImage($index)"/>
+                </div><!--end div usual image-->
+            </div><!--div image repeat-->
+            <div class="col-xs-12 ident"></div>
+        </div><!--end div images column-->
+        
+        <div class="col-lg-8 col-md-8 col-sm-12" >
+            <div class="col-xs-offset-1 col-xs-11">
+                <div class="col-xs-12 item-title">
+                    <div class="col-xs-12">
+                        &nbsp;&nbsp;&nbsp;
+                        <span>{{item.Model}}</span>
+                    </div>
+                </div><!--end div item-title-->
+                <div class="col-xs-12">
+                    <div class="ident"></div>
+                        <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-xs-12 price">
+                                <span>{{item.Price}}</span> $
+                            </div><!--end div price-->
+                            <div class="col-xs-12 cart-button-column">
+                                <div class="ident"></div>
+                                <button type="button" title="Add {{item.Model}} to Cart" 
+                                        class="cart-button" ng-click="addtocart(item.AppleID)">Add to Cart</button>
+                            <div class="ident"></div>
+                            </div><!--end div cart-button-column-->
+                        </div><!--end div column price and buttons-->
+                        <div class="col-lg-offset-1 col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                            <div class="delivery">
+                                <br />
+                                <span>Delivery:</span><br /><br />
+                                <span>- Courier in Kiev - free.</span><br />
+                                <span>- Send by Nova Poshta - in Ukraine.</span><br />
+                                <br />
+                            </div><!--end div delivery-->
+                            <div class="payment">
+                                <span>ORDER PAYMENT:</span><br /><br />
+                                <span>- Cash (Kiev).</span><br />
+                                <span>- C.O.D (Ukraine).</span><br />
+                                <span>- Transfer to card.</span><br />
+                            </div><!--end div payment-->
+                        </div><!--end div info of delelivery and payment-->
+                </div><!--end div price, buttons and delivery info-->
+                <div class="ident col-xs-12"></div>
+                <div class="ident col-xs-12"></div>
+
+                <div class="col-xs-12 details-info-column">
+                        <table class="col-xs-12 table table-condensed table-hover">
+                            <tbody ng-repeat="details in item.ProductDetails">
+                                <tr>
+                                    <td>
+                                        {{details.DetailNames.Name | detailsNameEN }}
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>{{details.Value | valueDataEN }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+                </div><!--end div details-info-column-->
+
+            </div><!--end div column-offset-->
+
+            <div class="col-xs-12 ident2"></div>
+            
+            <div class="goback-link-div col-xs-offset-1 col-xs-11">
+                <a href="/iPod/Index" class="goback-link">&#8592; Go back to shopping</a>
+            </div>
+            <div class="col-xs-12 ident2"></div>
+        </div><!--end div details column-->
+        
+        
+    </div><!--end div item-main col-lg-md BIG-->
+    
+    <div class="col-ms-12 col-xs-12 small">
+        
+        <div class="col-lg-8 col-md-8 col-sm-12">
+            <div class="col-xs-offset-1 col-xs-11">
+                <div class="col-xs-12 item-title">
+                    <div class="col-xs-12">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span>{{item.Model}}</span>
+                    </div>
+                </div><!--end div item-title-->
+
+                <div class="col-xs-12">
+                    <div class="col-xs-12 main-image-div">
+                        <img ng-src="{{item.AppleImage[0].Path}}" class="main-image" />
+                    </div><!--end div main-image-div-->
+                    <div class="col-xs-12 ident"></div>
+
+                    <div class="col-xs-4" ng-repeat="image in item.AppleImage">
+                        <div ng-if="$index == imageIndex">
+                            <img ng-src="{{image.Path}}" class="images-list image-border" />
+                        </div><!--end div current image-->
+                        <div ng-if="$index != imageIndex">
+                            <img ng-src="{{image.Path}}" class="images-list" ng-click="changeImage($index)" />
+                        </div><!--end div usual image-->
+                    </div><!--div image repeat-->
+                    <div class="col-xs-12 ident"></div>
+                </div><!--end div images column-->
+            
+                <div class="col-xs-12">
+                    <div class="ident col-xs-12"></div>
+                    <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-xs-12 price">
+                            {{item.Price}} $
+                        </div><!--end div price-->
+                        <div class="col-xs-12 cart-button-column">
+                            <button type="button" title="Add {{item.Model}} to Cart"
+                                    class="cart-button" ng-click="addtocart(item.AppleID)">
+                                Add to Cart
+                            </button>
+                            <div class="ident"></div>
+                        </div><!--end div cart-button-column-->
+                    </div><!--end div column price and buttons-->
+                    
+                <div class="col-xs-offset-1 col-xs-12">
+                    <div class="delivery">
+                        <br />
+                        <span>Delivery:</span><br /><br />
+                        <span>- Courier in Kiev - free.</span><br />
+                        <span>- Send by Nova Poshta - in Ukraine.</span><br />
+                        <br />
+                    </div><!--end div delivery-->
+                    <div class="payment">
+                        <span>ORDER PAYMENT:</span><br /><br />
+                        <span>- Cash (Kiev).</span><br />
+                        <span>- C.O.D (Ukraine).</span><br />
+                        <span>- Transfer to card.</span><br />
+                    </div><!--end div payment-->
+                    </div><!--end div info of delelivery and payment-->
+                </div><!--end div price, buttons and delivery info-->
+                <div class="ident col-xs-12"></div>
+                <div class="ident col-xs-12"></div>
+
+                <div class="col-xs-12 details-info-column">
+                        <table class="col-xs-12 table table-condensed table-hover">
+                            <tbody ng-repeat="details in item.ProductDetails">
+                                <tr>
+                                    <td>
+                                        {{details.DetailNames.Name | detailsNameEN }}
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>{{details.Value | valueDataEN }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div><!--end div details-info-column-->
+
+            </div><!--end div column-offset-->
+        </div><!--end div details column-->
+    </div><!--end div item-main SMALL-->
+
+    
+</div><!--end div route-->
+
+    
+@section Scripts{
+    <script asp-src-include="~/js/iPod/Item/*.js" type="text/javascript"></script>
+    <script asp-src-include="~/js/iPod/Item/app/*.js" type="text/javascript"></script>
+}

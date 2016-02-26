@@ -574,7 +574,7 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     
     //=============ngRoute===============
     $scope.route = function (id) {
-        var url = '/ipad/element/' + id;
+        var url = '/ipad/' + id;
         $window.location.href = url;
     }
 })

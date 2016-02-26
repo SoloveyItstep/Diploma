@@ -351,7 +351,7 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     
     //=============ngRoute===============
     $scope.route = function (id) {
-        var url = '/tv/element/' + id;
+        var url = '/tv/' + id;
         $window.location.href = url;
     }
 })
