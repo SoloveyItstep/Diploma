@@ -27,5 +27,6 @@ namespace Store.Repository.UnitOfWorks
         Task<Apple[]> GetAllByCategoryNameInclude(String categoryName);
         Task<Apple[]> GetTwentyByCategoryNameInclude(String categoryName);
         Task<Apple[]> GetAllSkypSexteenByCategoryNameInclude(String categoryName);
+        Task<Apple[]> GetCartData(Dictionary<Int32, Int32> cart);
     }
 }

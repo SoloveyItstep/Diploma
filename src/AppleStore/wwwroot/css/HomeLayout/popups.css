@@ -32,7 +32,6 @@
     height: 25px;
     margin-top: 15px;
     right:2px;
-    
 }
 .close-popup-authorization:hover{
     cursor:pointer;
@@ -50,7 +49,6 @@
     z-index: 7;
 }
 .close-popup-authorization:before{
-    
     -webkit-transform:rotate(45deg);
     -moz-transform:rotate(45deg);
     transform:rotate(45deg);
@@ -195,6 +193,7 @@ textarea:focus, input:focus{
     top: 20%;
     margin-left: 10%;
 }
+
 
 @media (min-width: 1200px){
     

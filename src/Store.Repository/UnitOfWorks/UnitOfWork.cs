@@ -102,5 +102,20 @@ namespace Store.Repository.UnitOfWorks
                     .Include(a => a.AppleImage).ToArrayAsync();
             return arr;
         }
+
+        public async Task<Apple[]> GetCartData(Dictionary<int, int> cart)
+        {
+            IList<Int32> lst = new List<Int32>();
+            foreach (var i in cart.Keys)
+                lst.Add(i);
+
+            var apple = lst.SelectMany(i => context.Apple
+                .Where(a => a.AppleID == i)
+                      .Include(ai => ai.AppleImage)
+                      .Include(ai => ai.AppleColor)
+                      .ThenInclude(im => im.Color)).ToAsyncEnumerable();
+
+            return await apple.ToArray();
+        }
     }
 }

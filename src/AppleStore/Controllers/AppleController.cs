@@ -123,13 +123,129 @@ namespace AppleStore.Controllers
 
         [Route("cart/{id}")]
         [HttpPost]
-        public Boolean AddToCart(Int32 id)
+        public Boolean AddToCart(Int32 id, Int32 count = 1)
         {
-            IList<Int32> cart = HttpContext.Session.GetObjectFromJson<IList<Int32>>("cart");
+            Dictionary<Int32,Int32> cart = HttpContext.Session.
+                    GetObjectFromJson<Dictionary<Int32,Int32>>("cart");
             if (cart == null)
-                cart = new List<Int32>();
-            cart.Add(id);
+                cart = new Dictionary<Int32, Int32>();
+            if (!cart.ContainsKey(id))
+                cart.Add(id, count);
+            else
+                cart[id] += count;
             HttpContext.Session.SetObjectAsJson("cart", cart);
+            var priceArr = HttpContext.Session.GetObjectFromJson<Dictionary<Int32, Decimal>>("price");
+            if (priceArr == null)
+                priceArr = new Dictionary<int, decimal>();
+            if (!priceArr.ContainsKey(id))
+            {
+                Decimal price = unitOfWork.Apple.Find(a => a.AppleID == id).Result.Price;
+                priceArr.Add(id, price);
+                HttpContext.Session.SetObjectAsJson("price",priceArr);
+            }
+            return true;
+        }
+
+        [Route("updatecart/{id}")]
+        [HttpPost]
+        public Boolean UpdateCart(Dictionary<Int32,Int32> id)
+        {
+            if (id != null)
+            {
+                HttpContext.Session.SetObjectAsJson("cart", id);
+                return true;
+            }
+            return false;
+        }
+
+        [Route("getcartdata")]
+        [HttpPost]
+        public async Task<Apple[]> GetCartData()
+        {
+            Dictionary<Int32, Int32> cart = HttpContext.Session.
+                    GetObjectFromJson<Dictionary<Int32, Int32>>("cart");
+            if (cart == null)
+            {
+                cart = new Dictionary<int, int>();
+                cart.Add(40, 1);
+                cart.Add(41, 2);
+                cart.Add(43, 3);
+                cart.Add(6, 1);
+                cart.Add(7, 5);
+                cart.Add(8, 2);
+                HttpContext.Session.SetObjectAsJson("cart", cart);
+                
+            }
+            var apple = await unitOfWork.GetCartData(cart);
+
+            var dict = new Dictionary<Int32, Decimal>();
+            foreach (var a in apple)
+            {
+                dict.Add(a.AppleID, a.Price);
+            }
+            HttpContext.Session.SetObjectAsJson("price", dict);
+
+            return apple;
+        }
+        
+        [Route("getcartscount")]
+        [HttpPost]
+        public Dictionary<Int32,Int32> GetCartsCount()
+        {
+            return HttpContext.Session.
+                    GetObjectFromJson<Dictionary<Int32, Int32>>("cart");
+        }
+
+        [Route("price")]
+        [HttpPost]
+        public async Task<Dictionary<Int32,Decimal>> GetPrice()
+        {
+            var price = HttpContext.Session.GetObjectFromJson<Dictionary<Int32, Decimal>>("price");
+            if (HttpContext.Session.GetString("language") == "EN")
+                return HttpContext.Session.GetObjectFromJson<Dictionary<Int32,Decimal>>("price");
+
+            var rusPrice = new Dictionary<Int32, Decimal>();
+            var currency = await Currency();
+            foreach(var key in price.Keys)
+                rusPrice.Add(key, price[key] * currency);
+
+            return rusPrice;
+        }
+
+        [Route("cartitemremove/{id}")]
+        [HttpPost]
+        public Boolean RemoveFromCart(Int32 id)
+        {
+            var cart = HttpContext.Session.
+                    GetObjectFromJson<Dictionary<Int32, Int32>>("cart");
+            cart.Remove(id);
+            HttpContext.Session.SetObjectAsJson("cart",cart);
+            return true;
+        }
+
+        [Route("updatecartitem/{id}/{count}")]
+        [HttpPost]
+        public Boolean UpdateCartItem(Int32 id, Int32 count)
+        {
+            var cart = HttpContext.Session.
+                    GetObjectFromJson<Dictionary<Int32, Int32>>("cart");
+
+            if (count == 0)
+                cart.Remove(id);
+            else if (!cart.ContainsKey(id))
+                cart.Add(id, count);
+            else
+                cart[id] = count;
+
+            HttpContext.Session.SetObjectAsJson("cart", cart);
+            return true;
+        }
+
+        [Route("placeorder")]
+        [HttpPost]
+        public Boolean PlaceAnOrder()
+        {           
+            var cart = HttpContext.Session.GetObjectFromJson<Dictionary<Int32,Int32>>("cart");
             return true;
         }
 

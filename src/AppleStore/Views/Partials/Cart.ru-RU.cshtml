@@ -1,0 +1,113 @@
+﻿@model Store.Entity.Apple[]
+@{
+    Layout = null;
+}
+<link href="~/css/HomeLayout/cartPreloader.css" rel="stylesheet" />
+<div class="pre-loader-cart">
+    <div class="round-cart">
+    </div><!--end div round-->
+</div><!--end div pre-loader-->
+<div class="route-cart">
+    <div class="col-xs-12 cart-main">
+        <div class="col-xs-12 cart-title-div">
+            <span class="cart-title">Корзина</span>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="cart">
+                @{
+                    foreach (var apple in Model)
+                    {
+                        <div class="col-xs-12" id="cart-item-@apple.AppleID">
+                            <div class="cart-items">
+                                <div class="xs-12">
+                                    <div class="col-xs-6">
+                                        <div class="col-xs-4">
+                                            <div class="image-div">
+                                                <img src="@apple.AppleImage.ToArray()[0].Path"
+                                                      class="cart-item-img" style="height: 100px;" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <span class="cart-item-text" title="@apple.Model">@apple.Model</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="col-xs-5 plus-minus">
+                                        <div class="plus-minus-buttons">
+                                            <div class="col-xs-12">
+                                                <div class="col-xs-3">
+                                                    <button class="minus" name="@apple.AppleID" 
+                                                            id="m-@apple.AppleID">-</button>
+                                                </div>
+                                                <div class="col-xs-5 cart-count-text-container">
+                                                    <div class="cart-count-text cart-count" id="count-@apple.AppleID">
+                                                        0
+                                                    </div>
+                                                    <span class="item-price hidden" id="@apple.AppleID">@apple.Price</span>
+                                                </div>
+                                                <div class="col-xs-offcet-1 col-xs-3">
+                                                    <button class="plus" name="@apple.AppleID" id="p-@apple.AppleID">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!--end div plus,minus buttons -->
+                                    <div class="col-xs-6 price-delete-container">
+                                        <div class="item-total-price" id="price-@apple.AppleID">
+                                            0
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <div class="delete-item-div">
+                                            <button class="remove-cart-item-button" name="@apple.AppleID">x</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    }
+                }
+                @if (Model.Count() == 0)
+                {
+                    <div class="col-xs-12">
+                        <div class="empty-cart">
+                            В Вашей корзине нет товаров
+                        </div>
+                    </div>
+                }
+                <div class="col-xs-12 empty-cart-div hidden">
+                    <div class="empty-cart">
+                        В Вашей корзине нет товаров
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="cart-bottom">
+        <div class="col-xs-12">
+            <div class="col-xs-4">
+                <button class="continue-shoping">Продолжить покупки</button>
+            </div>
+            <div class="col-xs-3">
+                <div class="total-price">
+                    0
+                </div>
+            </div>
+            <div class="col-xs-5">
+                <button class="place-order">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*<script asp-src-include="~/js/Cart/app/*.js"></script>*@
+<script asp-src-include="~/js/Cart/*.js"></script>
+<script type="text/javascript">
+        //$.
+        onLoad();
+</script>
+

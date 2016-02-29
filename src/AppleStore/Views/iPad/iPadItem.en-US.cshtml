@@ -35,8 +35,7 @@
             </div><!--end div container-->
         </div><!--end div link-->
     </div><!--end div top-bar-->
-    <div class="col-xs-12 ident"></div>
-    <div class="col-xs-12 ident"></div>
+    <div class="col-xs-12 ident2"></div>
     
     <div class="col-lg-12 col-md-12 item-main big">
         <div class="col-lg-4 col-md-4 col-sm-12">
@@ -47,10 +46,14 @@
 
             <div class="col-xs-4" ng-repeat="image in item.AppleImage">
                 <div ng-if="$index == imageIndex">
-                    <img ng-src="{{image.Path}}" class="images-list image-border"/>
+                    <div class="item-image-div image-border">
+                        <img ng-src="{{image.Path}}" class="images-list" />
+                    </div>
                 </div><!--end div current image-->
                 <div ng-if="$index != imageIndex">
-                    <img ng-src="{{image.Path}}" class="images-list" ng-click="changeImage($index)"/>
+                    <div class="item-image-div" ng-click="changeImage($index)">
+                        <img ng-src="{{image.Path}}" class="images-list" />
+                    </div>
                 </div><!--end div usual image-->
             </div><!--div image repeat-->
             <div class="col-xs-12 ident"></div>
@@ -74,7 +77,9 @@
                                 <div class="ident"></div>
                                 <button type="button" title="Add {{item.Model}} to Cart" 
                                         class="cart-button" ng-click="addtocart(item.AppleID)">Add to Cart</button>
-                            <div class="ident"></div>
+                                <div class="ident"></div>
+                                <span class="cart-message">{{cartmessage}}</span>
+                                <div class="ident"></div>
                             </div><!--end div cart-button-column-->
                         </div><!--end div column price and buttons-->
                         <div class="col-lg-offset-1 col-lg-5 col-md-12 col-sm-12 col-xs-12">

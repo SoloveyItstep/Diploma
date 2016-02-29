@@ -1,0 +1,30 @@
+﻿@model Dictionary<Store.Entity.Apple,Int32>
+
+@section Styles{
+    <link asp-href-include="~/css/Cart/cart.css" rel="stylesheet" />
+}
+<div class="route">
+    <div class="col-xs-12">
+        <div class="col-xs-12" ng-repeat="item in items">
+            <div class="col-lg-1 cart-item-img-div">
+                <img ng-src="{{item.AppleImage[0].Path}}" class="cart-item-img"/>
+            </div>
+            <div class="col-lg-5 col-lg-offset-1">
+                <span>{{item.Model}}</span><br />
+                
+                <button class="bt" ng-click="minus(item.AppleID)">-</button>
+                <span>{{counts[item.AppleID]}}</span><br />
+                <button class="bt" ng-click="plus(item.AppleID)">+</button>
+            </div>
+            <div class="col-lg-6">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script asp-src-include="~/js/Cart/app/*.js"></script>
+<script asp-src-include="~/js/Cart/*.js"></script>
+}
+

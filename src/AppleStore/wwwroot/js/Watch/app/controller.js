@@ -115,6 +115,23 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             $scope.GetUserName();
         });
     };
+    $scope.cart = function () {
+        var popup = $(".popup");
+        var darkBackground = $(".dark_background");
+        var authorization = $(".authorization");
+        //$scope.loader = false;
+
+        $http.get("/Partials/Cart").success(function (page) {
+
+            authorization.show("slow");
+            darkBackground.show("slow");
+            popup.html(page);
+            popup.css("margin-top", "10px");
+            authorization.css("left", "50%");
+            authorization.css("margin-left", "-300px");
+            //$scope.loader = true;
+        });
+    }
     $scope.GetUserName = function () {
         setTimeout(function () {
             $http.get("/api/user/currentuser").success(function (user) {

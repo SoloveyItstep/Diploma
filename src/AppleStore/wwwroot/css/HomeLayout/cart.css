@@ -1,0 +1,189 @@
+﻿@font-face{
+    font-family: OpenSans-Light; /* Гарнитура шрифта */
+    src: url(../../fonts/HomeLayout/OpenSans-Light.ttf); /* Путь к файлу со шрифтом */
+}
+.route-cart{
+    width: 600px;
+    height: 400px;
+    margin-top: -10px;
+    left: 0px;
+}
+.cart-main{
+    padding-left: 0px;
+}
+.cart-items{
+    background-color: blue;
+}
+.cart div{
+    padding-left: 0px;
+}
+.cart-title-div{
+    height: 70px;
+}
+.cart-title{
+    position:relative;
+    padding-left: 20px;
+    top: 15px;
+    font-family: OpenSans-Light;
+    font-size: 30px;
+}
+.image-div{
+    position: relative;
+    width: 70px;
+    height: 70px;
+    left: 0px;
+}
+.cart-item-img{
+    position: relative;
+    display: block;
+    max-width: 50px;
+    max-height: 50px;
+    margin-left:auto;
+    margin-right: auto;
+}
+.cart-item-text{
+    position:relative;
+    top: 10px;
+    font-family: OpenSans-Light;
+    font-size: 13px;
+    overflow-x: hidden;
+}
+
+.minus,.plus{
+    width: 20px;
+    height: 20px;
+    font-family: OpenSans-Light;
+    font-size: 15px;
+    background-color: #4d4c51;
+    color: white;
+    text-align: center;
+    padding: 0px;
+    border:none;
+    outline: none;
+}
+.minus{
+    position:relative;
+    padding-bottom: 3px;
+}
+.cart-bottom{
+    position: absolute;
+    margin-bottom: 0px;
+    margin-top: auto;
+    bottom: 0;
+    height: 70px;
+    width: 100%;
+}
+.cart{
+    max-height: 260px;
+    scrollbar-arrow-color: #4d4c51;
+    scrollbar-face-color: white;
+    overflow-y: auto;
+}
+.plus-minus-buttons{
+    position:relative;
+    top: 12px;
+}
+.cart-count{
+    position:relative;
+    font-family: OpenSans-Light;
+    font-size: 17px;
+    top: -3px;
+    margin-top: -3px;
+    margin: auto;
+    width: 30px;
+    text-align: center;
+}
+.cart-count-text{
+    position:relative;
+    top: 0px;
+    margin: auto;
+}
+.cart-count-text span{
+    left: 3px;
+    position: relative;
+    width: 100%;
+    font-size: 13px;
+    text-align: center;
+    padding-left: 6px;
+}
+.cart-count-text-container{
+    position: relative;
+}
+.item-total-price{
+    position: relative;
+    overflow-x: hidden;
+    padding-top: 12px;
+    height: 35px;
+}
+.price-delete-container{
+    padding-left: 0px;
+}
+.delete-item-div{
+    position:relative;
+    height: 35px;
+}
+.remove-cart-item-button{
+    background-color: white;
+    color: black;
+    margin-top: 9px;
+    text-align: center;
+    font-size: 17px;
+    padding: 0px;
+    border:none;
+    outline: none;
+}
+.empty-cart{
+    width: 500px;
+    position: relative;
+    margin-top: 30px;
+    height: 50px;
+    font-family: OpenSans-Light;
+    font-size: 25px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.continue-shoping{
+    margin-top: 15px;
+    width: 180px;
+    height: 40px;
+    background-color: lightgray;
+    font-family: OpenSans-Light;
+    font-size: 15px;
+    text-align: center;
+    border:none;
+    outline: none;
+}
+.place-order{
+    margin-top: 15px;
+    margin-left: 25px;
+    width: 180px;
+    height: 40px;
+    background-color: #4d4c51;
+    color: white;
+    font-family: OpenSans-Light;
+    font-size: 15px;
+    text-align: center;
+    border:none;
+    outline: none;
+}
+.total-price{
+    width: 150px;
+    height: 40px;
+    margin: auto;
+    text-align: center;
+    margin-top: 23px;
+    font-size: 17px;
+}
+
+.cart::-webkit-scrollbar{
+    width: 10px;
+}
+.cart::-webkit-scrollbar-track {
+    background: lightgray;
+    border-radius: 0px;
+    /*XXborder-radius: 5px;*/
+}
+.cart::-webkit-scrollbar-thumb {
+    border-radius: 0px;
+    background: #4d4c51;
+}

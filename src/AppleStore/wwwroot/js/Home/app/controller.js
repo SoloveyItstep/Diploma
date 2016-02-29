@@ -2,9 +2,9 @@
 app.controller("SearchCtrl", function ($scope, $http) {
     $scope.selected = undefined;
     $scope.userName = "";
-    $http.get("/api/apple/categories").success(function (data) {
+    //$http.get("/api/apple/categories").success(function (data) {
 
-    });
+    //});
     $scope.goods = [];
     $http.get("/api/apple/categories").success(function (data) {
         for (var i = 0; i < data.length; ++i) {
@@ -31,6 +31,27 @@ app.controller("SearchCtrl", function ($scope, $http) {
         $http.get("/api/user/changelanguage");
     };
     
+    $scope.tmp = function () {
+        console.log("cart clicket");
+    }
+
+    $scope.cart = function () {
+        var popup = $(".popup");
+        var darkBackground = $(".dark_background");
+        var authorization = $(".authorization");
+        //$scope.loader = false;
+
+        $http.get("/Partials/Cart").success(function (page) {
+
+            authorization.show("slow");
+            darkBackground.show("slow");
+            popup.html(page);
+            popup.css("margin-top", "10px");
+            authorization.css("left", "50%");
+            authorization.css("margin-left", "-300px");
+            //$scope.loader = true;
+        });
+    }
     $scope.popupLK = function(){
         $http.post("/Partials/Login").success(function (page) {
             $(".popup").html(page);

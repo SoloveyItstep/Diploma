@@ -5,6 +5,7 @@
     var lk = $(".lk");
     var subm = $(".popup-register-button");
     var regForm = $(".reg-form");
+    var cart = $(".cart");
 
     $.ajax({
         type: "GET",
@@ -16,6 +17,12 @@
         }
     });
 
+    
+    //cart click
+    cart.click(function () {
+        authorization.show("slow");
+        darkBackground.show("slow");
+    });
     //dark background click
     darkBackground.click(function () {
         if (!authorization.hasClass("hidden")) {
