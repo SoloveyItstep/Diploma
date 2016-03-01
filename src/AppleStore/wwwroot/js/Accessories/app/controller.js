@@ -53,13 +53,24 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
 
         $timeout(function () {
             $scope.loader = true;
+            FilterPosition();
         }, 150);
+        $timeout(function () {
+            FilterPosition();
+        }, 500);
+
         $http.get("/api/apple/aftersexteen/accessories").success(function (m) {
             if (m.length > 0) {
                 Array.prototype.push.apply($scope.mac, m);
                 $scope.pages = [];
                 $scope.elementsStart();
             }
+            $timeout(function () {
+                FilterPosition();
+            }, 500);
+            $timeout(function () {
+                FilterPosition();
+            }, 1500);
             console.log($scope.mac);
         });
 

@@ -85,7 +85,12 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         $scope.elementsStart();
         $timeout(function () {
             $scope.loader = true;
+            FilterPosition();
         }, 150);
+        $timeout(function () {
+            FilterPosition();
+        }, 500);
+
         $http.get("/api/apple/aftersexteen/watch").success(function (m) {
             if (m.length > 0) {
                 Array.prototype.push.apply($scope.watch, m);
@@ -93,7 +98,12 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
                 $scope.pages = [];
                 $scope.elementsStart();
             }
-
+            $timeout(function () {
+                FilterPosition();
+            }, 500);
+            $timeout(function () {
+                FilterPosition();
+            }, 1500);
         });
 
     });

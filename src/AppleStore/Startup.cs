@@ -20,6 +20,10 @@ using Store.Context.Context;
 using Currency;
 using AppleStore.Services.MessageSender;
 using AppleStore.Models.RegisterLogin;
+using AppleStore.DataServices.Currency.Interfaces;
+using AppleStore.DataServices.Currency.AbstractFactory;
+using AppleStore.DataServices.Cart.Interfaces;
+using AppleStore.DataServices.Cart.Service;
 
 namespace AppleStore
 {
@@ -90,6 +94,16 @@ namespace AppleStore
             services.AddTransient<IRegisterLoginErrorsLanguage, RegisterLoginErorsLanguage>();
             services.AddTransient<IMD5Hash, MD5Hash>();
             //services.Configure<AuthMessageSenderOptions>(Configuration);
+
+            //===========Currency=================
+            services.AddTransient<ICurrency, DataServices.Currency.AbstractFactory.Currency>();
+            services.AddTransient<ICurrencyCurrent, CurrencyCurrent>();
+            services.AddTransient<ICurrencyFactory, CurrencyFactory>();
+            services.AddTransient<ICurrencyLast, CurrencyLast>();
+
+            //=================Cart================
+            services.AddTransient<ICart, Cart>();
+            services.AddTransient<ICartData, CartData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

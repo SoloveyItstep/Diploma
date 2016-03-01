@@ -10,6 +10,9 @@ using Currency;
 using Currency.Entity;
 using Microsoft.AspNet.Http;
 using AppleStore.Models;
+using AppleStore.DataServices.Currency.Interfaces;
+using AppleStore.DataServices.Cart;
+using AppleStore.DataServices.Cart.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,11 +22,13 @@ namespace AppleStore.Controllers
     public class AppleController : Controller
     {
         private readonly IUnitOfWork unitOfWork;
-        private readonly ICurrencyUSD currency;
-        public AppleController(IUnitOfWork unitOfWork, ICurrencyUSD currency)
+        private readonly ICurrency currency;
+        private readonly ICart cart;
+        public AppleController(IUnitOfWork unitOfWork, ICurrency currency, ICart cart)
         {
             this.unitOfWork = unitOfWork;
             this.currency = currency;
+            this.cart = cart;
         }
 
         [Route("goods")]
@@ -65,7 +70,6 @@ namespace AppleStore.Controllers
         public IActionResult Index()
         {
             var apple = unitOfWork.Apple.GetAllInclude();
-            //var apple = unitOfWork.GetByOneFromCategories();
             return new ObjectResult(apple);
         }
 
@@ -76,35 +80,11 @@ namespace AppleStore.Controllers
             return new ObjectResult(data);
         }
 
-        [Route("carousel")]
-        public Apple[] GetCarouselData()
-        {
-            return null;
-        }
-
         [Route("currency")]
         [HttpPost]
         public async Task<Decimal> Currency()
         {
-            string uah = currency.GetCurrentDateCurrency();
-            if (uah == null)
-            {
-                Data data = currency.GetLastCurrency(DateTime.Now);
-                Boolean key = await unitOfWork.Currency.DateExist(data.date);
-                if (!key)
-                {
-                    unitOfWork.Currency.Add(new Store.Entity.Currency()
-                    {
-                        CurrencyUSD = data.curency.ToString(),
-                        Date = data.date.ToShortDateString()
-                    });
-                    await unitOfWork.CommitAsync();
-                    return Decimal.Parse(data.curency);
-                }
-                uah = data.curency;
-            }
-            return Decimal.Parse(uah);
-            
+            return await currency.GetCurrency();
         }
 
         [Route("element/{id}")]
@@ -125,127 +105,68 @@ namespace AppleStore.Controllers
         [HttpPost]
         public Boolean AddToCart(Int32 id, Int32 count = 1)
         {
-            Dictionary<Int32,Int32> cart = HttpContext.Session.
-                    GetObjectFromJson<Dictionary<Int32,Int32>>("cart");
-            if (cart == null)
-                cart = new Dictionary<Int32, Int32>();
-            if (!cart.ContainsKey(id))
-                cart.Add(id, count);
-            else
-                cart[id] += count;
-            HttpContext.Session.SetObjectAsJson("cart", cart);
-            var priceArr = HttpContext.Session.GetObjectFromJson<Dictionary<Int32, Decimal>>("price");
-            if (priceArr == null)
-                priceArr = new Dictionary<int, decimal>();
-            if (!priceArr.ContainsKey(id))
-            {
-                Decimal price = unitOfWork.Apple.Find(a => a.AppleID == id).Result.Price;
-                priceArr.Add(id, price);
-                HttpContext.Session.SetObjectAsJson("price",priceArr);
-            }
-            return true;
+            cart.GetHttpContext(HttpContext);
+            return cart.AddCount(id, count);
         }
 
-        [Route("updatecart/{id}")]
-        [HttpPost]
-        public Boolean UpdateCart(Dictionary<Int32,Int32> id)
-        {
-            if (id != null)
-            {
-                HttpContext.Session.SetObjectAsJson("cart", id);
-                return true;
-            }
-            return false;
-        }
+        //[Route("updatecart/{id}")]
+        //[HttpPost]
+        //public Boolean UpdateCart(Dictionary<Int32,Int32> id)
+        //{
+        //    if (id != null)
+        //    {
+        //        HttpContext.Session.SetObjectAsJson("cart", id);
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
         [Route("getcartdata")]
         [HttpPost]
         public async Task<Apple[]> GetCartData()
         {
-            Dictionary<Int32, Int32> cart = HttpContext.Session.
-                    GetObjectFromJson<Dictionary<Int32, Int32>>("cart");
-            if (cart == null)
-            {
-                cart = new Dictionary<int, int>();
-                cart.Add(40, 1);
-                cart.Add(41, 2);
-                cart.Add(43, 3);
-                cart.Add(6, 1);
-                cart.Add(7, 5);
-                cart.Add(8, 2);
-                HttpContext.Session.SetObjectAsJson("cart", cart);
-                
-            }
-            var apple = await unitOfWork.GetCartData(cart);
-
-            var dict = new Dictionary<Int32, Decimal>();
-            foreach (var a in apple)
-            {
-                dict.Add(a.AppleID, a.Price);
-            }
-            HttpContext.Session.SetObjectAsJson("price", dict);
-
-            return apple;
+            cart.GetHttpContext(HttpContext);
+            return await cart.GetData();
         }
         
         [Route("getcartscount")]
         [HttpPost]
         public Dictionary<Int32,Int32> GetCartsCount()
         {
-            return HttpContext.Session.
-                    GetObjectFromJson<Dictionary<Int32, Int32>>("cart");
+            cart.GetHttpContext(HttpContext);
+            return cart.GetCounts();
         }
 
         [Route("price")]
         [HttpPost]
         public async Task<Dictionary<Int32,Decimal>> GetPrice()
         {
-            var price = HttpContext.Session.GetObjectFromJson<Dictionary<Int32, Decimal>>("price");
-            if (HttpContext.Session.GetString("language") == "EN")
-                return HttpContext.Session.GetObjectFromJson<Dictionary<Int32,Decimal>>("price");
-
-            var rusPrice = new Dictionary<Int32, Decimal>();
-            var currency = await Currency();
-            foreach(var key in price.Keys)
-                rusPrice.Add(key, price[key] * currency);
-
-            return rusPrice;
+            cart.GetHttpContext(HttpContext);
+            return await cart.GetPrice();
         }
 
         [Route("cartitemremove/{id}")]
         [HttpPost]
         public Boolean RemoveFromCart(Int32 id)
         {
-            var cart = HttpContext.Session.
-                    GetObjectFromJson<Dictionary<Int32, Int32>>("cart");
-            cart.Remove(id);
-            HttpContext.Session.SetObjectAsJson("cart",cart);
-            return true;
+            cart.GetHttpContext(HttpContext);
+            return cart.RemoveItem(id);
         }
 
         [Route("updatecartitem/{id}/{count}")]
         [HttpPost]
         public Boolean UpdateCartItem(Int32 id, Int32 count)
         {
-            var cart = HttpContext.Session.
-                    GetObjectFromJson<Dictionary<Int32, Int32>>("cart");
-
-            if (count == 0)
-                cart.Remove(id);
-            else if (!cart.ContainsKey(id))
-                cart.Add(id, count);
-            else
-                cart[id] = count;
-
-            HttpContext.Session.SetObjectAsJson("cart", cart);
-            return true;
+            cart.GetHttpContext(HttpContext);
+            return cart.UpdateItemCount(id, count);
         }
 
         [Route("placeorder")]
         [HttpPost]
         public Boolean PlaceAnOrder()
-        {           
-            var cart = HttpContext.Session.GetObjectFromJson<Dictionary<Int32,Int32>>("cart");
+        {
+            cart.GetHttpContext(HttpContext);
+            var Cart = cart.GetCounts();
             return true;
         }
 

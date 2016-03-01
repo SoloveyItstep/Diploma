@@ -55,19 +55,25 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         $scope.elementsStart();
         $timeout(function () {
             $scope.loader = true;
+            FilterPosition();
         }, 150);
+        $timeout(function () {
+            FilterPosition();
+        }, 500);
         
         $http.get("/api/apple/aftersexteen/mac").success(function (m) {
             if (m.length > 0) {
-                //console.log($scope.mac.length+", "+m.length);
                 Array.prototype.push.apply($scope.mac, m);
-                //console.log($scope.mac.length);
-                //Array.prototype.push.apply(Mac, m);
-                //console.log(Mac.length +", "+m.length);
                 $scope.pages = [];
                 $scope.elementsStart();
                 console.log($scope.mac);
             }
+            $timeout(function () {
+                FilterPosition();
+            }, 500);
+            $timeout(function () {
+                FilterPosition();
+            }, 1500);
         });
     });
 

@@ -51,12 +51,24 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
 
         $timeout(function () {
             $scope.loader = true;
+            FilterPosition();
         }, 150);
+        $timeout(function () {
+            FilterPosition();
+        }, 500);
+
+
         $http.get("/api/apple/aftersexteen/tv").success(function (m) {
             if (m.length > 0) {
                 Array.prototype.push.apply($scope.tv, m);
                 $scope.elementsStart();
             }
+            $timeout(function () {
+                FilterPosition();
+            }, 500);
+            $timeout(function () {
+                FilterPosition();
+            }, 1500);
         });
     });
 
