@@ -9,9 +9,7 @@
     color: #4d4c51;
     display: none;
 }
-.item-image-div:hover{
-    cursor:pointer;
-}
+
 .main-image{
     position: relative;
     display: block;
@@ -34,6 +32,9 @@
     margin-top: 5%;
     top: 5%;
     background-color: white;
+}
+.item-image-div:hover{
+    cursor:pointer;
 }
 .images-list{
     position: relative;

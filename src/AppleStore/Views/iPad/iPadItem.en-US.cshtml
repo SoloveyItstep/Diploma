@@ -148,10 +148,14 @@
 
                     <div class="col-xs-4" ng-repeat="image in item.AppleImage">
                         <div ng-if="$index == imageIndex">
-                            <img ng-src="{{image.Path}}" class="images-list image-border" />
+                            <div class="item-image-div image-border">
+                                <img ng-src="{{image.Path}}" class="images-list" />
+                            </div>
                         </div><!--end div current image-->
                         <div ng-if="$index != imageIndex">
-                            <img ng-src="{{image.Path}}" class="images-list" ng-click="changeImage($index)" />
+                            <div class="item-image-div" ng-click="changeImage($index)">
+                                <img ng-src="{{image.Path}}" class="images-list" />
+                            </div>
                         </div><!--end div usual image-->
                     </div><!--div image repeat-->
                     <div class="col-xs-12 ident"></div>

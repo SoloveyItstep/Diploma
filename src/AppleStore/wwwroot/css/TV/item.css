@@ -22,6 +22,19 @@
 .ident{
     height: 20px;
 }
+.item-image-div{
+    position:relative;
+    height: 120px;
+    width: 120px;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 5%;
+    top: 5%;
+    background-color: white;
+}
+.item-image-div:hover{
+    cursor:pointer;
+}
 .images-list{
     position: relative;
     display: block;
@@ -29,8 +42,8 @@
     height: 100px;
     margin-left:auto;
     margin-right: auto;
-    margin-top: 5%;
-    top: 5%;
+    margin-top: 5px;
+    top: 5px;
 }
 .images-list:hover{
     cursor:pointer;

@@ -152,7 +152,7 @@ textarea:focus, input:focus{
 }
 .popup{
     position: relative;
-    margin-top: -10px;
+    margin-top: -10px;    
 }
 .social-login{
     position: absolute;

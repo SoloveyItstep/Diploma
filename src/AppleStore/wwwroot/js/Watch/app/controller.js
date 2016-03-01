@@ -126,10 +126,10 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             authorization.show("slow");
             darkBackground.show("slow");
             popup.html(page);
-            popup.css("margin-top", "10px");
-            authorization.css("left", "50%");
-            authorization.css("margin-left", "-300px");
-            //$scope.loader = true;
+            setTimeout(function () {
+                authorization.css("left", "50%");
+                authorization.css("margin-left", "-300px");
+            }, 1000);
         });
     }
     $scope.GetUserName = function () {
