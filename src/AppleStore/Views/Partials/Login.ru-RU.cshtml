@@ -1,5 +1,10 @@
 ﻿@model AppleStore.ViewModels.Account.LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
 @addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+@{
+    var loginProviders = SignInManager.GetExternalAuthenticationSchemes();
+}
+
 <div class="login-page">
     <div class="form-title col-xs-12">
         <span>Вход</span>
@@ -10,7 +15,7 @@
                 <input type="text" asp-for="Email" placeholder="Email" class="popup-input" />
             </div>
             <div class="col-xs-12">
-                <input type="text" asp-for="Password" placeholder="Password" class="popup-input" />
+                <input type="text" asp-for="Password" placeholder="Пароль" class="popup-input" />
             </div>
                 <div class="col-xs-12 login-middle">
                     <div class="col-xs-6 login-links">
@@ -25,10 +30,25 @@
         <span class="text-danger error-text"></span><br />
     </form>
     <div class="social-login">
-        <div class="col-xs-offset-6 col-xs-6">
-
+        <div class="col-xs-5">
+            <div class="social-login-text">
+                Войти с помощью
+            </div>
+        </div>
+        <div class="col-xs-7 social-buttons-div">
+            <form asp-controller="Auth" asp-action="ExternalLogin" asp-route-returnurl="@ViewBag.ReturnUrl" method="post" class="form-horizontal" role="form">
+                <div id="socialLoginList">
+                    @foreach (var p in loginProviders)
+                    {
+                        <button type="submit" id="@p.AuthenticationScheme" name="provider"
+                                title="Log in using your @p.DisplayName account"></button>
+                    }
+                    <input type="text" class="hidden" name="returnUrl" value="/Home/Index" />
+                </div>
+            </form>
         </div>
     </div>
+
 </div>
 <script type="text/javascript">
     function load() {

@@ -56,7 +56,6 @@ namespace Store.Repository.UnitOfWorks
             var lst = GetFirstArray().ToArray();
             return lst;
         }
-
         public async Task<Apple[]> GetAppleForSearchIncludeCategories()
         {
             return await context.Apple.Include(c => c.Categories).ToArrayAsync();
@@ -85,7 +84,6 @@ namespace Store.Repository.UnitOfWorks
                     .Include(a => a.AppleImage)
                     .ToArrayAsync();
         }
-
         public async Task<Apple[]> GetTwentyByCategoryNameInclude(String categoryName)
         {
             return await context.Apple.Where(a => a.Categories.CategoryName.ToLower() == categoryName.ToLower())
@@ -93,7 +91,6 @@ namespace Store.Repository.UnitOfWorks
                     .Include(a => a.ProductDetails).ThenInclude(pd => pd.DetailNames)
                     .Include(a => a.AppleImage).ToArrayAsync();
         }
-
         public async Task<Apple[]> GetAllSkypSexteenByCategoryNameInclude(String categoryName)
         {
             var arr = await context.Apple.Where(a => a.Categories.CategoryName.ToLower() == categoryName.ToLower())
@@ -102,19 +99,13 @@ namespace Store.Repository.UnitOfWorks
                     .Include(a => a.AppleImage).ToArrayAsync();
             return arr;
         }
-
         public async Task<Apple[]> GetCartData(Dictionary<int, int> cart)
         {
-            IList<Int32> lst = new List<Int32>();
-            foreach (var i in cart.Keys)
-                lst.Add(i);
-
-            var apple = lst.SelectMany(i => context.Apple
-                .Where(a => a.AppleID == i)
-                      .Include(ai => ai.AppleImage)
-                      .Include(ai => ai.AppleColor)
-                      .ThenInclude(im => im.Color)).ToAsyncEnumerable();
-
+            var apple = cart.Keys.SelectMany(id => context.Apple.Where(ap => ap.AppleID == id)
+                       .Include(ai => ai.AppleImage)
+                       .Include(ai => ai.AppleColor)
+                       .ThenInclude(im => im.Color)).ToAsyncEnumerable();
+            
             return await apple.ToArray();
         }
     }

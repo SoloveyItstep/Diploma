@@ -23,9 +23,8 @@ namespace Store.Repository.Repositories
 
         public async Task<T> Find(Expression<Func<T, bool>> predicate)
         {
-            var obj = (context as DbContext).Set<T>().AsQueryable();
-            var v = obj.Where(predicate);
-            return await v.FirstOrDefaultAsync();
+            var obj = await (context as DbContext).Set<T>().Where(predicate).FirstOrDefaultAsync();
+            return obj;
         }
 
         public async Task<T[]> FindAllInclude(Expression<Func<T, bool>> predicate)

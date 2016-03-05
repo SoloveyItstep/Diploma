@@ -23,12 +23,29 @@ namespace AppleStore.DataServices.Currency.AbstractFactory
 
         public async void CreateCurrency()
         {
-            unitOfWork.Currency.Add(new Store.Entity.Currency()
+            var curr = await GetLastFromDB();
+
+            if (curr == null || curr.Date != data.date.ToShortDateString())
             {
-                CurrencyUSD = data.curency.ToString(),
-                Date = data.date.ToShortDateString()
-            });
-            await unitOfWork.CommitAsync();
+                var c = new Store.Entity.Currency()
+                {
+                    CurrencyUSD = data.curency.ToString(),
+                    Date = data.date.ToShortDateString()
+                };
+                try {
+                    unitOfWork.Currency.Add(c);
+                }
+                catch(Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                await unitOfWork.CommitAsync();
+            }
+        }
+
+        private async Task<Store.Entity.Currency> GetLastFromDB()
+        {
+            return await unitOfWork.Currency.GetLast();
         }
 
         public async Task<Boolean> DateExist()

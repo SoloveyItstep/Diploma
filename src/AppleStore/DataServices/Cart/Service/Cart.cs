@@ -81,9 +81,9 @@ namespace AppleStore.DataServices.Cart.Service
             return true;
         }
 
-        //public bool AddPrice(int id)
-        //{
-            
-        //}
+        public async Task<Dictionary<Apple, Int32>> GetCartDataInDictionary(Dictionary<Int32, Int32> count)
+        {
+            return await cartData.GetCartData(count);
+        }
     }
 }

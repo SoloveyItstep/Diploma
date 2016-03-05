@@ -8,24 +8,23 @@ namespace AppleStore.DataServices.Currency.AbstractFactory
 {
     public class Currency : ICurrency
     {
-        private ICurrencyCurrent current;
-        private ICurrencyLast last;
+        private ICurrencyFactory factory;
         public Currency(ICurrencyFactory factory)
         {
-            this.current = factory.current;
-            this.last = factory.last;
+            this.factory = factory;
         }
+
         public async Task<Decimal> GetCurrency()
         {
-            String uah = current.GetCurrentDateCurrency();
+            String uah = factory.current.GetCurrentDateCurrency();
             if(uah == null)
             {
-                last.GetLastCurrencyFromPB();
-                if(!await last.DateExist())
+                factory.last.GetLastCurrencyFromPB();
+                if(!await factory.last.DateExist())
                 {
-                    last.CreateCurrency();
+                    factory.last.CreateCurrency();
                 }
-                return last.GetCurrency();
+                return factory.last.GetCurrency();
             }
             return Decimal.Parse(uah);
         }

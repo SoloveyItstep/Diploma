@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Store.Test.UnitOfWorkTestFolder.iPadTestFolder
 {
-    public class WatchTest
+    public class iPadTest
     {
         IUnitOfWork unOfWork;
         IUnitOfWork unitOfWork { get {

@@ -51,7 +51,12 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         for (var i = 0; i < 8; ++i) { //8
             $scope.elements.push(data[i]);
         }
-
+        $timeout(function () {
+            FilterPosition();
+        }, 500);
+        $timeout(function () {
+            FilterPosition();
+        }, 1500);
         $scope.elementsStart();
         $timeout(function () {
             $scope.loader = true;
@@ -67,13 +72,21 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
                 $scope.pages = [];
                 $scope.elementsStart();
                 console.log($scope.mac);
-            }
+
             $timeout(function () {
                 FilterPosition();
             }, 500);
             $timeout(function () {
                 FilterPosition();
             }, 1500);
+            $timeout(function () {
+                FilterPosition();
+            }, 2500);
+            $timeout(function () {
+                FilterPosition();
+            }, 5000);
+            }
+            
         });
     });
 
@@ -188,6 +201,21 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     $scope.ramArr = [];
     $scope.hdArr = [];
     $scope.networkArr = [];
+
+    $scope.resetFilter = function(){
+        $scope.processorArr = [];
+        $scope.diagonalArr = [];
+        $scope.resolutionArr = [];
+        $scope.ramArr = [];
+        $scope.hdArr = [];
+        $scope.networkArr = [];
+        $(".filter-checkbox").removeAttr("checked");
+        $scope.filterFunc();
+    }
+
+    //$scope.filterArrow = function(id){
+    //    var display = $().next().css("opacity");
+    //}
 
     Array.prototype.remove = function(from, to) {
         var rest = this.slice((to || from) + 1 || this.length);

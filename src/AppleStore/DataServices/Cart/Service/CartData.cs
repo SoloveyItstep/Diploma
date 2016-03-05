@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Http;
 using AppleStore.Models;
 using AppleStore.DataServices.Currency.Interfaces;
+using Store.Entity;
+using Store.Repository.UnitOfWorks;
 
 namespace AppleStore.DataServices.Cart.Service
 {
@@ -13,9 +15,11 @@ namespace AppleStore.DataServices.Cart.Service
     {
         private HttpContext context;
         private ICurrency currency;
-        public CartData(ICurrency currency)
+        private IUnitOfWork unitOfWork;
+        public CartData(ICurrency currency, IUnitOfWork unitOfWork)
         {
             this.currency = currency;
+            this.unitOfWork = unitOfWork;
         }
         public void AddCount(Dictionary<int, int> data)
         {
@@ -25,6 +29,16 @@ namespace AppleStore.DataServices.Cart.Service
         public void AddPrice(Dictionary<int, decimal> data)
         {
             context.Session.SetObjectAsJson("price", data);
+        }
+
+        public async Task<Dictionary<Apple, int>> GetCartData(Dictionary<Int32,Int32> count)
+        {
+            var appleArr = await unitOfWork.GetCartData(count);
+            Dictionary<Apple, Int32> apple = new Dictionary<Apple, int>();
+            foreach(var i in appleArr)
+                apple.Add(i, count[i.AppleID]);
+
+            return apple;
         }
 
         public void GetContext(HttpContext context)

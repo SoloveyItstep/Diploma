@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Http;
+using Store.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace AppleStore.DataServices.Cart.Interfaces
         Dictionary<Int32, Int32> GetCount();
         void AddPrice(Dictionary<Int32, Decimal> data);
         void AddCount(Dictionary<Int32, Int32> data);
+        Task<Dictionary<Apple, Int32>> GetCartData(Dictionary<Int32,Int32> count);
     }
 }

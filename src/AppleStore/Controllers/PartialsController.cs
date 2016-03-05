@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Store.Repository.UnitOfWorks;
 using Store.Entity;
+using AppleStore.DataServices.Cart.Interfaces;
+using AppleStore.DataServices.Currency.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,11 +19,15 @@ namespace AppleStore.Controllers
     {
         protected readonly ApplicationDbContext userContext;
         private readonly IUnitOfWork unitOfWork;
+        private readonly ICart cart;
+        private readonly ICurrency currency;
 
-        public PartialsController(ApplicationDbContext context, IUnitOfWork unitOfWork)
+        public PartialsController(ApplicationDbContext context, IUnitOfWork unitOfWork, ICart cart, ICurrency currency)
         {
             this.userContext = context;
             this.unitOfWork = unitOfWork;
+            this.cart = cart;
+            this.currency = currency;
         }
 
         [HttpPost]
@@ -59,6 +65,8 @@ namespace AppleStore.Controllers
             return PartialView("LogOut.ru-RU", User.Identity.Name);
         }
 
+
+ //TODO: Change Cart Connection
         //[HttpPost]
         public async Task<IActionResult> Cart()
         {
@@ -90,5 +98,19 @@ namespace AppleStore.Controllers
             return View("Cart.ru-RU",apple);
         }
         
+        [HttpPost]
+        public async Task<IActionResult> Ordering()
+        {
+            String language = HttpContext.Session.GetString("language");
+            var count = HttpContext.Session.GetObjectFromJson<Dictionary<Int32, Int32>>("cart");
+               var apple = await cart.GetCartDataInDictionary(count);
+            var ua = await currency.GetCurrency();
+            ViewBag.currency = ua;
+            if (language == "EN" || language == null)
+                return PartialView("PlaceOrder-US", apple);
+            
+            return PartialView("PlaceOrder-RU", apple);
+        }
+
     }
 }

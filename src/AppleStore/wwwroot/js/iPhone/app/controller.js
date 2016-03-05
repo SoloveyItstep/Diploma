@@ -189,6 +189,17 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     $scope.hdArr = [];
     $scope.networkArr = [];
 
+    $scope.resetFilter = function () {
+        $scope.processorArr = [];
+        $scope.diagonalArr = [];
+        $scope.resolutionArr = [];
+        $scope.ramArr = [];
+        $scope.hdArr = [];
+        $scope.networkArr = [];
+        $(".filter-checkbox").removeAttr("checked");
+        $scope.filterFunc();
+    }
+
     Array.prototype.remove = function(from, to) {
         var rest = this.slice((to || from) + 1 || this.length);
         this.length = from < 0 ? this.length + from : from;

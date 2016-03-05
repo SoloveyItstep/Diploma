@@ -43,8 +43,8 @@ namespace AppleStore.Controllers
             String language = GetLanguage();
             ViewBag.Name = watch.Name;
             if (language == "EN")
-                return View("WatchItem.en-US",new LoginViewModel());
-            return View("WatchItem.ru-RU", new LoginViewModel());
+                return View("WatchItem.en-US",new ViewModels.Account.LoginViewModel());
+            return View("WatchItem.ru-RU", new ViewModels.Account.LoginViewModel());
         }
 
         private String GetLanguage()

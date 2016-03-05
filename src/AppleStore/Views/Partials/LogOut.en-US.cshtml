@@ -29,6 +29,7 @@
                     $(".error-text").html("There was an error<br/>Please try again later");
                 }
                 else if (response == true) {
+                    console.log("LogOut");
                     $(".dark_background").trigger("click");
                     $(".lk").attr("title", "");
                     $("#lk-img").attr("src", "/images/HomeLayout/lk.png");

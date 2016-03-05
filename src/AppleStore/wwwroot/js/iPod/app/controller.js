@@ -42,6 +42,8 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     $scope.filters.other = [];
     $scope.filters.hd = [];
 
+    
+
     $http.get("/api/apple/sexteen/ipod").success(function (data) {
         $scope.mac = data;
         Mac = data;
@@ -162,6 +164,22 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     $scope.otherArr = [];
     $scope.hdArr = [];
     
+    $scope.resetFilter = function(){
+        $scope.mediaArr = [];
+        $scope.otherArr = [];
+        $scope.hdArr = [];
+        $(".filter-checkbox").removeAttr("checked");
+        $scope.filterFunc();
+    }
+
+    $scope.resetFilter = function(){
+        $scope.mediaArr = [];
+        $scope.otherArr = [];
+        $scope.hdArr = [];
+        $(".filter-checkbox").removeAttr("checked");
+        $scope.filterFunc();
+    }
+
     Array.prototype.remove = function(from, to) {
         var rest = this.slice((to || from) + 1 || this.length);
         this.length = from < 0 ? this.length + from : from;

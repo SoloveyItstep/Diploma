@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AppleStore.Models;
+using Store.Entity;
 
 namespace AppleStore.Services
 {
@@ -17,6 +19,11 @@ namespace AppleStore.Services
         }
 
         public Task SendEmailToConfirm(string email, string subject, string key, string userName,String userID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SendOrder(Apple[] apple, Dictionary<int, int> count, Dictionary<int, decimal> price, ApplicationUser user)
         {
             throw new NotImplementedException();
         }

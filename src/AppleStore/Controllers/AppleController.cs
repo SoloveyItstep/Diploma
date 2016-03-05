@@ -13,6 +13,8 @@ using AppleStore.Models;
 using AppleStore.DataServices.Currency.Interfaces;
 using AppleStore.DataServices.Cart;
 using AppleStore.DataServices.Cart.Interfaces;
+using Microsoft.AspNet.Mvc.Filters;
+using AppleStore.Services;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,11 +26,14 @@ namespace AppleStore.Controllers
         private readonly IUnitOfWork unitOfWork;
         private readonly ICurrency currency;
         private readonly ICart cart;
-        public AppleController(IUnitOfWork unitOfWork, ICurrency currency, ICart cart)
+        private readonly IEmailSender emailSender;
+
+        public AppleController(IUnitOfWork unitOfWork, ICurrency currency, ICart cart, IEmailSender emailSender)
         {
             this.unitOfWork = unitOfWork;
             this.currency = currency;
             this.cart = cart;
+            this.emailSender = emailSender;
         }
 
         [Route("goods")]
@@ -161,12 +166,18 @@ namespace AppleStore.Controllers
             return cart.UpdateItemCount(id, count);
         }
 
+//TODO: send cart data (need user)
         [Route("placeorder")]
         [HttpPost]
-        public Boolean PlaceAnOrder()
+        public async Task<Boolean> PlaceAnOrder()
         {
             cart.GetHttpContext(HttpContext);
             var Cart = cart.GetCounts();
+            var Price = await cart.GetPrice();
+            var apple = await cart.GetData();
+            var user = new ApplicationUser();
+            await emailSender.SendOrder(apple, Cart, Price, user);
+
             return true;
         }
 

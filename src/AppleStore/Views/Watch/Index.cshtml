@@ -33,7 +33,7 @@
     <div class="ipad-view">
         <div class="filter">
             <div class="filter-image-div">
-                <img src="~/images/HomeLayout/search.png" id="filter-img" />
+                <img src="~/images/HomeLayout/filter.png" id="filter-img" />
             </div><!--end div filter-image-div-->
             <div class="filter-data">
                 <div class="container">
@@ -42,6 +42,7 @@
                             <div class="col-lg-12 filter-panel">
                                 <span ng-if="language == 'EN'">Strap Material</span>
                                 <span ng-if="language == 'RU'">Материал ремешка</span>
+                                <img src="~/images/HomeLayout/arrow.png" class="filter-arrow-img" />
                             </div>
                             <div class="col-lg-12 filter-item" ng-repeat="mater in filters.material">
                                 <div class="filter-checkbox-div">
@@ -56,6 +57,7 @@
                             <div class="col-lg-12 filter-panel">
                                 <span ng-if="language == 'EN'">Color</span>
                                 <span ng-if="language == 'RU'">Цвет</span>
+                                <img src="~/images/HomeLayout/arrow.png" class="filter-arrow-img" />
                             </div>
                             <div class="col-lg-12 filter-item" ng-repeat="col in filters.color">
                                 <div class="filter-checkbox-div">
@@ -68,7 +70,14 @@
                                 </div><!--end div filter-checkbox-div-->
                             </div><!--end div filter-item-->
                         </div><!--end div screendiagonal-->
-                        
+                        <!--====================================-->
+                        <div class="col-xs-12 reset-filter">
+                            <div class="col-lg-12 filter-panel-reset" ng-click="resetFilter()">
+                                <span ng-if="language == 'EN'">Reset Filter</span>
+                                <span ng-if="language == 'RU'">Сбросить фильтр</span>
+                                <img src="~/images/HomeLayout/x.png" class="filter-x-img" />
+                            </div>
+                        </div>
                     </div><!--end div row-->
                 </div><!--end div container (inside filter-items)-->
             </div><!--end div filter-items-->

@@ -24,22 +24,28 @@ using AppleStore.DataServices.Currency.Interfaces;
 using AppleStore.DataServices.Currency.AbstractFactory;
 using AppleStore.DataServices.Cart.Interfaces;
 using AppleStore.DataServices.Cart.Service;
+using Microsoft.AspNet.Authentication.OAuth;
+using Microsoft.AspNet.Http;
 
 namespace AppleStore
 {
     public class Startup
     {
+        
         public Startup(IHostingEnvironment env)
         {
+            //OAuthOptions = new OAuthOptions
             // Set up configuration sources.
 
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
+            
             if (env.IsDevelopment())
             {
                 // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+                //"aspnet5-AppleStore-d1ffcb89-20e6-477b-9a0b-c6219179e949"
                 builder.AddUserSecrets();
 
                 // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
@@ -64,6 +70,12 @@ namespace AppleStore
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
                 .AddDbContext<StoreContext>(options =>
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+
+            //services.AddAuthentication(auth => auth.)
+            //services.AddAuthentication(options =>
+            //{
+                
+            //});
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -112,6 +124,15 @@ namespace AppleStore
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            //app.UseGoogleAuthentication(google => {
+
+            //});
+
+            //app.UseMicrosoftAccountAuthentication(microsoft =>
+            //{
+
+            //});
+
             app.UseApplicationInsightsRequestTelemetry();
 
             if (env.IsDevelopment())
@@ -143,6 +164,8 @@ namespace AppleStore
 
             app.UseStaticFiles();
 
+            
+
             app.UseIdentity();
             app.UseSession();
             app.UseCookieAuthentication((cookieOptions) =>
@@ -151,6 +174,28 @@ namespace AppleStore
                 cookieOptions.AutomaticChallenge = true;
                 cookieOptions.CookieName = ".StoreCookie";
             });
+
+            app.UseGoogleAuthentication(google => {
+                google.ClientId = "190687279389-hv9otrqdub5uc928pch1uv2g3j4oslrf.apps.googleusercontent.com";//Configuration["Authentication:Google:AppId"];
+                google.ClientSecret = "ZwRnPODQS8zluYrdoGNoyUFW"; //Configuration["Authentication:Google:AppSecret"];
+
+            });
+
+            app.UseFacebookAuthentication(facebook =>
+            {
+                facebook.AppId = Configuration["Authentication:Facebook:AppId"];
+                facebook.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                
+            });
+            
+            //app.UseMicrosoftAccountAuthentication(microsoft => {
+            //    microsoft.DisplayName = "Microsoft Authentication";
+            //    microsoft.ClientId = Configuration["Authentication:Microsoft:AppId"];
+            //    microsoft.ClientSecret = Configuration["Authentication:Microsoft:AppSecret"];
+            //});
+
+            
+
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
 
             app.UseMvc(routes =>
@@ -179,3 +224,8 @@ namespace AppleStore
 //=====restore packages=======
 //dnu restore
 //ApplicationDbContext
+
+//=============secret===========
+//dnu commands install Microsoft.Extensions.SecretManager
+//user-secret set Authentication:Facebook:AppId 1516844961955581
+//Configuration["Authentication:Microsoft:AppId"]

@@ -1,0 +1,73 @@
+﻿@font-face{
+    font-family: OpenSans-Light; /* Гарнитура шрифта */
+    src: url(../../fonts/HomeLayout/OpenSans-Light.ttf); /* Путь к файлу со шрифтом */
+}
+
+.ordering-main{
+    padding-bottom: 20px;
+    max-width: 600px;
+}
+.show-hide-ordering-div{
+    background-color: lightgray;
+    font-family: OpenSans-Light;
+    font-size: 15px;
+    padding-left: 50px;
+    padding-top: 5px;
+    height: 30px;
+    width: 570px;
+    position:relative;
+}
+.show-hide-ordering-div span{
+    margin-left: auto;
+    margin-right: auto;
+    position:center;
+}
+.show-hide-ordering-div:hover{
+    cursor:pointer;
+}
+.ordering-title{
+    height: 70px;
+    padding-left: 15px;
+    font-family: OpenSans-Light;
+    font-size: 25px;
+    padding-top: 15px;
+}
+.cart-data{
+    margin-top: 10px;
+    min-width: 500px;
+    margin-bottom: 20px;
+    display: none;
+}
+.underline{
+    background-color: #4d4c51;
+    height: 1px;
+}
+.orering-total-price{
+    font-family: OpenSans-Light;
+    font-size: 17px;
+    margin-top: 10px;
+}
+.orering-user-menus{
+    height: 30px;
+}
+.orering-user-menus div{
+    font-family:OpenSans-Light;
+    font-size: 15px;
+}
+#new-user{
+    margin-left: 50px;
+}
+#steady-customer{
+    margin-left: 50px;
+}
+.ordering-user-links:hover, .ordering-user-links:active, .ordering-user-links:link, .ordering-user-links:visited{
+    text-decoration:none;
+}
+.moved-underline{
+    background-color: lightgray;
+    height: 1px;
+}
+.moved-underline-div{
+    position:relative;
+    width: 570px;
+}

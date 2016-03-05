@@ -19,7 +19,7 @@
     top: 15%;
     left: 50%;
     max-width: 600px;
-    height: 400px;
+    max-height: 400px;
     margin-left: -300px;
     z-index: 6;
     background: white;
@@ -30,7 +30,7 @@
     position:absolute;
     width: 25px;
     height: 25px;
-    margin-top: 15px;
+    margin-top: 20px;
     right:2px;
 }
 .close-popup-authorization:hover{
@@ -136,7 +136,7 @@ textarea:focus, input:focus{
 }
 .login-page,.loggedin-page{
     width: 350px;
-    height: 400px;
+    height: 390px;
 }
 .login-middle{
     margin-top: 50px;
@@ -150,20 +150,27 @@ textarea:focus, input:focus{
     box-shadow: none;
     border: none;
 }
+.login-links{
+    margin-top: -5px;
+}
 .popup{
     position: relative;
-    margin-top: -10px;    
+    max-height:400px;
+    /*top: -10px;*/   
 }
 .social-login{
     position: absolute;
-    bottom: 0px;
-    height: 50px;
-    background: lightgray;
+    bottom: 30px;
+    height: 75px;
+    background: transparent;
     width: 100%;
 }
 .loggedin-page{
     margin-top: 10px;
-    
+    position: relative;
+    max-height: 400px;
+    margin: 0px;
+    top: -10px;
 }
 .loggedin-title{
     height: 70px;
@@ -192,6 +199,44 @@ textarea:focus, input:focus{
     position:relative;
     top: 20%;
     margin-left: 10%;
+}
+.socialLoginList{
+    /*padding: 0px;
+    position:relative;
+    margin: 0px;*/
+}
+.social-login-text{
+    position:relative;
+    margin-left: 20px;
+    margin-top: 10px;
+    font-family: OpenSans-Light;
+    font-size: 14px;
+    left: 17px;
+}
+.social-login div{
+    margin: 0px;
+}
+#Google, #Facebook{
+    width: 60px;
+    height: 39px;
+    top: 13px;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: none;
+    border: none;
+}
+#Google {
+    margin-left: 20px;
+    background-image: url('/images/HomeLayout/Google-login.png');
+}
+#Facebook {
+    background-image: url('/images/HomeLayout/Facebook_login.png');
+    margin-left: 10px;
+}
+.social-buttons-div{
+    position:relative;
+    max-height: 47px;
+    padding-top: 2px;
 }
 
 

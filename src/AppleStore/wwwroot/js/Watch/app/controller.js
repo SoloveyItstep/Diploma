@@ -156,6 +156,13 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     $scope.strapmaterialArr = [];
     $scope.colorArr = [];
 
+    $scope.resetFilter = function () {
+        $scope.strapmaterialArr = [];
+        $scope.colorArr = [];
+        $(".filter-checkbox").removeAttr("checked");
+        $scope.filterFunc();
+    }
+
     Array.prototype.remove = function(from, to) {
         var rest = this.slice((to || from) + 1 || this.length);
         this.length = from < 0 ? this.length + from : from;

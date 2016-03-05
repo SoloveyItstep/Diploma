@@ -27,7 +27,7 @@ namespace Store.Repository.Repositories
         }
         public async Task<Currency> GetLast()
         {
-            return await context.Currency.FirstOrDefaultAsync();
+            return await context.Currency.LastAsync();
         }
     }
 }

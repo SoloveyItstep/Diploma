@@ -1,7 +1,7 @@
 {
     "commands": {
         "web": "Microsoft.AspNet.Server.Kestrel",
-        "myloader": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5001",
+        "myloader": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://www.applestore:5001",
         "ef": "EntityFramework.Commands"
     },
     "compilationOptions": {
@@ -10,8 +10,10 @@
     "dependencies": {
         "angularjs": "1.4.6",
         "AngularJS.Animate": "1.4.6",
-        "AngularJS.Route": "1.4.6",
         "Currency": "",
+        "Microsoft.AspNet.Authentication.Facebook": "1.0.0-rc1-final",
+        "Microsoft.AspNet.Authentication.Google": "1.0.0-rc1-final",
+        "Microsoft.AspNet.Authentication.OAuth": "1.0.0-rc1-final",
         "EntityFramework.Commands": "7.0.0-rc1-final",
         "EntityFramework.Core": "7.0.0-rc1-final",
         "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",

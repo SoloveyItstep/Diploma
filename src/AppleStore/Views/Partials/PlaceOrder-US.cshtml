@@ -1,0 +1,57 @@
+﻿@model Dictionary<Store.Entity.Apple,Int32>
+@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+@*@{ 
+    var currency = Decimal.Parse(ViewBag["currency"].ToString());
+}*@
+<link type="text/css" href="~/css/Cart/ordering.css" rel="stylesheet"/>
+<div class="col-xs-12 ordering-main">
+    <div class="col-xs-8 ordering-title">
+        Ordering Options
+    </div><!--end div ordering-title-->
+    <div class="col-xs-12 show-hide-ordering-div">
+        <span>Show ordering data</span>
+    </div>
+    <div class="col-xs-12 cart-data">    
+        @{Int32 i = 0; }
+        @foreach (var apple in Model.Keys)
+        {
+            <div class="col-xs-12 cart-data-items">
+                <div class="col-xs-1">@{++i;}</div>
+                <div class="col-xs-6">@apple.Model</div>
+                <div class="col-xs-2">@Model[apple] pcs</div>
+                <div class="col-xs-3">
+                    @apple.Price.ToString("C2", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))
+                    </div>
+                                    @*<div class="col-xs-3">@apple.Price.ToString("C2",System.Globalization.CultureInfo.CreateSpecificCulture("uk-UA"))</div>*@
+            </div>
+        }
+    @{ 
+        Decimal total = 0;
+        foreach(var app in Model.Keys)
+        {
+            total += (app.Price * Model[app]);
+        }
+    }
+        <div class="col-xs-offset-7 col-xs-5 orering-total-price">Total:&nbsp; @total.ToString("C2", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</div>
+        <div class="col-xs-12 underline"></div>
+    </div><!--end div cart-data-->
+
+    <div class="ordering-place-order-main">
+        <div class="col-xs-12 ordering-title">
+            Place an Order
+        </div>
+        <div class="col-xs-12 orering-user-menus">
+            <div class="col-xs-6"><a href="#" class="ordering-user-links" id="new-user">New User</a></div>
+            <div class="col-xs-6"><a href="#" class="ordering-user-links" id="steady-customer">Steady Customer</a></div>
+            <div class="col-xs-12 moved-underline-div">
+                <div class="moved-underline"></div>
+            </div>
+            
+        </div><!--end div orering-user-menus-->
+    </div><!--end div ordering-place-order-main-->
+
+</div>
+<script src="~/js/Cart/ordering.js"  type="text/javascript"></script>
+<script type="text/javascript">
+    OrderingLoad();
+</script>

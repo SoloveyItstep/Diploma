@@ -63,24 +63,27 @@ app.controller("SearchCtrl", function ($scope, $http) {
         console.log(data);
     }
     $scope.UserName = "";
-    $http.get("/api/user/currentuser").success(function (user) {
-        if (user != null && user != "") {
-            
-            $scope.UserName = user;
-            $(".lk").attr("title", user);
-            $("#lk-img").attr("src", "/images/HomeLayout/lk_login.png");
-            $("#lk-img").attr("onmouseout", "this.src = '/images/HomeLayout/lk_login.png'");
+    //$http.get("/api/user/currentuser").success(function (user) {
+    //    if (user != null && user != "") {
+    //          $scope.UserName = user;
+    //        $(".lk").attr("title", user);
+    //        $("#lk-img").attr("src", "/images/HomeLayout/lk_login.png");
+    //        $("#lk-img").attr("onmouseout", "this.src = '/images/HomeLayout/lk_login.png'");
 
-        }
-    });
+    //    }
+    //});
     $scope.GetUserName = function () {
         setTimeout(function () {
             $http.get("/api/user/currentuser").success(function (user) {
                 if (user != null && user != "") {
+                    console.log("-"+user+"-");
                     $scope.UserName = user;
                     $(".lk").attr("title", user);
                     $("#lk-img").attr("src", "/images/HomeLayout/lk_login.png");
                     $("#lk-img").attr("onmouseout", "this.src = '/images/HomeLayout/lk_login.png'");
+                }
+                else {
+                    $("#lk-img").attr("src", "/images/HomeLayout/lk.png");
                 }
             });
         }, 2000);

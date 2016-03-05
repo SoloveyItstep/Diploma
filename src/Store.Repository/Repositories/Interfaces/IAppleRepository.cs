@@ -8,7 +8,7 @@ namespace Store.Repository.Repositories.Interfaces
 {
     public interface IAppleRepository<T>: IRepository<T> where T : class
     {
-        Task<T> GetFirstInclude(params Expression<Func<T, Object>>[] include);
+        Task<T> GetFirstInclude(Expression<Func<T, Boolean>> include);
         Task<T> GetOneInclude(Int32 id);
     }
 }

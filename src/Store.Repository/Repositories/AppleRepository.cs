@@ -18,9 +18,9 @@ namespace Store.Repository.Repositories
         {
             this.context = context;
         }
-        public async Task<Apple> GetFirstInclude(params Expression<Func<Apple, object>>[] include)
+        public async Task<Apple> GetFirstInclude(Expression<Func<Apple, bool>> include)
         {
-            return await (context as DbContext).Set<Apple>()
+            return await (context as DbContext).Set<Apple>().Where(include)
                 .Include(a => a.Categories)
                 .Include(a => a.AppleColor).ThenInclude(ac => ac.Color)
                 .Include(a => a.ProductDetails).ThenInclude(a => a.DetailNames)

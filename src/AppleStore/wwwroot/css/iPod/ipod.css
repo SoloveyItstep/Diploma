@@ -86,6 +86,20 @@
     position:absolute;
     top: 45%;
     left: 10px;
+    max-width: 25px;
+}
+.filter-arrow-img,.filter-x-img{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+.filter-x-img{
+    top: 10px;
+}
+.arrow-rotate {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg); 
+        transform: rotate(180deg);
 }
 .filter-data{
     position: absolute;
@@ -94,19 +108,26 @@
     transition: 1.2s width ease 0s;
     overflow: hidden;
 }
-.proc,.screendiagonal,.screencoverage,.network,.ram,.hd{
+.proc,.screendiagonal,.screencoverage,.network,.ram,.hd,.reset-filter{
     margin: 20px;
 }
-.filter-panel{
+.filter-panel, .filter-panel-reset{
     position:relative;
     width: 200px;
     height: 40px;
     font-family: OpenSans-Light;
     font-size: 15px;
-    background-color: yellow;
+    background-color: lightgray;
     padding-top: 10px;
     padding-left: 10px;
     cursor: pointer;
+}
+.filter-panel-reset{
+    border: 1px solid;
+    border-color: #4d4c51;
+}
+.filter-panel-reset{
+    padding-top: 7px;
 }
 .filter-item{
     position:relative;

@@ -8,24 +8,24 @@ namespace AppleStore.ViewModels.Account
 {
     public class RegisterViewModel
     {
-        [Required]
-        [RegularExpression(pattern: @"[a-zA-Zа-яА-Я0-9_\- ]{2,15}$")]
-        [StringLength(maximumLength: 15, MinimumLength = 2)]
+        //[Required]
+        [RegularExpression(pattern: @"[a-zA-Zа-яА-Я0-9_\- ]{0,30}$")]
+        [StringLength(maximumLength: 30)]
         [Display(Name = "User name")]
         public String UserName { get; set; }
 
-        [Required]
-        [RegularExpression(pattern: @"[a-zA-Zа-яА-Я0-9_\- ]{2,15}$")]
-        [StringLength(maximumLength: 15, MinimumLength = 2)]
+        //[Required]
+        [RegularExpression(pattern: @"[a-zA-Zа-яА-Я0-9_\- ]{0,15}$")]
+        [StringLength(maximumLength: 15)]
         public String City { get; set; }
 
-        [Required]
+        //[Required]
         [RegularExpression(@"^\+?[0-9]{3,5}-?[0-9\-]+$")]
         public String Phone { get; set; }
 
-        [Required]
+        //[Required]
         [RegularExpression(pattern: @"[^<>!{}]+")]
-        [StringLength(maximumLength: 40, MinimumLength = 5)]
+        [StringLength(maximumLength: 40)]
         public String Address { get; set; }
 
         [Required]

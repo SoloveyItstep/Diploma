@@ -16,7 +16,7 @@ namespace AppleStore.DataServices.Cart.Interfaces
         Dictionary<Int32, Int32> GetCounts();
         Task<Dictionary<Int32, Decimal>> GetPrice();
         Boolean RemoveItem(Int32 id);
-
         Boolean UpdateItemCount(Int32 id, Int32 count);
+        Task<Dictionary<Apple, Int32>> GetCartDataInDictionary(Dictionary<Int32, Int32> count);
     }
 }

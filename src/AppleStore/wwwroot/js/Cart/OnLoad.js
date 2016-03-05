@@ -3,10 +3,6 @@ var price = new Array();
 var Language = "";
 var Currency = 0.0;
 
-function Load() {
-
-}
-function FilterPosition() { }
 function onLoad() {
     var minus = $(".minus");
     var plus = $(".plus");
@@ -20,6 +16,7 @@ function onLoad() {
         url: "/api/apple/getcartscount",
         success: function (data) {
             ///
+            console.log();
             Arr = data;
             //console.log(Arr);
             for (var i in Arr) {
@@ -116,9 +113,9 @@ function onLoad() {
         //console.log(Arr);
         $.ajax({
             type: "POST",
-            url: "/api/apple/placeorder",
+            url: "/Partials/Ordering",
             success: function (data) {
-
+                $(".popup").html(data);
             }
         });
     });
@@ -162,3 +159,7 @@ function GetPrice() {
     });
 }
 
+
+
+function Load() {}
+function FilterPosition() {}

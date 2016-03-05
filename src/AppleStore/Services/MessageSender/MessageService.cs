@@ -1,8 +1,11 @@
-﻿using System;
+﻿using AppleStore.Models;
+using Store.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Net.Mime;
+using System.Text;
 using System.Threading.Tasks;
 using Twilio;
 
@@ -42,7 +45,7 @@ namespace AppleStore.Services.MessageSender
         {
             MailMessage mess = new MailMessage();
             mess.To.Add(new MailAddress(email,userName));
-            mess.From = new MailAddress("solovey.itstep@gmail.com", "Vladimir");
+            mess.From = new MailAddress("solovey.itstep@gmail.com", "VS Shop");
             mess.Subject = subject;
             String message = "Please Confirm email to finish registration";
             String url = "<a href='http://localhost:3923/Auth/ConfirmEmail/" + key +"?userID=" +userID+"' rel='link' title='Confirm Email'>Link!</a>";
@@ -65,6 +68,65 @@ namespace AppleStore.Services.MessageSender
             }
 
             return Task.FromResult(0);
+        }
+
+        public Task SendOrder(Apple[] apple, Dictionary<int, int> count, Dictionary<Int32,Decimal> price, ApplicationUser user)
+        {
+            MailMessage message = new MailMessage();
+            message.To.Add(new MailAddress("solovey.itstep@gmail.com"));
+            message.From = new MailAddress("solovey.itstep@gmail.com", "VS Shop");
+
+            String html = BuildOrder(apple, count, price, user);
+
+            message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString("New order", null, MediaTypeNames.Text.Plain));
+            message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
+            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("solovey.itstep@gmail.com", "solovey14060");
+            smtpClient.Credentials = credentials;
+            smtpClient.EnableSsl = true;
+
+            try
+            {
+                smtpClient.Send(message);
+            }
+            catch (Exception ex)
+            {
+                String error = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return Task.FromResult(0);
+
+        }
+
+        private String BuildOrder(Apple[] apple, Dictionary<Int32,Int32> count, Dictionary<Int32,Decimal> price, ApplicationUser user)
+        {
+            StringBuilder builder = new StringBuilder();
+
+            builder.Append("<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7' crossorigin='anonymous'><br/>");
+
+            builder.Append("<div><br/><p>New Order From " + user.UserName + "</p><br/></div>");
+            builder.Append("<div><br/><p>Address " +user.City+" "+ user.Address + "</p><br/></div>");
+            builder.Append("<div><br/><p>Email " + user.Email + "</p><br/></div>");
+            builder.Append("<div><br/><p>Phone " + user.PhoneNumber + "</p><br/></div>");
+
+            builder.Append("<div class='col-xs-12'>");
+            foreach(var i in apple)
+            {
+                builder.Append("<div>" + i.Model + " - Count: " + count[i.AppleID]);
+                builder.Append(" - Price: " + price[i.AppleID] + "</div>");
+            }
+
+            builder.Append("</div><br/><br/><div class='col-xs-12'>");
+
+            Decimal p = 0;
+            foreach(var pr in price.Values)
+                p += pr;
+
+            builder.Append("Total Price: " + String.Format("{0:C}",p));
+            builder.Append("</div>");
+
+            return builder.ToString();
         }
 
         public AuthMessageSenderOptions MailOptions
