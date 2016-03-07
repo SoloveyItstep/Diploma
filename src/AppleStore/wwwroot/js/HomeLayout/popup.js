@@ -26,6 +26,7 @@
     cart.click(function () {
         authorization.show("slow");
         darkBackground.show("slow");
+        console.log("clicked");
     });
     //dark background click
     darkBackground.click(function () {
@@ -83,6 +84,35 @@
         main.height(y);
     }, 5000);
 
+}
+
+function ReloadAuthorization(width) {
+    var size = width / 2;
+    var authorization = $(".authorization");
+    setTimeout(function () {
+        authorization.css("left", "50%");
+        authorization.css("margin-left", "-" + size + "px");
+    }, 50);
+    setTimeout(function () {
+        authorization.css("left", "50%");
+        authorization.css("margin-left", "-" + size + "px");
+    }, 200);
+    setTimeout(function () {
+        authorization.css("left", "50%");
+        authorization.css("margin-left", "-" + size + "px");
+    }, 500);
+    setTimeout(function () {
+        authorization.css("left", "50%");
+        authorization.css("margin-left", "-" + size + "px");
+    }, 200);
+    setTimeout(function () {
+        authorization.css("left", "50%");
+        authorization.css("margin-left", "-" + size + "px");
+    }, 1500);
+    setTimeout(function () {
+        authorization.css("left", "50%");
+        authorization.css("margin-left", "-" + size + "px");
+    }, 2500);
 }
 
 function ReloadMain(){

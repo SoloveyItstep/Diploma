@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Store.Entity;
 using Store.Entity.Context;
+using Store.Entity.Order;
 
 namespace Store.Context.Context
 {
@@ -15,6 +16,7 @@ namespace Store.Context.Context
         public DbSet<Image> Image { get; set; }
         public DbSet<ProductDetails> ProductDetails { get; set; }
         public DbSet<Currency> Currency { get; set; }
+        public DbSet<Orders> Orders { get; set; }
         public int Save()
         {
             return base.SaveChanges();

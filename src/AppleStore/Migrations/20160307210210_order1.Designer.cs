@@ -8,9 +8,10 @@ using Store.Context.Context;
 namespace AppleStore.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20160307210210_order1")]
+    partial class order1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
@@ -125,48 +126,6 @@ namespace AppleStore.Migrations
                     b.HasKey("ImageID");
                 });
 
-            modelBuilder.Entity("Store.Entity.Order.AppleOrders", b =>
-                {
-                    b.Property<int>("AppleOrdersID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AppleID");
-
-                    b.Property<int>("OrderID");
-
-                    b.Property<int?>("OrdersOrdersID");
-
-                    b.HasKey("AppleOrdersID");
-                });
-
-            modelBuilder.Entity("Store.Entity.Order.Orders", b =>
-                {
-                    b.Property<int>("OrdersID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Date")
-                        .HasAnnotation("MaxLength", 10);
-
-                    b.Property<string>("Delivary")
-                        .HasAnnotation("MaxLength", 12);
-
-                    b.Property<string>("OrderNumber")
-                        .HasAnnotation("MaxLength", 8);
-
-                    b.Property<string>("Payment")
-                        .HasAnnotation("MaxLength", 15);
-
-                    b.Property<string>("Status")
-                        .HasAnnotation("MaxLength", 12);
-
-                    b.Property<decimal>("Sum");
-
-                    b.Property<string>("UserID")
-                        .HasAnnotation("MaxLength", 36);
-
-                    b.HasKey("OrdersID");
-                });
-
             modelBuilder.Entity("Store.Entity.ProductDetails", b =>
                 {
                     b.Property<int>("ProductDetailsID")
@@ -210,17 +169,6 @@ namespace AppleStore.Migrations
                     b.HasOne("Store.Entity.Apple")
                         .WithMany()
                         .HasForeignKey("AppleID");
-                });
-
-            modelBuilder.Entity("Store.Entity.Order.AppleOrders", b =>
-                {
-                    b.HasOne("Store.Entity.Apple")
-                        .WithMany()
-                        .HasForeignKey("AppleID");
-
-                    b.HasOne("Store.Entity.Order.Orders")
-                        .WithMany()
-                        .HasForeignKey("OrdersOrdersID");
                 });
 
             modelBuilder.Entity("Store.Entity.ProductDetails", b =>

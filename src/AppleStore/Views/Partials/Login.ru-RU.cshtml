@@ -41,7 +41,7 @@
                     @foreach (var p in loginProviders)
                     {
                         <button type="submit" id="@p.AuthenticationScheme" name="provider"
-                                title="Log in using your @p.DisplayName account"></button>
+                                title="Log in using your @p.DisplayName account" value="@p.AuthenticationScheme"></button>
                     }
                     <input type="text" class="hidden" name="returnUrl" value="/Home/Index" />
                 </div>

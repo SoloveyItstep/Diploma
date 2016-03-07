@@ -1,0 +1,162 @@
+﻿.pre-loader{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: lightgray;
+    z-index: 5;
+    padding-top: 10%;
+}
+.round,.round:before,.round:after{
+    border: 3px solid transparent;
+    border-radius: 50%;
+}
+.round{
+    position:relative;
+    width: 200px;
+    height: 200px;
+    margin: 50px auto;
+    border-top-color: #4e4c51;
+    
+    -webkit-animation: spin 1.5s infinite ease;
+    -o-animation: spin 1.5s infinite ease;
+    animation: spin 1.5s infinite ease;
+}
+.round:before, .round:after{
+    content:'';
+    position:absolute;
+}
+.round:before{
+    top:10px;
+    left:10px;
+    right:10px;
+    bottom:10px;
+    border-top-color: #e4e4e4;
+    -webkit-animation: spin 2.5s infinite ease;
+    -o-animation: spin 2.5s infinite ease;
+    animation: spin 2.5s infinite ease;
+}
+.round:after{
+    top:23px;
+    left:23px;
+    right:23px;
+    bottom:23px;
+    border-top-color: #4e4c51;
+    -webkit-animation: spin 4s infinite ease;
+    -o-animation: spin 4s infinite ease;
+    animation: spin 4s infinite ease;
+}
+
+@-webkit-keyframes spin{
+    from{
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg); 
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@-o-keyframes spin{
+    from{
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg); 
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@-moz-keyframes spin{
+    from{
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg); 
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes spin{
+    from{
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg); 
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+/*=======antispin=====*/
+@-webkit-keyframes antispin{
+    from{
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg); 
+    }
+    to{
+        -webkit-transform: rotate(-360deg);
+        -ms-transform: rotate(-360deg);
+        -o-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }
+}
+@-o-keyframes antispin{
+    from{
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg); 
+    }
+    to{
+        -webkit-transform: rotate(-360deg);
+        -ms-transform: rotate(-360deg);
+        -o-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }
+}
+@-moz-keyframes antispin{
+    from{
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg); 
+    }
+    to{
+        -webkit-transform: rotate(-360deg);
+        -ms-transform: rotate(-360deg);
+        -o-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }
+}
+@keyframes antispin{
+    from{
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg); 
+    }
+    to{
+        -webkit-transform: rotate(-360deg);
+        -ms-transform: rotate(-360deg);
+        -o-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }
+}
+

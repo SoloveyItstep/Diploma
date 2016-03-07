@@ -157,10 +157,7 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             authorization.show("slow");
             darkBackground.show("slow");
             popup.html(page);
-            setTimeout(function () {
-                authorization.css("left", "50%");
-                authorization.css("margin-left", "-300px");
-            }, 1000);
+            ReloadAuthorization(600);
         });
     }
     $scope.UserName = "";

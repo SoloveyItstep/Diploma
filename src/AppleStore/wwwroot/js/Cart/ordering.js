@@ -4,8 +4,11 @@
     var newUser = $("#new-user");
     var steadyCustomer = $("#steady-customer");
     var movedUnderline = $(".moved-underline");
-    
-    var stL = steadyCustomer.offset().left - $(".authorization").offset().left + 3;
+    var newUserField = $(".new-user-order-field");
+    var steadyCustomerField = $(".steady-customer-order-field");
+
+
+    var stL = steadyCustomer.offset().left - $(".authorization").offset().left;
     var nu = newUser.offset().left - $(".authorization").offset().left + 3;
     movedUnderline.css("margin-left", nu + "px");
 
@@ -18,10 +21,13 @@
                 width: w + "px",
                 "margin-left": nu + "px"
             }, 300);
+            newUserField.show("slow");
+            steadyCustomerField.hide("slow");
         }
     });
 
     steadyCustomer.click(function () {
+
         var l = $(this).position().left;
         var w = $(this).width();
         if (newUser.position().left == movedUnderline.position().left) {
@@ -29,6 +35,8 @@
                 width: w + "px",
                 "margin-left": stL + "px"
             }, 300);
+            newUserField.hide("slow");
+            steadyCustomerField.show("slow");
         }
     });
 
@@ -41,6 +49,39 @@
             cartData.show("slow");
             $(".show-hide-ordering-div span").html("Hide ordering data");
         }
+    });
+
+    $(".ordering-login-button").click(function (data) {
+        $.ajax({
+            type: "POST",
+            url: "/Auth/Login",
+            data: $(".log-form").serialize(),
+            success: function (response) {
+                if (response != "true") {
+                    $(".error-text").html("Authorization was failed");
+                }
+                else if (response == "true") {
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/user/currentuser",
+                        success: function (userName) {
+                            $("#lk-img").css("src", "/images/HomeLayout/lk_login.png");
+                            $("#lk-img").css("onmouseout", "/images/HomeLayout/lk_login.png");
+                            $(".lk").attr("title", userName);
+                        }
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Partials/steadycustomerordering",
+                        success: function (page) {
+                            $(".steady-customer-order-field").html(page);
+                        }
+                    });
+
+                }
+            }
+        });
     });
 }
 

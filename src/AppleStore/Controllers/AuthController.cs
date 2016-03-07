@@ -20,6 +20,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Http.Authentication;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc.Rendering;
+using System.Web.Security;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -33,13 +34,15 @@ namespace AppleStore.Controllers
         private readonly IEmailSender emailSender;
         private readonly IRegisterLoginErrorsLanguage errorsMessage;
         private readonly IMD5Hash md5;
+        private readonly ApplicationDbContext context;
 
         public AuthController(UserManager<ApplicationUser> userManager,
                               SignInManager<ApplicationUser> signInManager,
                               ILoggerFactory loggerFactory,
                               IEmailSender emailSender,
                               IRegisterLoginErrorsLanguage errorsMessage,
-                              IMD5Hash md5)
+                              IMD5Hash md5,
+                              ApplicationDbContext context)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -47,6 +50,7 @@ namespace AppleStore.Controllers
             this.emailSender = emailSender;
             this.errorsMessage = errorsMessage;
             this.md5 = md5;
+            this.context = context;
         }
 
         [HttpPost]
@@ -102,10 +106,13 @@ namespace AppleStore.Controllers
                 return RedirectToAction("Error", "Password Incorrect");
             
             var result = await userManager.CreateAsync(user);
+            
             if (result.Succeeded)
             {
                 await signInManager.SignInAsync(user, isPersistent: false);
                 logger.LogInformation(3, "User created a new account with password.");
+                IdentityResult res = await userManager.AddToRoleAsync(user, "Client");
+                
                 String[] url = GetReturnUrl();
                 return RedirectToAction(url[0],url[1]);
             }

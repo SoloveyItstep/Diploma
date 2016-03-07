@@ -8,9 +8,10 @@ using Store.Context.Context;
 namespace AppleStore.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20160307211332_order4")]
+    partial class order4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
@@ -144,25 +145,19 @@ namespace AppleStore.Migrations
                     b.Property<int>("OrdersID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Date")
-                        .HasAnnotation("MaxLength", 10);
+                    b.Property<string>("Date");
 
-                    b.Property<string>("Delivary")
-                        .HasAnnotation("MaxLength", 12);
+                    b.Property<string>("Delivary");
 
-                    b.Property<string>("OrderNumber")
-                        .HasAnnotation("MaxLength", 8);
+                    b.Property<string>("OrderNumber");
 
-                    b.Property<string>("Payment")
-                        .HasAnnotation("MaxLength", 15);
+                    b.Property<string>("Payment");
 
-                    b.Property<string>("Status")
-                        .HasAnnotation("MaxLength", 12);
+                    b.Property<string>("Status");
 
-                    b.Property<decimal>("Sum");
+                    b.Property<string>("Sum");
 
-                    b.Property<string>("UserID")
-                        .HasAnnotation("MaxLength", 36);
+                    b.Property<string>("UserID");
 
                     b.HasKey("OrdersID");
                 });

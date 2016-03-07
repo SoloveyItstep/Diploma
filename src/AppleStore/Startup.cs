@@ -185,7 +185,7 @@ namespace AppleStore
             {
                 facebook.AppId = Configuration["Authentication:Facebook:AppId"];
                 facebook.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-                
+
             });
             
             //app.UseMicrosoftAccountAuthentication(microsoft => {

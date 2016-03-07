@@ -31,9 +31,9 @@ app.controller("SearchCtrl", function ($scope, $http) {
         $http.get("/api/user/changelanguage");
     };
     
-    $scope.tmp = function () {
-        console.log("cart clicket");
-    }
+    //$scope.tmp = function () {
+    //    //console.log("cart clicket");
+    //}
 
     $scope.cart = function () {
         var popup = $(".popup");
@@ -49,7 +49,7 @@ app.controller("SearchCtrl", function ($scope, $http) {
             popup.css("margin-top", "10px");
             authorization.css("left", "50%");
             authorization.css("margin-left", "-300px");
-            //$scope.loader = true;
+            ReloadAuthorization(600);
         });
     }
     $scope.popupLK = function(){
@@ -59,8 +59,7 @@ app.controller("SearchCtrl", function ($scope, $http) {
         });
     };
     $scope.register = function (data) {
-        console.log("clicked");
-        console.log(data);
+        //console.log(data);
     }
     $scope.UserName = "";
     //$http.get("/api/user/currentuser").success(function (user) {
@@ -76,7 +75,7 @@ app.controller("SearchCtrl", function ($scope, $http) {
         setTimeout(function () {
             $http.get("/api/user/currentuser").success(function (user) {
                 if (user != null && user != "") {
-                    console.log("-"+user+"-");
+                    //console.log("-"+user+"-");
                     $scope.UserName = user;
                     $(".lk").attr("title", user);
                     $("#lk-img").attr("src", "/images/HomeLayout/lk_login.png");

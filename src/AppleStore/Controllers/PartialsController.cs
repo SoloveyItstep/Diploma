@@ -10,6 +10,9 @@ using Store.Repository.UnitOfWorks;
 using Store.Entity;
 using AppleStore.DataServices.Cart.Interfaces;
 using AppleStore.DataServices.Currency.Interfaces;
+using Microsoft.AspNet.Mvc.Rendering;
+using Microsoft.AspNet.Identity;
+using System.Linq;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,13 +24,15 @@ namespace AppleStore.Controllers
         private readonly IUnitOfWork unitOfWork;
         private readonly ICart cart;
         private readonly ICurrency currency;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public PartialsController(ApplicationDbContext context, IUnitOfWork unitOfWork, ICart cart, ICurrency currency)
+        public PartialsController(ApplicationDbContext context, IUnitOfWork unitOfWork, ICart cart, ICurrency currency, UserManager<ApplicationUser> userManager)
         {
             this.userContext = context;
             this.unitOfWork = unitOfWork;
             this.cart = cart;
             this.currency = currency;
+            this.userManager = userManager;
         }
 
         [HttpPost]
@@ -35,6 +40,7 @@ namespace AppleStore.Controllers
         {
             String language = HttpContext.Session.GetString("language");
             String user = User.Identity.Name;
+            ViewBag.ReturnUrl = "/Home/Index";
             if (user != null && user != "")
             {
                 if (language == "EN" || language == null)
@@ -103,13 +109,50 @@ namespace AppleStore.Controllers
         {
             String language = HttpContext.Session.GetString("language");
             var count = HttpContext.Session.GetObjectFromJson<Dictionary<Int32, Int32>>("cart");
-               var apple = await cart.GetCartDataInDictionary(count);
+            var apple = await cart.GetCartDataInDictionary(count);
             var ua = await currency.GetCurrency();
-            ViewBag.currency = ua;
+
+            var login = new LoginNewUserOrderViewModel(language);
+            login.Apple = apple;
+            login.Currency = ua;
+
+            var user = userManager.Users.Where(u => u.Id == User.GetUserId()).FirstOrDefault();
+            if(user != null)
+            {
+                login.UserName = user.UserName;
+                login.Address = user.Address;
+                login.City = user.City;
+                login.Email = user.Email;
+                login.Phone = user.PhoneNumber;
+            }
+
             if (language == "EN" || language == null)
-                return PartialView("PlaceOrder-US", apple);
+            {
+                return PartialView("PlaceOrder-US", login);
+            }
             
-            return PartialView("PlaceOrder-RU", apple);
+            return PartialView("PlaceOrder-RU", login);
+        }
+
+        [HttpPost]
+        [Route("steadycustomerordering")]
+        public IActionResult SteadyCustomer()
+        {
+            String language = HttpContext.Session.GetString("language");
+            var user = userManager.Users.Where(u => u.Id == User.GetUserId()).FirstOrDefault();
+
+            var login = new LoginNewUserOrderViewModel(language);
+            login.Address = user.Address;
+            login.City = user.City;
+            login.Email = user.Email;
+            login.Language = language;
+            login.Phone = user.PhoneNumber;
+
+            if(language == "EN")
+            {
+                return PartialView("SteadyCustomerOrderingEn", login);
+            }
+            return PartialView("SteadyCustomerOrderingRu", login);
         }
 
     }

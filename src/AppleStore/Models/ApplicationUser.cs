@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace AppleStore.Models
 {
     // Add profile data for application users by adding properties to the ApplicationUser class
@@ -17,6 +18,5 @@ namespace AppleStore.Models
         [Required]
         [StringLength(maximumLength: 40)]
         public String Address { get; set; }
-
     }
 }

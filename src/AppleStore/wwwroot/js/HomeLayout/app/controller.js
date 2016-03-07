@@ -4,6 +4,13 @@
         $scope.language = language.toUpperCase();
     });
 
+    $http.post("/api/apple/cardataexist").success(function (data) {
+        if(data == true){
+            $("#cart-img").css("src", "/images/HomeLayout/cart_fool.png");
+            $("#cart-img").css("onmouseout", "this.src = '/images/HomeLayout/cart_fool.png'");
+        }
+    });
+
     $http.post("/Partials/Login").success(function (page) {
         $(".popup").html(page);
     });

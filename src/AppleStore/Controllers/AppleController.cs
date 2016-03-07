@@ -166,6 +166,15 @@ namespace AppleStore.Controllers
             return cart.UpdateItemCount(id, count);
         }
 
+        [HttpPost]
+        [Route("cardataexist")]
+        public Boolean CartDataExist() {
+            var crt = HttpContext.Session.GetObjectFromJson<Dictionary<Int32, Int32>>("cart");
+            if (crt != null)
+                return true;
+            return false;
+        }
+
 //TODO: send cart data (need user)
         [Route("placeorder")]
         [HttpPost]
@@ -180,6 +189,7 @@ namespace AppleStore.Controllers
 
             return true;
         }
+
 
     }
 }

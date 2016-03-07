@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Entity;
+using Store.Entity.Order;
 using System;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace Store.Entity.Context
         DbSet<DetailNames> DetailNames { get; set; }
         DbSet<Image> Image { get; set; }
         DbSet<Currency> Currency { get; set; }
+        DbSet<Orders> Orders { get; set; }
         Int32 Save();
         Task<Int32> SaveAsync();
     }

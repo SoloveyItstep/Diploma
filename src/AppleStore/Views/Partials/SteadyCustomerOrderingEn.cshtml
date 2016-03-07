@@ -1,0 +1,38 @@
+﻿@model AppleStore.ViewModels.Account.LoginNewUserOrderViewModel
+@{
+    Layout = null;
+}
+
+<div class="col-xs-offset-1 col-xs-10">
+    <form asp-controller="Cart" asp-action="PlaceAnOrder" asp-route-returnurl="@ViewBag.ReturnUrl" method="post" class="form-horizontal" role="form">
+
+        <div class="col-xs-12 new-user-order-title">
+            Personal Information
+        </div><!--end div new-user-order-title-->
+        <div class="col-xs-12 new-user-order-text-fields">
+            <input type="text" placeholder="User Name" autocomplete="off" value="@Model.UserName" class="ordering-text-input" asp-for="UserName" name="UserName" />
+            <input type="text" placeholder="Phone" autocomplete="off" value="@Model.Phone" class="ordering-text-input" asp-for="Phone" name="Phone" />
+        </div><!--end div new-user-order-text-fields-->
+        <div class="col-xs-12 new-user-delivery-field">
+            <div class="col-xs-12 new-user-delivery-title">Delivery</div>
+            <div class="col-xs-12 new-user-delivery-complete-fields">
+                @Html.DropDownListFor(a => a.Delivery, Model.DeliveryList, new { @class = "doropdwn" })
+
+                <input type="text" placeholder="Delivery City" autocomplete="off" value="@Model.City" class="ordering-text-input" asp-for="City" />
+                <input type="text" placeholder="Delivery Address" autocomplete="off" value="@Model.Address" class="ordering-text-input" asp-for="Address" />
+            </div>
+        </div><!--end div new-user-delivery-field-->
+
+        <div class="col-xs-12 new-user-delivery-field">
+            <div class="col-xs-12 new-user-delivery-title">Payment</div>
+            <div class="col-xs-12 new-user-delivery-complete-fields">
+                @Html.DropDownListFor(a => a.Payment, Model.PaymentList, new { @class = "doropdwn" })
+            </div>
+        </div><!--end div new-user-delivery-field-->
+        <div class="col-xs-offset-2 col-xs-4">
+            <input class="cart-ordering-submit-button" type="submit" value="MAKE ORDER" />
+        </div>
+
+
+    </form>
+</div><!--end div col-xs-10-->
