@@ -15,6 +15,8 @@ using AppleStore.DataServices.Cart;
 using AppleStore.DataServices.Cart.Interfaces;
 using Microsoft.AspNet.Mvc.Filters;
 using AppleStore.Services;
+using Store.Entity.Order;
+using AppleStore.ViewModels.Account;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -175,21 +177,37 @@ namespace AppleStore.Controllers
             return false;
         }
 
-//TODO: send cart data (need user)
-        [Route("placeorder")]
-        [HttpPost]
-        public async Task<Boolean> PlaceAnOrder()
-        {
-            cart.GetHttpContext(HttpContext);
-            var Cart = cart.GetCounts();
-            var Price = await cart.GetPrice();
-            var apple = await cart.GetData();
-            var user = new ApplicationUser();
-            await emailSender.SendOrder(apple, Cart, Price, user);
+// send cart data (need user)
+        //[Route("placeorder")]
+        //[HttpPost]
+        //public async Task<Boolean> PlaceAnOrder()
+        //{
+        //    cart.GetHttpContext(HttpContext);
+        //    var Cart = cart.GetCounts();
+        //    var Price = await cart.GetPrice();
+        //    var apple = await cart.GetData();
+        //    var user = new ApplicationUser();
+        //    await emailSender.SendOrder(apple, Cart, Price, user);
 
-            return true;
+        //    return true;
+        //}
+
+        [Route("notexecutedorders")]
+        [HttpPost]
+        public async Task<Orders[]> GetOrders()
+        {
+            return await unitOfWork.Orders.GetNotExecuted();
         }
 
+        [HttpPost]
+        [Route("orderbynumber/{id}")]
+        public async Task<Orders> GetOrderByNumber(String id)
+        {
+            return await unitOfWork.Orders.GetByOrderId(id);
+        }
+
+
+        
 
     }
 }

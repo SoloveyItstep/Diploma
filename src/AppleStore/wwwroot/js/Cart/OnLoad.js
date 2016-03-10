@@ -103,6 +103,7 @@ function onLoad() {
                 }
             }
         });
+        ReloadTotalPrice();
     });
     //continue shoping click
     continueShoping.click(function () {
@@ -110,14 +111,19 @@ function onLoad() {
     });
     //place an order
     placeOrder.click(function () {
+        var popupPreloader = $(".pre-loader-popup");
+        popupPreloader.show("fast");
+        $(".popup").html("");
         //console.log(Arr);
         $.ajax({
             type: "POST",
             url: "/Partials/Ordering",
             success: function (data) {
                 $(".popup").html(data);
+                popupPreloader.hide("fast");
             }
         });
+
     });
 }
 
@@ -158,8 +164,6 @@ function GetPrice() {
         }
     });
 }
-
-
 
 function Load() {}
 function FilterPosition() {}

@@ -118,6 +118,8 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         var popup = $(".popup");
         var darkBackground = $(".dark_background");
         var authorization = $(".authorization");
+        var popupPreloader = $(".pre-loader-popup");
+        popupPreloader.show("fast");
         //$scope.loader = false;
 
         $http.get("/Partials/Cart").success(function (page) {
@@ -126,6 +128,7 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             darkBackground.show("slow");
             popup.html(page);
             ReloadAuthorization(600);
+            popupPreloader.hide("fast");
         });
     }
     $scope.UserName = "";

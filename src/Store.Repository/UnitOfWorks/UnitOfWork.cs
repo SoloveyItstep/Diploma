@@ -8,6 +8,7 @@ using Store.Entity;
 using Store.Entity.Context;
 using Microsoft.Data.Entity;
 using System.Linq.Expressions;
+using Store.Entity.Order;
 
 namespace Store.Repository.UnitOfWorks
 {
@@ -22,7 +23,9 @@ namespace Store.Repository.UnitOfWorks
                           IAppleColorRepository<AppleColor> appleColorRepository,
                           IImageRepository<Image> imageRepository,
                           IColorRepository<Color> colorRepository,
-                          ICurrencyRepository<Currency> currency)
+                          ICurrencyRepository<Currency> currency,
+                          IOrdersRepository<Orders> orders,
+                          IAppleOrdersRepository<AppleOrders> appleOrders)
         {
             this.context = context;
             this.Apple = appleRepository;
@@ -33,6 +36,8 @@ namespace Store.Repository.UnitOfWorks
             this.Color = colorRepository;
             this.ProductDetails = productDetailsRepository;
             this.Currency = currency;
+            this.Orders = orders;
+            this.AppleOrders = appleOrders;
         }
 
         public IAppleRepository<Apple> Apple { get; set; }
@@ -43,6 +48,8 @@ namespace Store.Repository.UnitOfWorks
         public IImageRepository<Image> Image { get; set; }
         public IProductDetailsRepository<ProductDetails> ProductDetails { get; set; }
         public ICurrencyRepository<Currency> Currency { get; set; }
+        public IOrdersRepository<Orders> Orders { get; set; }
+        public IAppleOrdersRepository<AppleOrders> AppleOrders { get; set; }
         public int Commit()
         {
             return Apple.Save();

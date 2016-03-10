@@ -238,7 +238,13 @@ textarea:focus, input:focus{
     max-height: 47px;
     padding-top: 2px;
 }
-
+.pre-loader-popup{
+    height: 400px;
+    position: static;
+    margin-top: -50px;
+    background-color: lightgray;
+    padding-top: 50px;
+}
 
 @media (min-width: 1200px){
     

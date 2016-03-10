@@ -27,7 +27,12 @@ body{
     font-family: OpenSans-Light;
     font-size: 15px;
 }
-
+.main{
+    min-height: 1000px;
+}
+.admin-top-links{
+    margin-top: 40px;
+}
 
 
 @keyframes rotateFall {

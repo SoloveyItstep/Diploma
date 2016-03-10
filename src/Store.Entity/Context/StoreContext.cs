@@ -17,6 +17,7 @@ namespace Store.Context.Context
         public DbSet<ProductDetails> ProductDetails { get; set; }
         public DbSet<Currency> Currency { get; set; }
         public DbSet<Orders> Orders { get; set; }
+        public DbSet<AppleOrders> AppleOrders { get; set; }
         public int Save()
         {
             return base.SaveChanges();

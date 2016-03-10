@@ -6,7 +6,7 @@
     var movedUnderline = $(".moved-underline");
     var newUserField = $(".new-user-order-field");
     var steadyCustomerField = $(".steady-customer-order-field");
-
+    var submit = $(".cart-ordering-submit-button");
 
     var stL = steadyCustomer.offset().left - $(".authorization").offset().left;
     var nu = newUser.offset().left - $(".authorization").offset().left + 3;
@@ -80,6 +80,16 @@
                     });
 
                 }
+            }
+        });
+    });
+
+    submit.click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/cart/PlaceAnOrder/"+$(".ordering-form").serialize(),
+            success: function (result) {
+                console.log(result);
             }
         });
     });

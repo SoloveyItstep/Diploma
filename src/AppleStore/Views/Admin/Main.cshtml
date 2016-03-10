@@ -8,10 +8,62 @@
     <link rel="stylesheet" asp-href-include="~/css/Admin/*.css" />
 }
 <div class="main">
-   
+        <div class="container admin-top-links">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 button-column">
+                    <a href="#" class="btn btn-block btn-default btn-lg active">СПИСОК ТОВАРОВ</a>
+                </div><!--end div ordering-list-button-column-->
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 button-column">
+                    <a href="#" class="btn btn-block btn-primary  btn-lg">КАТАЛОГ ТОВАРОВ</a>
+                </div><!--end div ordering-list-button-column-->
+               
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 button-column">
+                    <a href="#" class="btn btn-block btn-primary  btn-lg">СПИСОК ПОЛЬЗОВАТЕЛЕЙ</a>
+                </div><!--end div ordering-list-button-column-->
+
+            </div><!--end div row-->
+        </div><!--end div admin-top-links-->
+
+        <div class="container admin-orders-list-main">
+            <div class="row">
+                <div class="col-xs-12 orders-table-div">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <td>#</td>
+                                <td>Дата</td>
+                                <td>Пользователь</td>
+                                <td>Товары</td>
+                                <td>Сумма</td>
+                                <td>Оплата</td>
+                                <td>Доставка</td>
+                                <td>Адрес доставки</td>
+                                <td>Статус</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="order in orderslist">
+                                <td>{{order.OrderNumber}}</td><!--Номер заказа-->
+                                <td>{{order.Date}}</td><!--Дата-->
+                                <td>{{users[$index].UserName}}</td><!--Имя пользователя-->
+                                <td>{{order.AppleOrders | GoodsCount}}</td><!--Товары-->
+                                <td>{{order.Sum}} $</td><!--Сумма-->
+                                <td>{{order.Payment}}</td><!--Оплата-->
+                                <td>{{order.Delivery}}</td><!--Доставка-->
+                                <td>{{users[$index].Address}}</td><!--Адрес доставки-->
+                                <td>{{order.Status}}</td><!--Статус-->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!--end div row-->
+        </div><!--end div admin-orders-list-main-->
 </div>
 
 @section Scripts{
+<script type="text/javascript" src="~/lib/signalr/jquery.signalR.min.js"></script>
+    <script type="text/javascript" src="/signalr/js"></script>
     <script type="text/javascript" asp-src-include="~/js/Admin/appOrders/*.js"></script>
 <script type="text/javascript" asp-src-include="~/js/Admin/*.js"></script>
 }

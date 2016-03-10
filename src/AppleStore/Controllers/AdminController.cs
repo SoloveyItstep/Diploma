@@ -18,20 +18,14 @@ namespace AppleStore.Controllers
     [Authorize(Roles = "Admin, SuperAdmin")]
     public class AdminController : Controller
     {
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IEmailSender emailSender;
         private readonly ApplicationDbContext context;
         private readonly IUnitOfWork unitOfWork;
 
-        public AdminController(UserManager<ApplicationUser> userManager,
-                               SignInManager<ApplicationUser> signInManager,
-                               IEmailSender emailSender,
+        public AdminController(IEmailSender emailSender,
                                ApplicationDbContext context,
                                IUnitOfWork unitOfWork)
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
             this.emailSender = emailSender;
             this.context = context;
             this.unitOfWork = unitOfWork;
@@ -49,5 +43,7 @@ namespace AppleStore.Controllers
             ViewData["Role"] = role;
             return View();
         }
+
+
     }
 }

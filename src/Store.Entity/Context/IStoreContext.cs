@@ -16,6 +16,7 @@ namespace Store.Entity.Context
         DbSet<Image> Image { get; set; }
         DbSet<Currency> Currency { get; set; }
         DbSet<Orders> Orders { get; set; }
+        DbSet<AppleOrders> AppleOrders { get; set; }
         Int32 Save();
         Task<Int32> SaveAsync();
     }

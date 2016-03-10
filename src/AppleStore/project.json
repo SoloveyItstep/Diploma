@@ -11,6 +11,9 @@
         "angularjs": "1.4.6",
         "AngularJS.Animate": "1.4.6",
         "Currency": "",
+        "Microsoft.AspNet.SignalR": "2.2.0",
+        "Microsoft.AspNet.SignalR.Core": "2.2.0",
+        "Microsoft.AspNet.SignalR.Owin": "1.2.2",
         "Microsoft.AspNet.Authentication.Facebook": "1.0.0-rc1-final",
         "Microsoft.AspNet.Authentication.Google": "1.0.0-rc1-final",
         "Microsoft.AspNet.Authentication.OAuth": "1.0.0-rc1-final",
@@ -43,7 +46,8 @@
         "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
         "Store.Entity": "",
         "Store.Repository": "",
-        "Twilio": "4.5.0"
+        "Twilio": "4.5.0",
+        "Microsoft.AspNet.Owin": "1.0.0-rc1-final"
     },
     "exclude": [
         "wwwroot",

@@ -26,6 +26,10 @@ using AppleStore.DataServices.Cart.Interfaces;
 using AppleStore.DataServices.Cart.Service;
 using Microsoft.AspNet.Authentication.OAuth;
 using Microsoft.AspNet.Http;
+using Store.Entity.Order;
+using AppleStore.Services.Hubs;
+using AppleStore.DataServices.Hubs.Interfaces;
+using AppleStore.DataServices.Hubs.Facade;
 
 namespace AppleStore
 {
@@ -103,7 +107,10 @@ namespace AppleStore
             services.AddTransient<ICurrencyRepository<Store.Entity.Currency>, CurrencyRepository>();
             services.AddTransient<IUnitOfWork,UnitOfWork>();
             services.AddTransient<ICurrencyUSD, CurrencyUSD>();
+            services.AddTransient<IOrderHubFacade, OrderHubFacade>();
             services.AddTransient<IRegisterLoginErrorsLanguage, RegisterLoginErorsLanguage>();
+            services.AddTransient<IOrdersRepository<Orders>,OrdersRepository>();
+            services.AddTransient<IAppleOrdersRepository<AppleOrders>, AppleOrdersRepository>();
             services.AddTransient<IMD5Hash, MD5Hash>();
             //services.Configure<AuthMessageSenderOptions>(Configuration);
 
@@ -164,8 +171,8 @@ namespace AppleStore
 
             app.UseStaticFiles();
 
+            app.UseSignalR2();
             
-
             app.UseIdentity();
             app.UseSession();
             app.UseCookieAuthentication((cookieOptions) =>

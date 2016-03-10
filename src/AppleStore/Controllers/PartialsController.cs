@@ -79,18 +79,7 @@ namespace AppleStore.Controllers
             //====Cart Data==============
             Dictionary<Int32, Int32> cart = HttpContext.Session.
                     GetObjectFromJson<Dictionary<Int32, Int32>>("cart");
-            if (cart == null)
-            {
-                cart = new Dictionary<int, int>();
-                cart.Add(40, 1);
-                cart.Add(41, 2);
-                cart.Add(43, 3);
-                cart.Add(6, 1);
-                cart.Add(7, 5);
-                cart.Add(8, 2);
-                HttpContext.Session.SetObjectAsJson("cart", cart);
-            }
-
+            String language = HttpContext.Session.GetString("language");
             var apple = await unitOfWork.GetCartData(cart);
             Dictionary<Int32,Decimal> price = new Dictionary<Int32, Decimal>();
             foreach (var a in apple)
@@ -98,7 +87,7 @@ namespace AppleStore.Controllers
 
             HttpContext.Session.SetObjectAsJson("price", price);
             //=========Return View================
-            String language = HttpContext.Session.GetString("language");
+            
             if (language == "EN" || language == null)
                 return View("Cart.en-US",apple);
             return View("Cart.ru-RU",apple);

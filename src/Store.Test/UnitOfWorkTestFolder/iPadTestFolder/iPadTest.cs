@@ -27,7 +27,9 @@ namespace Store.Test.UnitOfWorkTestFolder.iPadTestFolder
                     new AppleColorRepository(context),
                     new ImageRepository(context),
                     new ColorRepository(context),
-                    new CurrencyRepository(context));
+                    new CurrencyRepository(context),
+                    new OrdersRepository(context),
+                    new AppleOrdersRepository(context));
                 }
                 return unOfWork;
             } }

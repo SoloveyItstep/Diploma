@@ -96,12 +96,15 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         var popup = $(".popup");
         var darkBackground = $(".dark_background");
         var authorization = $(".authorization");
+        var popupPreloader = $(".pre-loader-popup");
+        popupPreloader.show("fast");
         //$scope.loader = false;
 
         $http.get("/Partials/Cart").success(function (page) {
 
             authorization.show("slow");
             darkBackground.show("slow");
+            popupPreloader.hide("fast");
             popup.html(page);
             setTimeout(function () {
                 authorization.css("left", "50%");

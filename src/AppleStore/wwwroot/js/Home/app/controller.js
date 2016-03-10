@@ -39,6 +39,8 @@ app.controller("SearchCtrl", function ($scope, $http) {
         var popup = $(".popup");
         var darkBackground = $(".dark_background");
         var authorization = $(".authorization");
+        var popupPreloader = $(".pre-loader-popup");
+        popupPreloader.show("fast");
         //$scope.loader = false;
 
         $http.get("/Partials/Cart").success(function (page) {
@@ -49,13 +51,17 @@ app.controller("SearchCtrl", function ($scope, $http) {
             popup.css("margin-top", "10px");
             authorization.css("left", "50%");
             authorization.css("margin-left", "-300px");
+            popupPreloader.hide("fast");
             ReloadAuthorization(600);
         });
     }
     $scope.popupLK = function(){
+        var popupPreloader = $(".pre-loader-popup");
+        popupPreloader.show("fast");
         $http.post("/Partials/Login").success(function (page) {
             $(".popup").html(page);
             $scope.GetUserName();
+            popupPreloader.hide("fast");
         });
     };
     $scope.register = function (data) {
@@ -68,7 +74,6 @@ app.controller("SearchCtrl", function ($scope, $http) {
     //        $(".lk").attr("title", user);
     //        $("#lk-img").attr("src", "/images/HomeLayout/lk_login.png");
     //        $("#lk-img").attr("onmouseout", "this.src = '/images/HomeLayout/lk_login.png'");
-
     //    }
     //});
     $scope.GetUserName = function () {

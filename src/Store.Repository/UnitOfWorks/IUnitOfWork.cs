@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using Store.Entity.Order;
 
 namespace Store.Repository.UnitOfWorks
 {
@@ -18,6 +19,8 @@ namespace Store.Repository.UnitOfWorks
         IDetailNamesRepository<DetailNames> DetailNames { get; set; }
         IImageRepository<Image> Image { get; set; }
         ICurrencyRepository<Currency> Currency { get; set; }
+        IOrdersRepository<Orders> Orders { get; set; }
+        IAppleOrdersRepository<AppleOrders> AppleOrders { get; set; }
         Int32 Commit();
         Task<Int32> CommitAsync();
 

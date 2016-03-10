@@ -95,6 +95,8 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         var popup = $(".popup");
         var darkBackground = $(".dark_background");
         var authorization = $(".authorization");
+        var popupPreloader = $(".pre-loader-popup");
+        popupPreloader.show("fast");
         //$scope.loader = false;
 
         $http.get("/Partials/Cart").success(function (page) {
@@ -102,6 +104,7 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             authorization.show("slow");
             darkBackground.show("slow");
             popup.html(page);
+            popupPreloader.hide("fast");
             setTimeout(function () {
                 authorization.css("left", "50%");
                 authorization.css("margin-left", "-300px");

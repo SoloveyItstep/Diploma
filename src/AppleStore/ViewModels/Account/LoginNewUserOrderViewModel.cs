@@ -10,6 +10,7 @@ namespace AppleStore.ViewModels.Account
 {
     public class LoginNewUserOrderViewModel
     {
+        public LoginNewUserOrderViewModel() { }
         public LoginNewUserOrderViewModel(String language)
         {
             Language = language;

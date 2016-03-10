@@ -3,9 +3,9 @@ using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Data.Entity.Metadata;
 using Microsoft.Data.Entity.Migrations;
-using Store.Context.Context;
+using AppleStore.Context.Context;
 
-namespace AppleStore.Migrations
+namespace AppleStore.Migrations.Store
 {
     [DbContext(typeof(StoreContext))]
     partial class StoreContextModelSnapshot : ModelSnapshot
@@ -132,6 +132,8 @@ namespace AppleStore.Migrations
 
                     b.Property<int>("AppleID");
 
+                    b.Property<int?>("Count");
+
                     b.Property<int>("OrderID");
 
                     b.Property<int?>("OrdersOrdersID");
@@ -145,23 +147,27 @@ namespace AppleStore.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Date")
-                        .HasAnnotation("MaxLength", 10);
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 20);
 
-                    b.Property<string>("Delivary")
+                    b.Property<string>("Delivery")
                         .HasAnnotation("MaxLength", 12);
 
                     b.Property<string>("OrderNumber")
+                        .IsRequired()
                         .HasAnnotation("MaxLength", 8);
 
                     b.Property<string>("Payment")
                         .HasAnnotation("MaxLength", 15);
 
                     b.Property<string>("Status")
+                        .IsRequired()
                         .HasAnnotation("MaxLength", 12);
 
                     b.Property<decimal>("Sum");
 
                     b.Property<string>("UserID")
+                        .IsRequired()
                         .HasAnnotation("MaxLength", 36);
 
                     b.HasKey("OrdersID");

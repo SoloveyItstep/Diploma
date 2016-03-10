@@ -1,12 +1,7 @@
-﻿var iPad = [];
-var iPod = [];
-var iPhone = [];
-var Accessories = [];
-var Watch = [];
-var Mac = [];
-var TV = [];
+﻿var Users = [];
+var Orders = [];
 
-app.controller("AdminCtrl", function ($scope, $http, $timeout, $location, $window) {
+app.controller("AdminCtrl", function ($scope, $http, $timeout, $location, $window,signalR) {
     $scope.loader = false;
     
     //=============_AdminLayout data===========================
@@ -15,6 +10,28 @@ app.controller("AdminCtrl", function ($scope, $http, $timeout, $location, $windo
     $scope.language = "";
     $scope.maxpages = 0;
     $scope.pages = [];
+
+    signalR.client.AddOrder = function (user, order) {
+        console.log(user);
+        console.log(order);
+        var tmp = [];
+        tmp.push(user);
+        for (var i = 0; i < $scope.users.length; ++i) {
+            tmp.push($scope.users[i]);
+        }
+        $scope.users = tmp;
+
+        tmp = [];
+        tmp.push(order);
+        for (var i = 0; i < $scope.orderslist.length; ++i) {
+            tmp.push($scope.orderslist[i]);
+        }
+        $scope.orderslist = tmp;
+        tmp = [];
+        $scope.$apply();
+        console.log($scope.users);
+        console.log($scope.orderslist);
+    }
 
     $http.get("/api/user/currentlanguage").success(function (language) {
         $scope.language = language.toUpperCase();
@@ -50,13 +67,21 @@ app.controller("AdminCtrl", function ($scope, $http, $timeout, $location, $windo
             ReloadAuthorization(600);
         });
     }
-    $scope.UserName = "";
-    $http.get("/api/user/currentuser").success(function (user) {
-        if (user != null && user != "") {
-            
-        }
-    });
+    //$scope.UserName = "";
+    //$http.get("/api/user/currentuser").success(function (user) {
+    //    if (user != null && user != "") {            
+    //    }
+    //});
     
+    $http.post("/cart/getorders").success(function (orders) {
+        console.log(orders);
+        $scope.orderslist = orders;
+        $http.post("/cart/getorderusers").success(function (users) {
+            console.log(users);
+            $scope.users = users;
+            $scope.loader = true;
+        });
+    });
     //========================================
     
     var date = new Date();
@@ -65,4 +90,9 @@ app.controller("AdminCtrl", function ($scope, $http, $timeout, $location, $windo
     });
     
     $scope.loader = true;
+})
+.filter('GoodsCount', function () {
+    return function (arr) {
+        return arr.length + " Позиций";
+    };
 });
