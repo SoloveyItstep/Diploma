@@ -10,6 +10,7 @@ using Microsoft.Extensions.CodeGeneration;
 using AppleStore.Services;
 using AppleStore.Models.RegisterLogin;
 using Store.Repository.UnitOfWorks;
+using Store.Entity.Order;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -44,6 +45,12 @@ namespace AppleStore.Controllers
             return View();
         }
 
-
+        public async Task<IActionResult> OrderPage(String id)
+        {
+            var order = await unitOfWork.Orders.GetByOrderId(id);
+            var user = context.Users.Where(u => u.Id == order.UserID).FirstOrDefault();
+            ViewData["User"] = user;
+            return View(order);
+        }
     }
 }

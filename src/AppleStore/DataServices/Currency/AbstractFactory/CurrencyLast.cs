@@ -35,7 +35,7 @@ namespace AppleStore.DataServices.Currency.AbstractFactory
                 try {
                     unitOfWork.Currency.Add(c);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     throw new Exception(ex.Message);
                 }

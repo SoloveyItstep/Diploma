@@ -28,12 +28,19 @@ body{
     font-size: 15px;
 }
 .main{
-    min-height: 1000px;
+    min-height: 900px;
 }
 .admin-top-links{
     margin-top: 40px;
 }
-
+.admin-orders-list-main{
+    margin-top: 40px;
+}
+.ordering-paging{
+    position:relative;
+    margin-top: 40px;
+    width: 100%;
+}
 
 @keyframes rotateFall {
     0%      { transform: rotateZ(0deg); }

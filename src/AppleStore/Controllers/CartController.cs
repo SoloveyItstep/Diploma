@@ -13,6 +13,7 @@ using AppleStore.DataServices.Cart.Interfaces;
 using AppleStore.DataServices.Hubs.Interfaces;
 using Store.Entity.Order;
 using Store.Entity;
+using System.Diagnostics;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -160,6 +161,16 @@ namespace AppleStore.Controllers
                 list.Add(context.Users.Where(u => u.Id == ord.UserID).FirstOrDefault());
             }
             return list.ToArray();
+        }
+
+        [HttpPost]
+        public async Task ChangeOrderStatus(Int32 OrderID,String Status)
+        {
+            var order = await unitOfWork.Orders.Find(ord => ord.OrdersID == OrderID);
+            order.Status = Status;
+            await unitOfWork.CommitAsync();
+            order = await unitOfWork.Orders.Find(ord => ord.OrdersID == OrderID);
+            adminOrder.ChangeStatus(OrderID, Status);
         }
     }
 }

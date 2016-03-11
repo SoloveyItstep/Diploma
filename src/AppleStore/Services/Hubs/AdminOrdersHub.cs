@@ -21,5 +21,10 @@ namespace AppleStore.Services.Hubs
             Clients.All.AddOrder(user,order);
         }
 
+        public void ChangeStatus(Int32 id, String status)
+        {
+            Clients.All.ChangeStatus(id, status);
+        }
+
     }
 }

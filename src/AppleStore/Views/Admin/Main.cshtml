@@ -43,7 +43,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="order in orderslist">
+                            <tr ng-repeat="order in orders">
                                 <td>{{order.OrderNumber}}</td><!--Номер заказа-->
                                 <td>{{order.Date}}</td><!--Дата-->
                                 <td>{{users[$index].UserName}}</td><!--Имя пользователя-->
@@ -52,13 +52,35 @@
                                 <td>{{order.Payment}}</td><!--Оплата-->
                                 <td>{{order.Delivery}}</td><!--Доставка-->
                                 <td>{{users[$index].Address}}</td><!--Адрес доставки-->
-                                <td>{{order.Status}}</td><!--Статус-->
+
+                                <td ng-if='order.Status == "New         "'>
+                                    <a href="/Admin/OrderPage/{{order.OrderNumber}}" ng-click="orderclick(order.Status,order.OrdersID)" 
+                                       target="_blank" class="btn btn-success">Новый</a>
+                                </td><!--Статус (Новый)-->
+                                <td ng-if="order.Status == 'InProgress  '">
+                                    <a  href="/Admin/OrderPage/{{order.OrderNumber}}" ng-click="orderclick(order.Status,order.OrdersID)" 
+                                       target="_blank" class="btn btn-warning">В обработке</a>
+                                </td><!--Статус (В обработке)-->
+                                <td ng-if="order.Status == 'Executed   '">
+                                    <a href="/Admin/OrderPage/{{order.OrderNumber}}" ng-click="orderclick(order.Status,order.OrdersID)" 
+                                       target="_blank" class="btn btn-default">Выполненный</a>
+                                </td><!--Статус (Старый)-->
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div><!--end div row-->
         </div><!--end div admin-orders-list-main-->
+    
+        <div class="col-xs-12 ordering-paging text-center">
+            <ul class="pagination">
+                <li><a href="#" class="previous-pages" ng-click="pageclick(1)">&laquo;</a></li>
+                <li ng-repeat="page in paging" class="pages-li">
+                    <a href="#" id="page{{page}}" ng-click="pageclick(page)">{{page}}</a>
+                </li>
+                <li><a href="#" class="next-pages" ng-click="pageclick(totalPages)">&raquo;</a></li>
+            </ul>
+        </div>
 </div>
 
 @section Scripts{

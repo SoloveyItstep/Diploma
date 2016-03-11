@@ -17,9 +17,16 @@ namespace AppleStore.DataServices.Hubs.Facade
         {
             hub = GlobalHost.ConnectionManager.GetHubContext<AdminOrdersHub>();
         }
+
+        public void ChangeStatus(int id, string status)
+        {
+            hub.Clients.All.ChangeStatus(id, status);
+        }
+
         public void SendNewOrder(ApplicationUser user, Orders order)
         {
             hub.Clients.All.AddOrder(user,order);
         }
+
     }
 }

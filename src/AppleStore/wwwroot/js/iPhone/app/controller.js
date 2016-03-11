@@ -50,11 +50,12 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
                 if (user != null && user != "") {
                     $scope.UserName = user;
                     $(".lk").attr("title", user);
+
                 }
             });
         }, 2000);
     };
-    //==================Mac data==============================
+    //==================iPhone data==============================
     $scope.mac = [];
     $scope.elements = [];
     $scope.filters = [];
@@ -159,8 +160,11 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     }
 
     $scope.popupLK = function(){
+        var popupPreloader = $(".pre-loader-popup");
+        popupPreloader.show("fast");
         $http.post("/Partials/Login").success(function (page) {
             $(".popup").html(page);
+            popupPreloader.hide("fast");
             $scope.GetUserName();
         });
     };

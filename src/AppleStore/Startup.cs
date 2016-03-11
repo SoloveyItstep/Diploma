@@ -24,12 +24,12 @@ using AppleStore.DataServices.Currency.Interfaces;
 using AppleStore.DataServices.Currency.AbstractFactory;
 using AppleStore.DataServices.Cart.Interfaces;
 using AppleStore.DataServices.Cart.Service;
-using Microsoft.AspNet.Authentication.OAuth;
-using Microsoft.AspNet.Http;
 using Store.Entity.Order;
 using AppleStore.Services.Hubs;
 using AppleStore.DataServices.Hubs.Interfaces;
 using AppleStore.DataServices.Hubs.Facade;
+using Microsoft.AspNet.Http;
+using Microsoft.AspNet.Identity;
 
 namespace AppleStore
 {
@@ -78,7 +78,7 @@ namespace AppleStore
             //services.AddAuthentication(auth => auth.)
             //services.AddAuthentication(options =>
             //{
-                
+            //    options.SignInScheme
             //});
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -94,9 +94,9 @@ namespace AppleStore
             });
 
             // Add application services.
+            services.AddScoped<IStoreContext, StoreContext>();
             services.AddTransient<IEmailSender, MessageService>();
             services.AddTransient<ISmsSender, MessageService>();
-            services.AddScoped<IStoreContext, StoreContext>();
             services.AddTransient<IAppleRepository<Apple>, AppleRepository>();
             services.AddTransient<ICategoriesRepository<Categories>, CategoriesRepository>();
             services.AddTransient<IImageRepository<Image>, ImageRepository>();
@@ -175,11 +175,17 @@ namespace AppleStore
             
             app.UseIdentity();
             app.UseSession();
+
+            //////======================
+
+
+            ////////////===================
             app.UseCookieAuthentication((cookieOptions) =>
             {
                 cookieOptions.AutomaticAuthenticate = true;
                 cookieOptions.AutomaticChallenge = true;
                 cookieOptions.CookieName = ".StoreCookie";
+                cookieOptions.LoginPath = new PathString("/Auth/Login");
             });
 
             app.UseGoogleAuthentication(google => {

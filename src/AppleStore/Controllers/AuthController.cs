@@ -76,6 +76,12 @@ namespace AppleStore.Controllers
             return "false";           
         }
 
+        public IActionResult Login(string ReturnUrl = null)
+        {
+            ViewData["ReturnUrl"] = ReturnUrl;
+            return View("Login-En");
+        }
+
         [ValidateAntiForgeryToken]
         public String Register(RegisterViewModel model,String returnUrl)
         {

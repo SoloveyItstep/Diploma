@@ -11,6 +11,8 @@ namespace AppleStore.DataServices.Hubs.Interfaces
     public interface IOrderHubFacade
     {
         void SendNewOrder(ApplicationUser user, Orders order);
+
+        void ChangeStatus(Int32 id, String status);
         
     }
 }

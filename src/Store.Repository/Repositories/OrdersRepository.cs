@@ -28,7 +28,7 @@ namespace Store.Repository.Repositories
 
         public async Task<Orders[]> GetNotExecuted()
         {
-            return await (context as DbContext).Set<Orders>().Where(o => o.Status != "executed")
+            return await (context as DbContext).Set<Orders>().Where(o => o.Status != "Executed")
                 .Include(o => o.AppleOrders).ThenInclude(a => a.Apple).ToArrayAsync();
         }
 
