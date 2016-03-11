@@ -74,13 +74,7 @@ namespace AppleStore
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
                 .AddDbContext<StoreContext>(options =>
                     options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
-
-            //services.AddAuthentication(auth => auth.)
-            //services.AddAuthentication(options =>
-            //{
-            //    options.SignInScheme
-            //});
-
+            
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -130,15 +124,7 @@ namespace AppleStore
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            //app.UseGoogleAuthentication(google => {
-
-            //});
-
-            //app.UseMicrosoftAccountAuthentication(microsoft =>
-            //{
-
-            //});
+            
 
             app.UseApplicationInsightsRequestTelemetry();
 

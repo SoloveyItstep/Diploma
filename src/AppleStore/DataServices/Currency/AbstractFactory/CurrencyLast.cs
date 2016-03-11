@@ -23,8 +23,8 @@ namespace AppleStore.DataServices.Currency.AbstractFactory
 
         public async void CreateCurrency()
         {
-            var curr = await GetLastFromDB();
-
+            //var curr = await GetLastFromDB();
+            var curr = await unitOfWork.Currency.GetLast();
             if (curr == null || curr.Date != data.date.ToShortDateString())
             {
                 var c = new Store.Entity.Currency()
