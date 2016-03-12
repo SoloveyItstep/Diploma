@@ -87,7 +87,10 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     });
 
     $scope.popupLK = function () {
+        var popupPreloader = $(".pre-loader-popup");
+        popupPreloader.show("fast");
         $http.post("/Partials/Login").success(function (page) {
+            popupPreloader.hide("fast");
             $(".popup").html(page);
             $scope.GetUserName();
         });
@@ -126,6 +129,14 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
 
     var date = new Date();
     
+    $http.post("/cart/ItemsExist").success(function (response) {
+        if(response)
+        {
+            var cartImg = $("#kart-img");
+            cartImg.attr("src", "/images/HomeLayout/cart_fool.png");
+            cartImg.attr("onmouseout", "this.src = '/images/HomeLayout/cart_fool.png'");
+        }
+    });
 
     $scope.cartmessage = "";
     $scope.addtocart = function (id) {
@@ -141,7 +152,9 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
                     message.show("fast");
                     $scope.cartmessage = "Успешно добавлено.";
                 }
-
+                var cartImg = $("#kart-img");
+                cartImg.attr("src", "/images/HomeLayout/cart_fool.png");
+                cartImg.attr("onmouseout", "this.src = '/images/HomeLayout/cart_fool.png'");
             }
             else {
                 if ($scope.language == "EN") {

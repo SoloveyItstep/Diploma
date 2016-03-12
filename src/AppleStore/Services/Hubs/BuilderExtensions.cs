@@ -27,11 +27,13 @@ namespace AppleStore.Services.Hubs
                 
                 
             });
+            
             return app;
         }
 
         public static void UseSignalR2(this IApplicationBuilder app)
         {
+            
             app.UseAppBuilder(builder => builder.MapSignalR());
         }
     }

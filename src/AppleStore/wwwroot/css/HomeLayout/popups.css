@@ -239,7 +239,8 @@ textarea:focus, input:focus{
     padding-top: 2px;
 }
 .pre-loader-popup{
-    height: 400px;
+    min-height: 400px;
+    min-width: 400px;
     position: static;
     margin-top: -50px;
     background-color: lightgray;

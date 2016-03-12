@@ -110,10 +110,21 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     }
     
     $scope.popupLK = function () {
+        var popupPreloader = $(".pre-loader-popup");
+        popupPreloader.show("fast");
         $http.post("/Partials/Login").success(function (page) {
+            popupPreloader.hide("fast");
             $(".popup").html(page);
         });
     };
+
+    $http.post("/cart/ItemsExist").success(function (response) {
+        if (response) {
+            var cartImg = $("#kart-img");
+            cartImg.attr("src", "/images/HomeLayout/cart_fool.png");
+            cartImg.attr("onmouseout", "this.src = '/images/HomeLayout/cart_fool.png'");
+        }
+    });
     $scope.cart = function () {
         var popup = $(".popup");
         var darkBackground = $(".dark_background");

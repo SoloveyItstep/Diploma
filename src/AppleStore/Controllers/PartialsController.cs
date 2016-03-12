@@ -80,6 +80,8 @@ namespace AppleStore.Controllers
             Dictionary<Int32, Int32> cart = HttpContext.Session.
                     GetObjectFromJson<Dictionary<Int32, Int32>>("cart");
             String language = HttpContext.Session.GetString("language");
+            if (cart == null)
+                cart = new Dictionary<int, int>();
             var apple = await unitOfWork.GetCartData(cart);
             Dictionary<Int32,Decimal> price = new Dictionary<Int32, Decimal>();
             foreach (var a in apple)
@@ -144,5 +146,11 @@ namespace AppleStore.Controllers
             return PartialView("SteadyCustomerOrderingRu", login);
         }
 
+        public IActionResult PlacedOrderInfo(Boolean id)
+        {
+            String language = HttpContext.Session.GetString("language");
+            ViewData["Placed"] = id;
+            return View("PlacedOrderInfo", language);
+        }
     }
 }

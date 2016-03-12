@@ -87,9 +87,20 @@
     submit.click(function () {
         $.ajax({
             type: "POST",
-            url: "/cart/PlaceAnOrder/"+$(".ordering-form").serialize(),
+            data: $(".ordering-form").serialize(),
+            url: "/cart/PlaceAnOrder/",
             success: function (result) {
-                console.log(result);
+                var cartImg = $("#kart-img");
+                cartImg.attr("src", "/images/HomeLayout/kart.png");
+                cartImg.attr("onmouseout", "this.src = '/images/HomeLayout/kart.png'");
+
+                $.ajax({
+                    type: "GET",
+                    url: "/partials/placedorderinfo/" + result,
+                    success: function (page) {
+                        $(".ordering-place-order-main").html(page);
+                    }
+                });
             }
         });
     });

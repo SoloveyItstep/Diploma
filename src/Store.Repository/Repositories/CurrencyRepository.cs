@@ -25,9 +25,19 @@ namespace Store.Repository.Repositories
                 return false;
             return true;
         }
-        public async Task<Currency> GetLast()
+        //public async Task<Currency> GetLastAsync()
+        //{
+        //    return await context.Currency.LastAsync();
+        //}
+        public Decimal GetLastCurrency()
         {
-            return await context.Currency.LastAsync();
+            var currency = (context as DbContext).Set<Currency>().Last();
+            return Decimal.Parse(currency.CurrencyUSD);
+        }
+
+        public Currency GetLast()
+        {
+            return (context as DbContext).Set<Currency>().Last();
         }
     }
 }

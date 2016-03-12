@@ -65,7 +65,14 @@ namespace Store.Repository.UnitOfWorks
         }
         public async Task<Apple[]> GetAppleForSearchIncludeCategories()
         {
-            return await context.Apple.Include(c => c.Categories).ToArrayAsync();
+
+            try {
+                return await context.Apple.Include(c => c.Categories).ToArrayAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         private IEnumerable<Apple> GetFirstArray()
         {

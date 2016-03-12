@@ -2,9 +2,6 @@
 app.controller("SearchCtrl", function ($scope, $http) {
     $scope.selected = undefined;
     $scope.userName = "";
-    //$http.get("/api/apple/categories").success(function (data) {
-
-    //});
     $scope.goods = [];
     $http.get("/api/apple/categories").success(function (data) {
         for (var i = 0; i < data.length; ++i) {
@@ -21,6 +18,14 @@ app.controller("SearchCtrl", function ($scope, $http) {
     $http.get("/api/user/currentlanguage").success(function (language) {
         $scope.language = language.toUpperCase();
     });
+    $http.post("/cart/ItemsExist").success(function (response) {
+        if (response) {
+            var cartImg = $("#kart-img");
+            cartImg.attr("src", "/images/HomeLayout/cart_fool.png");
+            cartImg.attr("onmouseout", "this.src = '/images/HomeLayout/cart_fool.png'");
+        }
+    });
+
     $scope.ChangeLanguage = function (language) {
         if (language == "EN") {
             $scope.language = "RU";
@@ -31,10 +36,6 @@ app.controller("SearchCtrl", function ($scope, $http) {
         $http.get("/api/user/changelanguage");
     };
     
-    //$scope.tmp = function () {
-    //    //console.log("cart clicket");
-    //}
-
     $scope.cart = function () {
         var popup = $(".popup");
         var darkBackground = $(".dark_background");

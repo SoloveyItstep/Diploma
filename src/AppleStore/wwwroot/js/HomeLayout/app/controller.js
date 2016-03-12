@@ -15,15 +15,15 @@
         $(".popup").html(page);
     });
 
-    $scope.register = function () {
-        console.log("clicked");
-    }
+    //$scope.register = function () {
+    //    console.log("clicked");
+    //}
     
     $http.get("/api/user/currentuser").success(function (user) {
-        console.log("-"+user + "- HomeLayout");
+        //console.log("-"+user + "- HomeLayout");
         if (user != null && user != "") {
             
-            console.log(user+" - HomeLayout");
+            //console.log(user+" - HomeLayout");
             $(".lk").attr("title", user);
             $("#lk-img").attr("src", "/images/HomeLayout/lk_login.png");
             $("#lk-img").attr("onmouseout", "this.src = '/images/HomeLayout/lk_login.png'");

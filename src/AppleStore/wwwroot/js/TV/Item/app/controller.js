@@ -22,6 +22,13 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     $http.post("/api/apple/currency").success(function (data) {
         $scope.currency = data;
     });
+    $http.post("/cart/ItemsExist").success(function (response) {
+        if (response) {
+            var cartImg = $("#kart-img");
+            cartImg.attr("src", "/images/HomeLayout/cart_fool.png");
+            cartImg.attr("onmouseout", "this.src = '/images/HomeLayout/cart_fool.png'");
+        }
+    });
     //===============================
     $http.get("/api/apple/categories").success(function (data) {
         for (var i = 0; i < data.length; ++i) {
@@ -87,7 +94,10 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     });
 
     $scope.popupLK = function () {
+        var popupPreloader = $(".pre-loader-popup");
+        popupPreloader.show("fast");
         $http.post("/Partials/Login").success(function (page) {
+            popupPreloader.hide("fast");
             $(".popup").html(page);
             $scope.GetUserName();
         });

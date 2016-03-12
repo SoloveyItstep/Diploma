@@ -26,6 +26,10 @@ namespace AppleStore.DataServices.Currency.AbstractFactory
                 }
                 return factory.last.GetCurrency();
             }
+            if(uah == "false")
+            {
+                return -1;
+            }
             return Decimal.Parse(uah);
         }
     }

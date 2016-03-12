@@ -172,5 +172,15 @@ namespace AppleStore.Controllers
             order = await unitOfWork.Orders.Find(ord => ord.OrdersID == OrderID);
             adminOrder.ChangeStatus(OrderID, Status);
         }
+
+        [HttpPost]
+        public Boolean ItemsExist()
+        {
+            cart.GetHttpContext(HttpContext);
+            var crt = cart.GetCounts();
+            if (crt == null || crt.Count() == 0)
+                return false;
+            return true;
+        }
     }
 }

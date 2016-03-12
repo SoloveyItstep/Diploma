@@ -10,11 +10,11 @@ namespace AppleStore.Services.Hubs
 {
     public class AdminOrdersHub: Hub
     {
-        private readonly ApplicationDbContext context;
-        public AdminOrdersHub(ApplicationDbContext context)
-        {
-            this.context = context;
-        }
+        //private readonly ApplicationDbContext context;
+        //public AdminOrdersHub(ApplicationDbContext context)
+        //{
+        //    this.context = context;
+        //}
 
         public void SendNewOrder(ApplicationUser user, Orders order)
         {

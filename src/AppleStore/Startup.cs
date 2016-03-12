@@ -177,14 +177,12 @@ namespace AppleStore
             app.UseGoogleAuthentication(google => {
                 google.ClientId = "190687279389-hv9otrqdub5uc928pch1uv2g3j4oslrf.apps.googleusercontent.com";//Configuration["Authentication:Google:AppId"];
                 google.ClientSecret = "ZwRnPODQS8zluYrdoGNoyUFW"; //Configuration["Authentication:Google:AppSecret"];
-
             });
 
             app.UseFacebookAuthentication(facebook =>
             {
                 facebook.AppId = Configuration["Authentication:Facebook:AppId"];
                 facebook.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-
             });
             
             //app.UseMicrosoftAccountAuthentication(microsoft => {

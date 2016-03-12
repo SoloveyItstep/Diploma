@@ -21,31 +21,46 @@ namespace AppleStore.DataServices.Currency.AbstractFactory
             this.unitOfWork = unitOfWork;
         }
 
-        public async void CreateCurrency()
+        public void CreateCurrency()
         {
             //var curr = await GetLastFromDB();
-            var curr = await unitOfWork.Currency.GetLast();
-            if (curr == null || curr.Date != data.date.ToShortDateString())
-            {
-                var c = new Store.Entity.Currency()
-                {
-                    CurrencyUSD = data.curency.ToString(),
-                    Date = data.date.ToShortDateString()
-                };
-                try {
-                    unitOfWork.Currency.Add(c);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
-                await unitOfWork.CommitAsync();
-            }
+            var curr = unitOfWork.Currency.GetLast();
+            //if (curr == null)
+            //{
+            //    var c = new Store.Entity.Currency()
+            //    {
+            //        CurrencyUSD = data.curency.ToString(),
+            //        Date = data.date.ToShortDateString()
+            //    };
+            //    try {
+            //        unitOfWork.Currency.Add(c);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        throw new Exception(ex.Message);
+            //    }
+            //    await unitOfWork.CommitAsync();
+            //}
+            //else if (curr.Date != data.date.ToShortDateString())
+            //{
+            //    curr.CurrencyUSD = data.curency.ToString();
+            //    curr.Date = data.date.ToShortDateString();
+            //    try
+            //    {
+            //        await unitOfWork.CommitAsync();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        throw new Exception(ex.Message);
+            //    }
+            //}
         }
 
-        private async Task<Store.Entity.Currency> GetLastFromDB()
+
+        private Store.Entity.Currency GetLastFromDB()
         {
-            return await unitOfWork.Currency.GetLast();
+  //TODO: changed on async
+            return unitOfWork.Currency.GetLast();
         }
 
         public async Task<Boolean> DateExist()

@@ -79,7 +79,11 @@
                             </div>
                         </div><!--end div new-user-delivery-field-->
                         <div class="col-xs-offset-2 col-xs-4">
-                            <input class="cart-ordering-submit-button" type="submit" value="MAKE ORDER" />
+                            <div class="col-xs-12">
+                                <div class="col-xs-offset-1">
+                                    <input class="cart-ordering-submit-button" type="button" value="MAKE ORDER" />
+                                </div>
+                            </div>
                         </div>
 
 
@@ -87,7 +91,7 @@
                 </div><!--end div col-xs-10-->
             </div><!--end div new-user-order-field-->
 
-            <div class="col-xs-12 steady-customer-order-field" style="display: none;">
+            <div class="col-xs-12 steady-customer-order-field text-center" style="display: none;">
                @{
                    if (User.Identity.IsAuthenticated)
                    {
@@ -118,7 +122,7 @@
                                 </div>
                             </div><!--end div new-user-delivery-field-->
                             <div class="col-xs-offset-2 col-xs-4">
-                                <input class="cart-ordering-submit-button" type="submit" value="MAKE ORDER" />
+                                <input class="cart-ordering-submit-button" type="button" value="MAKE ORDER" />
                             </div>
 
 
