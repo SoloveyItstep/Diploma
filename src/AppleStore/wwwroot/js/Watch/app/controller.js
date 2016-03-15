@@ -9,6 +9,24 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     $scope.maxpages = 0;
     $scope.pages = [];
 
+    //================================
+    $http.post("/api/apple/currencyvalue").success(function (value) {
+        console.log(value);
+        $scope.currencyvalue = value;
+        $scope.$apply;
+    });
+    
+    $scope.changecurrencyvalue = function () {
+        
+        if ($scope.currencyvalue == "USD") {
+            $scope.currencyvalue = "UAH"
+        }
+        else {
+            $scope.currencyvalue = "USD";
+        }
+        $http.post("/api/apple/changecurrencyvalue");
+    }
+    //================================
     $http.get("/api/apple/categories").success(function (data) {
         for (var i = 0; i < data.length; ++i) {
             if ($scope.goods.indexOf(data[i].Categories.CategoryName) == -1) {

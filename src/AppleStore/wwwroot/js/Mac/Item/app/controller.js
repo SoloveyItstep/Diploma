@@ -38,7 +38,24 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     $http.get("/api/user/currentlanguage").success(function (language) {
         $scope.language = language.toUpperCase();
     });
-
+    //================================
+    $http.post("/api/apple/currencyvalue").success(function (value) {
+        console.log(value);
+        $scope.currencyvalue = value;
+        $scope.$apply;
+    });
+    
+    $scope.changecurrencyvalue = function () {
+        
+        if ($scope.currencyvalue == "USD") {
+            $scope.currencyvalue = "UAH"
+        }
+        else {
+            $scope.currencyvalue = "USD";
+        }
+        $http.post("/api/apple/changecurrencyvalue");
+    }
+    //================================
     $scope.ChangeLanguage = function (language) {
         if (language == "EN") {
             $scope.language = "RU";

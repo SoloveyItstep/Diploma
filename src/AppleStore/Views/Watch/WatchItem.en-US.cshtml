@@ -71,8 +71,11 @@
                 <div class="col-xs-12">
                     <div class="ident"></div>
                         <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
-                            <div class="col-xs-12 price">
-                                <span>{{watch.Price}}</span> $
+                            <div class="col-xs-12 price" ng-if="currencyvalue == 'USD'">
+                                <span>{{item.Price}}</span> $
+                            </div><!--end div price-->
+                            <div class="col-xs-12 price" ng-if="currencyvalue == 'UAH'">
+                                <span>{{item.Price * currency | number:2}}</span> &#8372;
                             </div><!--end div price-->
                             <div class="col-xs-12 cart-button-column">
                                 <div class="ident"></div>
@@ -165,8 +168,11 @@
                 <div class="col-xs-12">
                     <div class="ident col-xs-12"></div>
                     <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
-                        <div class="col-xs-12 price">
-                            {{watch.Price}} $
+                        <div class="col-xs-12 price" ng-if="currencyvalue == 'USD'">
+                            <span>{{item.Price}}</span> $
+                        </div><!--end div price-->
+                        <div class="col-xs-12 price" ng-if="currencyvalue == 'UAH'">
+                            <span>{{item.Price * currency | number:2}}</span> &#8372;
                         </div><!--end div price-->
                         <div class="col-xs-12 cart-button-column">
                             <button type="button" title="Add {{watch.Model}} to Cart"

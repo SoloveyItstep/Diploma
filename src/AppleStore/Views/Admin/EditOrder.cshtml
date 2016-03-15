@@ -1,0 +1,42 @@
+﻿@model Store.Entity.Order.Orders
+@using System.Globalization
+@{
+    ViewData["Title"] = "Order Page";
+    Layout = "_AdminLayout";
+    ApplicationUser user = ViewData["User"] as ApplicationUser;
+    CultureInfo info = new CultureInfo("uk-UA");
+    var url = "/Admin/EditOrder/" + Model.OrderNumber;
+}
+@section Styles{
+
+}
+<div style="padding-top: 30px;">
+    <h2 class="text-center" style="margin-left: 50px; margin-top: 30px;">Изменение заказа</h2><br />
+    <div>
+        <h4 style="margin-left:45%">Заказ No. @Model.OrderNumber</h4>
+        <hr />
+        <div class="container">
+            <div class="row">
+                <div class="col-xs--offset-1 col-xs-10">
+                    <div class="text-center">
+                    <form asp-action="createneworder" role="form" method="post" class="edit-order-form">
+                        
+                        <input type="hidden" name="OrdersID" asp-for="OrdersID" /><br />
+                        <button type="button" class="btn btn-warning change-order-button">Изменить заказ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p>
+        <a asp-action="OrderPage" style="font-size: 20px; margin-left: 45%; padding-bottom: 20px;"
+            asp-route-id="@Model.OrderNumber">Отменить</a>
+    </p>
+</div>
+</div>
+@section Scripts{
+    <script type="text/javascript" asp-src-include="~/js/Admin/appOrderPage/*.js"></script>
+    <script type="text/javascript" asp-src-include="~/js/Admin/EditOrder/*.js"></script>
+}
+
+

@@ -247,6 +247,13 @@ textarea:focus, input:focus{
     padding-top: 50px;
 }
 
+.ordering-login-button{
+    height: 40px;
+    min-height: 35px;
+    color: white;
+    font-family: OpenSans-Light;
+}
+
 @media (min-width: 1200px){
     
 }

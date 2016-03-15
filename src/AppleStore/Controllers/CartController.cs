@@ -14,6 +14,7 @@ using AppleStore.DataServices.Hubs.Interfaces;
 using Store.Entity.Order;
 using Store.Entity;
 using System.Diagnostics;
+using Microsoft.AspNet.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -78,7 +79,8 @@ namespace AppleStore.Controllers
                 
                     var count = cart.GetCounts();
                 var apple = await unitOfWork.GetCartData(count);
-                var price = await cart.GetPrice();
+                var price = cart.GetPrice();
+                if(user.Email != "")
                     await email.SendOrder(apple, count, price, user);
 
                     Decimal sum = 0;
@@ -89,22 +91,10 @@ namespace AppleStore.Controllers
                     }
                         
 
-                    string num = unitOfWork.Orders.GetLastOrderNumber();
-                    if (num == null)
-                        num = "0000001";
-
-                    Int32 n = Int32.Parse(num);
-                    n++;
-                    num = n.ToString();
-                Int32 length = num.Length;
-                    for(var i = 0; i < 8 - length; ++i)
-                    {
-                        num = "0" + num;
-                    }
-
+                    string num = unitOfWork.Orders.GetNextOrderNumber();
                     Orders order = new Orders()
                     {
-                        Date = DateTime.Now.ToString("dd.MM.yyyy hh:mm:ss"),
+                        Date = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"),
                         Delivery = id.Delivery,
                         Payment = id.Payment,
                         Status = "New",
@@ -113,9 +103,9 @@ namespace AppleStore.Controllers
                         UserID = user.Id,
                         AppleOrders = new List<AppleOrders>()
                     };
-
-                unitOfWork.Orders.Add(order);
-                await unitOfWork.CommitAsync();
+                
+                    unitOfWork.Orders.Add(order);
+                    await unitOfWork.CommitAsync();
                 order = await unitOfWork.Orders.GetByOrderId(order.OrderNumber);
 
                 foreach (var ao in apple)
@@ -132,9 +122,11 @@ namespace AppleStore.Controllers
                     unitOfWork.Commit();
                 }
                 
-                order = await unitOfWork.Orders.GetByOrderId(num);
+                //order = await unitOfWork.Orders.GetByOrderId(num);
                 adminOrder.SendNewOrder(user,order);
-                
+                HttpContext.Session.SetObjectAsJson("cart", null);
+                HttpContext.Session.SetObjectAsJson("count", null);
+
                 return true;
             }
 
@@ -166,10 +158,21 @@ namespace AppleStore.Controllers
         [HttpPost]
         public async Task ChangeOrderStatus(Int32 OrderID,String Status)
         {
+            if (Status == "Removed" || Status == "Executed")
+                return;
             var order = await unitOfWork.Orders.Find(ord => ord.OrdersID == OrderID);
             order.Status = Status;
             await unitOfWork.CommitAsync();
-            order = await unitOfWork.Orders.Find(ord => ord.OrdersID == OrderID);
+            adminOrder.ChangeStatus(OrderID, Status);
+        }
+
+        [Authorize(Roles = "Admin,SuperAdmin")]
+        [HttpPost]
+        public async Task OrderStatusToRemove(Int32 OrderID, String Status)
+        {
+            var order = await unitOfWork.Orders.Find(ord => ord.OrdersID == OrderID);
+            order.Status = Status;
+            await unitOfWork.CommitAsync();
             adminOrder.ChangeStatus(OrderID, Status);
         }
 

@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link asp-href-include="~/css/HomeLayout/*.css" asp-append-version="true" rel="stylesheet" type="text/css" />
@@ -77,14 +78,17 @@
                                      onmouseout="this.src = '/images/HomeLayout/lk.png'" />
                             </a><!--end a class=top-navbar-item lk-img-->
                         </div><!--end div lk col-->
-                        <div class="col-xs-2">
+                        <div class="col-xs-1">
                             <a href="#" ng-click="cart()" class="navbar-item  no-nav" title="Cart">
                                 <img src="~/images/HomeLayout/kart.png" id="kart-img"
                                      onmouseover="this.src = '/images/HomeLayout/kart_hover.png'"
                                      onmouseout="this.src = '/images/HomeLayout/kart.png'" />
                             </a><!--end a class=top-navbar-item kart-img-->
                         </div><!--end div kart col-->
-                        <div class="col-xs-3  no-nav">
+                        <div class="col-xs-1  no-nav">
+                            <a href="#" id="currencyvalue" title="Currency" ng-click="changecurrencyvalue()">{{currencyvalue}}</a><!--begin & end a currencyvalue-->
+                        </div><!--end div currency value col-->
+                        <div class="col-xs-offset-1 col-xs-1  no-nav">
                             <a href="#" id="language" title="Page language" ng-click="ChangeLanguage(language)">{{language}}</a><!--begin & end a language-->
                         </div><!--end div language col-->
                     </div><!--end div top-navbar-menu-->

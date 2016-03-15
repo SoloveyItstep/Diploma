@@ -42,13 +42,14 @@ body{
 .navbar-item:hover, .navbar-item:active, .navbar-item:visited, .navbar-item:link{
     text-decoration: none;
 }
-#language{
+#language,#currencyvalue{
     position: absolute;
-    font-size: 20px;
+    font-size: 18px;
     color: #4d4c51;
     font-family: OpenSans-Light;
+    margin-left: 10px;
 }
-#language:hover{
+#language:hover,#currencyvalue:hover{
     color: #4d4c51;
     text-decoration-color: #4d4c51;
 }

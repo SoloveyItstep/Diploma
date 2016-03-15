@@ -1,17 +1,16 @@
 ﻿@model AppleStore.ViewModels.Account.LoginViewModel
-@inject SignInManager<ApplicationUser> SignInManager
+@*@inject SignInManager<ApplicationUser> SignInManager*@
 @addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
 @{
     Layout = "_HomeLayout";
+    //var loginProviders = SignInManager.GetExternalAuthenticationSchemes();
 }
-@{
-    var loginProviders = SignInManager.GetExternalAuthenticationSchemes();}
-<div class="login-page col-xs-12">
+<div class="login-page col-xs-12" style="min-height: 600px;">
     <div class="text-center" style="margin-left: 0%;">
     <div class="form-title col-xs-12">
         <span>Login</span>
     </div>
-    <form asp-controller="Auth" asp-action="Login" class="log-form" autocomplete="off" method="post" role="form">
+    <form asp-controller="Auth" asp-action="AdminLogin" class="log-form" autocomplete="off" method="post" role="form">
         <div asp-validation-summary="ValidationSummary.All" class="text-danger">
             <div class="col-xs-12">
                 <input type="text" asp-for="Email" placeholder="Email" class="popup-input" />
@@ -24,14 +23,15 @@
                     <a href="#" class="gotoreg">Register</a><br />
                     <a href="#">Forgot password</a>
                 </div>
+                <input type="hidden" value="@ViewData["ReturnUrl"]" name="ReturnUrl" />
                 <div class="col-xs-6">
-                    <button type="button" class="login-button">Login</button>
+                    <button type="submit" class="login-button">Login</button>
                 </div>
             </div>
         </div>
         <span class="text-danger error-text"></span><br />
     </form>
-    <div class="social-login" style="width: 350px; margin-left: 500px;">
+    @*<div class="social-login" style="width: 350px; margin-left: 500px;">
         <div class="col-xs-5">
             <div class="social-login-text">
                 Login By
@@ -49,54 +49,47 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div>*@
     </div>
 </div>
 @section Scripts{
 <script type="text/javascript">
     function load(){
-        setTimeout(function () {
-            $(".authorization").css("left", "50%");
-            $(".authorization").css("margin-left", "-175px");
-        }, 500);
+        //setTimeout(function () {
+        //    $(".authorization").css("left", "50%");
+        //    $(".authorization").css("margin-left", "-175px");
+        //}, 500);
     }
-    $(".authorization").css("left", "50%");
-    $(".authorization").css("margin-left", "-175px");
-    $(".popup-input").css("margin-left", "25px");
-    $(".login-button").click(function (data) {
-        $.ajax({
-            type: "POST",
-            url: "/Auth/Login",
-            data: $(".log-form").serialize(),
-            success: function (response) {
-                if (response != "true") {
-                    $(".error-text").html(response);
-                }
-                else if (response == "true") {
-                    $(".dark_background").trigger("click");
-                    $.ajax({
-                        type: "GET",
-                        url: "/api/user/currentuser",
-                        success: function (userName) {
-                            $(".lk").attr("title", userName);
-                            $("#lk-img").attr("onmouseout", "this.src = '/images/HomeLayout/lk_login.png'");
-                            $("#lk-img").attr("src", "/images/HomeLayout/lk_login.png");
-                            window.location.href = @ViewData["ReturnUrl"];
-                        }
-                    });
-                }
-            }
-        });
-    });
-    $(".gotoreg").click(function () {
-        $.ajax({
-            url: "/Partials/Register",
-            type: "POST",
-            success: function (page) {
-                $(".popup").html(page);
-            }
-        });
-    });
+    //$(".authorization").css("left", "50%");
+    //$(".authorization").css("margin-left", "-175px");
+    //$(".popup-input").css("margin-left", "25px");
+    //$(".login-button").click(function () {
+    //    console.log("clicked");
+    //    $.ajax({
+    //        type: "POST",
+    //        data: $(".log-form").serialize(),
+    //        url: "/Auth/Login",
+    //        success: function (response) {
+    //            console.log(response);
+    //            if (response != "true") {
+    //                $(".error-text").html(response);
+    //            }
+    //            else if (response == "true") {
+    //                //var url = $(".returnUrl").val();
+    //                //window.location.href = url;
+    //            }
+    //        }
+    //    });
+    //});
+    //$(".gotoreg").click(function () {
+    //    $.ajax({
+    //        url: "/Partials/Register",
+    //        type: "POST",
+    //        success: function (page) {
+    //            $(".popup").html(page);
+    //        }
+    //    });
+    //});
     function Load() {
 
     }

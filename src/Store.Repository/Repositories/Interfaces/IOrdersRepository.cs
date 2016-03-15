@@ -9,7 +9,7 @@ namespace Store.Repository.Repositories.Interfaces
     {
         Task<T[]> GetNotExecuted();
         Task<T> GetByOrderId(String orderID);
-        String GetLastOrderNumber();
+        String GetNextOrderNumber();
         Task<T[]> GetAllOrdersInclude();
     }
 }

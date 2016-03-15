@@ -45,9 +45,9 @@ namespace AppleStore.DataServices.Cart.Service
             cartData.GetContext(context);
         }
 
-        public async Task<Dictionary<int, decimal>> GetPrice()
+        public Dictionary<int, decimal> GetPrice()
         {
-            return await cartData.GetPrice();
+            return cartData.GetPrice();
         }
 
         public bool RemoveItem(int id)

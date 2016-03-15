@@ -45,7 +45,24 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     $http.get("/api/user/currentlanguage").success(function (language) {
         $scope.language = language.toUpperCase();
     });
-
+    //================================
+    $http.post("/api/apple/currencyvalue").success(function (value) {
+        console.log(value);
+        $scope.currencyvalue = value;
+        $scope.$apply;
+    });
+    
+    $scope.changecurrencyvalue = function () {
+        
+        if ($scope.currencyvalue == "USD") {
+            $scope.currencyvalue = "UAH"
+        }
+        else {
+            $scope.currencyvalue = "USD";
+        }
+        $http.post("/api/apple/changecurrencyvalue");
+    }
+    //================================
     $scope.ChangeLanguage = function (language) {
         if (language == "EN") {
             $scope.language = "RU";
@@ -150,7 +167,9 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
                     message.show("fast");
                     $scope.cartmessage = "Успешно добавлено.";
                 }
-
+                var cartImg = $("#kart-img");
+            cartImg.attr("src", "/images/HomeLayout/cart_fool.png");
+            cartImg.attr("onmouseout", "this.src = '/images/HomeLayout/cart_fool.png'");
             }
             else {
                 if ($scope.language == "EN") {

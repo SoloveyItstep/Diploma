@@ -186,10 +186,10 @@
                         {{element.Name}}
                     </div><!--end div item name-->
                     <div class="cost">
-                        <div ng-if="language == 'EN'">
+                        <div ng-if="currencyvalue == 'USD'">
                             <span class="cost-text" lang="en-us">{{element.Price}}$</span>
                         </div><!--end div if-en-->
-                        <div ng-if="language == 'RU'">
+                        <div ng-if="currencyvalue == 'UAH'">
                             <span class="cost-text" lang="ru-Ru">{{element.Price * currency | number:2}} &#8372;</span>
                         </div><!--end div if-ru-->
                     </div><!--end div cost-->

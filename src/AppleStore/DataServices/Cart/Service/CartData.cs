@@ -54,20 +54,20 @@ namespace AppleStore.DataServices.Cart.Service
             return cart;
         }
 
-        public async Task<Dictionary<int, decimal>> GetPrice()
+        public Dictionary<int, decimal> GetPrice()
         {
             var price = context.Session.GetObjectFromJson<Dictionary<Int32, Decimal>>("price");
             if (price == null)
                 price = new Dictionary<int, Decimal>();
-            if (context.Session.GetString("language") == "EN")
+            //if (context.Session.GetString("language") == "EN")
                 return price;
 
-            var rusPrice = new Dictionary<Int32, Decimal>();
-            var cur = await currency.GetCurrency();
-            foreach (var key in price.Keys)
-                rusPrice.Add(key, price[key] * cur);
+            //var rusPrice = new Dictionary<Int32, Decimal>();
+            //var cur = await currency.GetCurrency();
+            //foreach (var key in price.Keys)
+            //    rusPrice.Add(key, price[key] * cur);
 
-            return rusPrice;
+            //return rusPrice;
         }
     }
 }

@@ -28,20 +28,34 @@ namespace Store.Repository.Repositories
 
         public async Task<Orders[]> GetNotExecuted()
         {
-            return await (context as DbContext).Set<Orders>().Where(o => o.Status != "Executed")
+            return await (context as DbContext).Set<Orders>().Where(o => o.Status != "Executed    ")
                 .Include(o => o.AppleOrders).ThenInclude(a => a.Apple).ToArrayAsync();
         }
 
-        public String GetLastOrderNumber()
+        public String GetNextOrderNumber()
         {
-            if(context.Orders.Any())
-                return (context as DbContext).Set<Orders>().Last().OrderNumber;
-            return null;
+            String number = "";
+            if (context.Orders.Any())
+                number = (context as DbContext).Set<Orders>().Last().OrderNumber;
+            else
+                number = "00000001";
+
+            Int32 n = Int32.Parse(number);
+            n++;
+            number = n.ToString();
+            Int64 length = number.Length;
+            for (var i = 0; i < 8 - length; ++i)
+            {
+                number = "0" + number;
+            }
+
+            return number;
         }
 
         public async Task<Orders[]> GetAllOrdersInclude()
         {
-            return await (context as DbContext).Set<Orders>().Include(ord => ord.AppleOrders)
+            return await (context as DbContext).Set<Orders>()
+                .Where(o => o.Status != "Removed     " && o.Status != "Executed    ").Include(ord => ord.AppleOrders)
                 .ThenInclude(a => a.Apple).ToArrayAsync();
         }
     }

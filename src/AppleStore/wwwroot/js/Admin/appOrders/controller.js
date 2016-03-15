@@ -1,9 +1,9 @@
 ﻿var Users = [];
 var Orders = [];
 
-app.controller("AdminCtrl", function ($scope, $http, $timeout, $location, $window,signalR) {
+app.controller("AdminCtrl", function ($scope, $http, $timeout, $location, $window, signalR) {
     $scope.loader = false;
-    
+
     //=============_AdminLayout data===========================
     $scope.selected = undefined;
     $scope.goods = [];
@@ -11,7 +11,7 @@ app.controller("AdminCtrl", function ($scope, $http, $timeout, $location, $windo
     $scope.maxpages = 0;
     $scope.paging = [];
     $scope.paging.push(1);
-    $scope.currentpage = 1;   
+    $scope.currentpage = 1;
 
     setTimeout(function () {
         var str = "#page" + $scope.currentpage;
@@ -35,7 +35,7 @@ app.controller("AdminCtrl", function ($scope, $http, $timeout, $location, $windo
         }
         $http.get("/api/user/changelanguage");
     };
-    
+
     $scope.pageclick = function (page) {
         if (page == $scope.currentpage)
             return;
@@ -45,7 +45,7 @@ app.controller("AdminCtrl", function ($scope, $http, $timeout, $location, $windo
         setTimeout(function () {
             $(str).parent().removeClass("active");
         }, 500);
-        setTimeout(function () { 
+        setTimeout(function () {
             $(str).parent().removeClass("active");
         }, 1000);
         $scope.currentpage = page;
@@ -71,8 +71,7 @@ app.controller("AdminCtrl", function ($scope, $http, $timeout, $location, $windo
                 $scope.paging.push(i);
             }
         }
-        else if($scope.currentpage > totalPages - 3)
-        {
+        else if ($scope.currentpage > totalPages - 3) {
             var startPage = 0;
             if (totalPages > 5) {
                 startPage = totalPages - 5;
@@ -90,7 +89,7 @@ app.controller("AdminCtrl", function ($scope, $http, $timeout, $location, $windo
 
         for (var i = itemsFrom; i < itemsTo && i < $scope.orderslist.length; ++i) {
             $scope.orders.push($scope.orderslist[i]);
-            $scope.users.push($scope.userslist[i]);            
+            $scope.users.push($scope.userslist[i]);
         }
         var str = "#page" + $scope.currentpage;
         $(str).parent().addClass("active");
@@ -98,16 +97,20 @@ app.controller("AdminCtrl", function ($scope, $http, $timeout, $location, $windo
             $(str).parent().addClass("active");
         }, 2000);
     }
-
+    Array.prototype.remove = function (from, to) {
+        var rest = this.slice((to || from) + 1 || this.length);
+        this.length = from < 0 ? this.length + from : from;
+        return this.push.apply(this, rest);
+    };
     //===================Orders===============
     signalR.client.AddOrder = function (user, order) {
+        console.log(order);
         var tmp = [];
         tmp.push(user);
         for (var i = 0; i < $scope.userslist.length; ++i) {
             tmp.push($scope.userslist[i]);
         }
         $scope.userslist = tmp;
-
         tmp = [];
         tmp.push(order);
         for (var i = 0; i < $scope.orderslist.length; ++i) {
@@ -115,23 +118,38 @@ app.controller("AdminCtrl", function ($scope, $http, $timeout, $location, $windo
         }
         $scope.orderslist = tmp;
         tmp = [];
-        $scope.$apply();
+        //$scope.$apply();
 
         $scope.repage();
+        $scope.$apply();
     }
 
-    signalR.client.ChangeStatus = function (id,status) {
+    signalR.client.ChangeStatus = function (id, status) {
+        console.log(status+" - "+status.length);
         if (status == "New") {
             status = "New         ";
         }
-        else if (status == "InProgress") {
+        else if (status == "InProgress" || status == "") {
             status = "InProgress  ";
         }
-        else if (status == "Executed") {
-            status = "Executed    ";
+        else if (status == "Removed" || status == "Executed") {
+            for (var i = 0; i < $scope.orderslist.length; ++i) {
+                if ($scope.orderslist[i].OrdersID == id) {
+                    $scope.orderslist.remove(i);
+                    break;
+                }
+            }
+            for (var i = 0; i < $scope.orders.length; ++i) {
+                if ($scope.orders[i].OrdersID == id) {
+                    $scope.orders.remove(i);
+                    break;
+                }
+            }
+            $scope.$apply();
+            return;
         }
-        
-        console.log(id+" - "+status);
+
+        //console.log(id + " - " + status);
 
         for (var i = 0; i < $scope.orderslist.length; ++i) {
             if ($scope.orderslist[i].OrdersID == id) {
@@ -162,7 +180,7 @@ app.controller("AdminCtrl", function ($scope, $http, $timeout, $location, $windo
     });
 
     $scope.orderclick = function (status, id) {
-        if (status == "New         ") {
+        if (status == "New         " || status == "New") {
             $http.post("/Cart/ChangeOrderStatus?orderid=" + id + "&status=InProgress");
         }
         //else if (status == "InProgress  ") {
@@ -173,12 +191,12 @@ app.controller("AdminCtrl", function ($scope, $http, $timeout, $location, $windo
         //}
     }
     //========================================
-    
+
     var date = new Date();
     $http.post("/api/apple/currency").success(function (data) {
         $scope.currency = data;
     });
-    
+
     $scope.loader = true;
 })
 .filter('GoodsCount', function () {

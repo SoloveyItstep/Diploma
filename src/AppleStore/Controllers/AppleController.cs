@@ -17,6 +17,7 @@ using Microsoft.AspNet.Mvc.Filters;
 using AppleStore.Services;
 using Store.Entity.Order;
 using AppleStore.ViewModels.Account;
+using Microsoft.AspNet.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -50,6 +51,13 @@ namespace AppleStore.Controllers
         {
             var data = await unitOfWork.GetAppleForSearchIncludeCategories();
             return new ObjectResult(data);
+        }
+
+        [Route("categorieslist")]
+        public async Task<IActionResult> GetCategoriesList()
+        {
+            var categories = await unitOfWork.Categories.GetAll();
+            return new ObjectResult(categories);
         }
 
         [Route("category/{id}")]
@@ -152,10 +160,10 @@ namespace AppleStore.Controllers
 
         [Route("price")]
         [HttpPost]
-        public async Task<Dictionary<Int32,Decimal>> GetPrice()
+        public Dictionary<Int32,Decimal> GetPrice()
         {
             cart.GetHttpContext(HttpContext);
-            return await cart.GetPrice();
+            return cart.GetPrice();
         }
 
         [Route("cartitemremove/{id}")]
@@ -183,7 +191,7 @@ namespace AppleStore.Controllers
             return false;
         }
 
-// send cart data (need user)
+        // send cart data (need user)
         //[Route("placeorder")]
         //[HttpPost]
         //public async Task<Boolean> PlaceAnOrder()
@@ -198,6 +206,7 @@ namespace AppleStore.Controllers
         //    return true;
         //}
 
+        [Authorize(Roles = "Admin, SuperAdmin")]
         [Route("notexecutedorders")]
         [HttpPost]
         public async Task<Orders[]> GetOrders()
@@ -205,6 +214,7 @@ namespace AppleStore.Controllers
             return await unitOfWork.Orders.GetNotExecuted();
         }
 
+        [Authorize(Roles = "Admin, SuperAdmin")]
         [HttpPost]
         [Route("orderbynumber/{id}")]
         public async Task<Orders> GetOrderByNumber(String id)
@@ -212,8 +222,28 @@ namespace AppleStore.Controllers
             return await unitOfWork.Orders.GetByOrderId(id);
         }
 
+        [HttpPost]
+        [Route("currencyvalue")]
+        public String CurrencyValue()
+        {
+            var currencyValue = HttpContext.Session.GetString("currencyvalue");
+            if(currencyValue == null)
+            {
+                HttpContext.Session.SetString("currencyvalue", "USD");
+                currencyValue = "USD";
+            }
+            return currencyValue;
+        }
 
-        
-
+        [HttpPost]
+        [Route("changecurrencyvalue")]
+        public void ChangeCurrencyValue()
+        {
+            var currencyValue = HttpContext.Session.GetString("currencyvalue");
+            if (currencyValue == null || currencyValue == "USD")
+                HttpContext.Session.SetString("currencyvalue", "UAH");
+            else
+                HttpContext.Session.SetString("currencyvalue", "USD");
+        }
     }
 }

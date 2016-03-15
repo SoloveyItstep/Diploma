@@ -1,6 +1,6 @@
 ﻿var Arr = new Array();
 var price = new Array();
-var Language = "";
+var CurrencyValue = "";
 var Currency = 0.0;
 
 function onLoad() {
@@ -15,26 +15,26 @@ function onLoad() {
         type: "POST",
         url: "/api/apple/getcartscount",
         success: function (data) {
-            ///
-            console.log();
             Arr = data;
-            //console.log(Arr);
             for (var i in Arr) {
                 $("#count-" + i).html(Arr[i]);
             }
 
             ///then get price
             $.ajax({
-                type: "GET",
-                url: "/api/user/currentlanguage",
-                success: function (language) {
-                    Language = language
-                    GetPrice();
-                }
-            });
-                
+                type: "POST",
+                url: "/api/apple/currencyvalue",
+                success: function (currencyvalue) {
+                    CurrencyValue = currencyvalue;
 
-            
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/apple/currency",
+                        success: function (currency) {
+                            Currency = currency;
+                            GetPrice();
+                        }});
+                }});
         }
     });
     
@@ -50,10 +50,12 @@ function onLoad() {
             }
             else {
                 var p = price[id] * count;
-                if(Language == "EN")
+                if(CurrencyValue == "USD")
                     $("#price-" + id).html(p + " $");
-                else if(Language == "RU")
-                    $("#price-" + id).html(p.toFixed(2) + " &#8372;");
+                else if (CurrencyValue == "UAH") {
+                    var pr = p * Currency;
+                    $("#price-" + id).html(pr.toFixed(2) + " &#8372;");
+                }
             }
             Arr[id] = count;
             ReloadTotalPrice();
@@ -73,10 +75,12 @@ function onLoad() {
             $("#count-" + id).html(count);
             
             var p = price[id] * count;
-            if (Language == "EN")
+            if (CurrencyValue == "USD")
                 $("#price-" + id).html(p + " $");
-            else if (Language == "RU")
-                $("#price-" + id).html(p.toFixed(2) + " &#8372;");
+            else if (CurrencyValue == "UAH") {
+                var pr = p * Currency;
+                $("#price-" + id).html(pr.toFixed(2) + " &#8372;");
+            }
             Arr[id] = count;
             ReloadTotalPrice();
 
@@ -104,6 +108,24 @@ function onLoad() {
             }
         });
         ReloadTotalPrice();
+        if (Object.keys(Arr).length == 0) {
+            var cartImg = $("#kart-img");
+            cartImg.attr("src", "/images/HomeLayout/kart.png");
+            cartImg.attr("onmouseout", "this.src = '/images/HomeLayout/kart.png'");
+        }
+        else if (Object.keys(Arr).length == undefined) {
+            var key, count = 0;
+            for (key in Arr) {
+                if (Arr.hasOwnProperty(key)) {
+                    count++;
+                }
+            }
+            if (count == 0) {
+                var cartImg = $("#kart-img");
+                cartImg.attr("src", "/images/HomeLayout/kart.png");
+                cartImg.attr("onmouseout", "this.src = '/images/HomeLayout/kart.png'");
+            }
+        }
     });
     //continue shoping click
     continueShoping.click(function () {
@@ -114,7 +136,6 @@ function onLoad() {
         var popupPreloader = $(".pre-loader-popup");
         popupPreloader.show("fast");
         $(".popup").html("");
-        //console.log(Arr);
         $.ajax({
             type: "POST",
             url: "/Partials/Ordering",
@@ -138,10 +159,12 @@ function ReloadTotalPrice() {
         placeOrder.addClass("hidden");
     else if (placeOrder.hasClass("hidden"))
         placeOrder.removeClass("hidden");
-    if(Language == "EN")
+    if (CurrencyValue == "USD")
         $(".total-price").html(total + " $");
-    else if (Language == "RU")
-        $(".total-price").html(total.toFixed(2) + " &#8372;");
+    else if (CurrencyValue == "UAH") {
+        var pr = total * Currency;
+        $(".total-price").html(pr.toFixed(2) + " &#8372;");
+    }
 }
 
 function GetPrice() {
@@ -152,10 +175,11 @@ function GetPrice() {
             price = data;
             for (var i in price) {
                 var p = Arr[i] * price[i];
-                if (Language == "EN")
+                if (CurrencyValue == "USD")
                     $("#price-" + i).html(p + " $");
-                else if (Language == "RU") {
-                    $("#price-" + i).html(p.toFixed(2) + " &#8372;");
+                else if (CurrencyValue == "UAH") {
+                    var pr = p * Currency;
+                    $("#price-" + i).html(pr.toFixed(2) + " &#8372;");
                 }
                 
             }

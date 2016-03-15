@@ -1,0 +1,68 @@
+﻿@model String
+@{ 
+    Layout = "_AdminLayout";
+}
+<div style="margin-bottom: 50px; padding-bottom: 50px;" class="text-center">
+    <div class="col-xs-12">
+        <div>
+            <div class="col-xs-offset-2 col-xs-8">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Модель</td>
+                            <td style="max-width: 30px;">Количество</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in items" ng-view>
+                            <td>{{item.Model}}</td>
+                            <td style="max-width: 30px;">
+                                <input type="text" class="form-control" ng-model="counts[item.AppleID]"
+                                       value="{{counts[item.AppleID]}}" />
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" ng-click="removeitem(item.AppleID)">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="col-xs-offset-2 col-xs-7" style="padding-bottom: 50px;">
+            <br /><br /><br />
+            <div class="col-xs-4">
+                <button class="btn btn-info" ng-click="showaddmenu()">Добавить товар</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-offset-1 col-xs-10 addmenu" style="padding-bottom: 100px; display: none;">
+        <div class="col-xs-12 input-group text-center">
+            <div class="col-xs-6 input-group" style="height: 30px;">
+                <input name="search" autocomplete="off" id="search" type="text" placeholder="Select item" ng-model="selected"
+                       typeahead="apple for apple in goods | filter:$viewValue | limitTo:8"
+                       class="search-input form-control" /><!--end input search-->
+                <span class="input-group-btn">
+                    <button class="btn btn-info" type="button" ng-click="additem()">Добавить</button>
+                </span>
+            </div>
+            <div class="col-xs-6 input-group text-center">
+                <br /><br />
+                <button class="btn btn-primary" ng-click="save()">Сохранить изменения</button>
+            </div>
+            <div class="col-xs-4" style="height: 100px; padding-bottom: 50px;">
+                <br /><br />
+                <span id="error" class="text-danger" style="font-size: 18px;"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="@Model" name="OrderNumber" id="orderNumber"/>
+
+@section Scripts{
+    <script type="text/javascript" asp-src-include="~/js/Admin/appChangeOrder/*.js"></script>
+}
+

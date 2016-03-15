@@ -64,22 +64,42 @@ namespace AppleStore.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<String> Login(LoginViewModel model)
+        public async Task<String> Login(LoginViewModel model, String ReturnUrl = null)
         {
             if (ModelState.IsValid && User.Identity.Name == null)
             {
                 model.RememberMe = true;
                 var user = userManager.Users.Where(u => u.Email == model.Email).FirstOrDefault();
                 var result = CanLogin(user, model);
+                if (ReturnUrl != null)
+                    RedirectToLocal(ReturnUrl);
                 return await LoginMethod(user, result);                
             }
-            return "false";           
+            return "false";
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AdminLogin(LoginViewModel model, String ReturnUrl = null)
+        {
+            if (ModelState.IsValid && User.Identity.Name == null)
+            {
+                model.RememberMe = true;
+                var user = userManager.Users.Where(u => u.Email == model.Email).FirstOrDefault();
+                var result = CanLogin(user, model);
+                if (ReturnUrl != null)
+                {
+                    var v = await LoginMethod(user, result);
+                    return RedirectToLocal(ReturnUrl);
+                }
+            }
+            return RedirectToAction("Index","Home");
         }
 
         public IActionResult Login(string ReturnUrl = null)
         {
             ViewData["ReturnUrl"] = ReturnUrl;
-            return View("Login-En");
+            return View("Login-En",new LoginViewModel());
         }
 
         [ValidateAntiForgeryToken]

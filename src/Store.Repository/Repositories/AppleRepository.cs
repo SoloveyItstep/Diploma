@@ -35,5 +35,10 @@ namespace Store.Repository.Repositories
                 .Include(a => a.AppleImage).FirstOrDefaultAsync();
             return apple;
         }
+        public async Task<Apple[]> GetItemsByListWithId(IList<Int32> list)
+        {
+            var apple = list.SelectMany(id => context.Apple.Where(a => a.AppleID == id)).ToAsyncEnumerable();
+            return await apple.ToArray();
+        }
     }
 }
