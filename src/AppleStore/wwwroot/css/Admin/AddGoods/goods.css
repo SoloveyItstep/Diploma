@@ -1,0 +1,134 @@
+﻿table { 
+    border-collapse: collapse; 
+}
+.percent {
+    position: absolute; 
+    width: 300px; 
+    height: 14px; 
+    z-index: 1; 
+    text-align: center; 
+    font-size: 0.8em; 
+    color: white;
+}
+.uploaded {
+    padding: 0;
+    height: 14px;
+    border-radius: 10px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#66cc00), to(#4b9500));
+    border-image: initial;
+}
+.dropbox {
+    margin-top: 30px;
+    width: 350px;
+    height: 100px;
+    border: 2px solid #DDD;
+    border-radius: 8px;
+    background-color: #FEFFEC;
+    text-align: left;
+    padding-left: 20px;
+    color: #BBB;
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+}
+.dropbox span {
+    margin-top: 35px;
+    display: block;
+}
+.dropbox.not-available {
+    background-color: #F88;
+}
+.dropbox.over {
+    background-color: lightgray;
+    color: white;
+}
+
+.fupload {  
+    position: absolute;  
+    top: 0;  
+    right: 0;  
+    margin: 0;  
+    border: solid transparent;  
+    border-width: 0 0 100px 200px;  
+    opacity: 0.0;  
+    filter: alpha(opacity=0);  
+    -o-transform: translate(250px, -50px) scale(1);  
+    -moz-transform: translate(-300px, 0) scale(4);  
+    direction: ltr;  
+    cursor: pointer;
+}
+.label-choose-image{
+    margin-left: -100px;
+    left: 0px;
+}
+.image-container{
+    padding-bottom: 50px;
+}
+.divimg{
+    width: 100px;
+    height: 100px;
+    border: inset 2px #4d4c51;
+    -webkit-transition: all 0.5s ease;
+     -moz-transition: all 0.5s ease;
+       -o-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+    text-align:center;
+    white-space: nowrap;
+    margin:0px;
+    padding:0px;
+}
+.imgs{
+    position:relative;
+    max-height: 96px;
+    width: 96px;
+    vertical-align: middle;
+    left: -4px;
+   
+}
+.divimg:hover{
+    -webkit-filter: grayscale(80%);
+
+}
+.imghelper{
+    display: inline-block;
+    height:100%;
+    vertical-align:middle;
+    margin:0px;
+}
+.img-main{
+    padding:0px;
+    margin: 10px;
+}
+.buttons-div {
+        margin-bottom: 50px;
+        margin-top: 50px;
+    }
+
+input{
+        min-width: 400px;
+    }
+.div-main{
+        margin-bottom: 200px;
+        padding-bottom: 100px;
+    }
+.addfield-button{
+        min-width: 150px;
+    }
+.tbl{
+        position:relative;
+        margin-bottom: 100px;
+    }
+.tbl-inside{
+        margin-bottom: 100px;
+    }
+.upload-button{
+    margin-top: 30px;
+    width: 300px;
+    margin-left: -30px;
+}
+.progress{
+    margin-top: 30px;
+}
+
+
+
+

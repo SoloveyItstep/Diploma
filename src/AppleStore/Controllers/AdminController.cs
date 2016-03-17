@@ -13,6 +13,10 @@ using Store.Repository.UnitOfWorks;
 using Store.Entity.Order;
 using Store.Entity;
 using AppleStore.DataServices.Hubs.Interfaces;
+using Microsoft.AspNet.Http;
+using AppleStore.DataServices.Admin.CreateGoods.Interfaces;
+using Microsoft.Net.Http.Headers;
+using Microsoft.AspNet.Hosting;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,16 +29,22 @@ namespace AppleStore.Controllers
         private readonly ApplicationDbContext context;
         private readonly IUnitOfWork unitOfWork;
         private readonly IOrderHubFacade adminOrder;
+        private readonly ICreateGoods createGoods;
+        private readonly IHostingEnvironment hostingEnv;
 
         public AdminController(IEmailSender emailSender,
                                ApplicationDbContext context,
                                IUnitOfWork unitOfWork,
-                               IOrderHubFacade adminOrder)
+                               IOrderHubFacade adminOrder,
+                               ICreateGoods createGoods,
+                               IHostingEnvironment hostingEnv)
         {
             this.emailSender = emailSender;
             this.context = context;
             this.unitOfWork = unitOfWork;
             this.adminOrder = adminOrder;
+            this.createGoods = createGoods;
+            this.hostingEnv = hostingEnv;
         }
 
         public IActionResult Main()
@@ -212,20 +222,99 @@ namespace AppleStore.Controllers
 
         public IActionResult ChangeElement(Int32 id)
         {
+            HttpContext.Session.SetString("element",id.ToString());
             ViewData["Role"] = GetRoleName();
             return View();
         }
 
         public IActionResult RemoveElement(Int32 id)
         {
+            HttpContext.Session.SetString("element", id.ToString());
             ViewData["Role"] = GetRoleName();
             return View();
         }
 
-        public IActionResult AddElement(String id)
+        public IActionResult AddElement()
         {
             ViewData["Role"] = GetRoleName();
+            HttpContext.Session.SetObjectAsJson("images", new List<String>());
             return View();
+        }
+
+        public async Task<Apple> GetElement()
+        {
+            Int32 id = Int32.Parse(HttpContext.Session.GetString("element"));
+            return await unitOfWork.Apple.GetFirstInclude(apple => apple.AppleID == id);
+        }
+
+        public async Task<Apple> GetFirstElementInCategory(Int32 id)
+        {
+            var apple = await unitOfWork.Apple.GetFirstInclude(a => a.Categories.CategoriesID == id);
+            apple.AppleImage = new List<Image>();
+            apple.AppleColor = new List<AppleColor>();
+
+            return apple;
+        }
+
+        public Image GetImageObject()
+        {
+            return new Image() {
+                ColorID = 1,
+                Apple = new Apple(),
+                AppleID = 1,
+                Path = "",
+                Size = "large"
+            };
+        }
+
+        public ProductDetails GetNewProductDetail()
+        {
+            return new ProductDetails()
+            {
+                DetailNames = new DetailNames(),
+                Measure = "",
+                Other = "",
+                Value = "",
+            };
+        }
+
+        public async Task<DetailNames[]> GetAllDetailNames()
+        {
+            var dnames = await unitOfWork.DetailNames.GetAll();
+            return dnames.ToArray();
+        }
+
+        public async Task<String[]> GetAllDetailValues()
+        {
+            var details = await unitOfWork.ProductDetails.GetAll();
+            IList<String> lst = new List<String>();
+            foreach(var item in details)
+            {
+                if (!lst.Contains(item.Value))
+                    lst.Add(item.Value);
+            }
+            return lst.ToArray();
+        }
+
+        public async Task<String> CreateGoods(Apple apple)
+        {
+            IList<String> imagesList = HttpContext.Session.GetObjectFromJson<IList<String>>("images");
+            return await createGoods.CreateGoods(apple,imagesList);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadImages(Int32 id)
+        {
+            var files = Request.Form.Files;
+            IList<String> lst = HttpContext.Session.GetObjectFromJson<IList<String>>("images");
+            var category = await unitOfWork.Categories.Find(cat => cat.CategoriesID == id);
+            String categoryName = category.CategoryName;
+
+            lst = createGoods.SaveImages(files, lst, categoryName);
+            HttpContext.Session.SetObjectAsJson("images", lst);
+
+            String response = $"{files.Count()} успешно сохранены";
+            return new JsonResult(response);
         }
     }
 

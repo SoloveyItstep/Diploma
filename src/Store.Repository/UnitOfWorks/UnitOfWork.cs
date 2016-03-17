@@ -101,14 +101,14 @@ namespace Store.Repository.UnitOfWorks
         public async Task<Apple[]> GetTwentyByCategoryNameInclude(String categoryName)
         {
             return await context.Apple.Where(a => a.Categories.CategoryName.ToLower() == categoryName.ToLower())
-                    .Take(16).Include(ac => ac.AppleColor).ThenInclude(a => a.Color)
+                    .Take(24).Include(ac => ac.AppleColor).ThenInclude(a => a.Color)
                     .Include(a => a.ProductDetails).ThenInclude(pd => pd.DetailNames)
                     .Include(a => a.AppleImage).ToArrayAsync();
         }
         public async Task<Apple[]> GetAllSkypSexteenByCategoryNameInclude(String categoryName)
         {
             var arr = await context.Apple.Where(a => a.Categories.CategoryName.ToLower() == categoryName.ToLower())
-                    .Skip(16).Include(ac => ac.AppleColor).ThenInclude(a => a.Color)
+                    .Skip(24).Include(ac => ac.AppleColor).ThenInclude(a => a.Color)
                     .Include(a => a.ProductDetails).ThenInclude(pd => pd.DetailNames)
                     .Include(a => a.AppleImage).ToArrayAsync();
             return arr;
