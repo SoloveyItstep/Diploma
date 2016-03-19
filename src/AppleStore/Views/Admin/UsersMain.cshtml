@@ -1,10 +1,43 @@
 ﻿@{ 
     Layout = "_AdminLayout";
     ViewData["Title"] = "Список пользователей";
-    String role = ViewData["Role"].ToString();
 }
-<div class="col-xs-offset-1 col-xs-10 text-center">
-    <div class="container">
+@section Styles{
+    <style>
+        .user-main{
+            margin-top: 30px;
+        }
+        .users-list{
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        .role-select{
+            min-width: 130px;
+        }
+    </style>
+}
+
+
+<div class="col-xs-offset-1 col-xs-10 user-main text-center">
+    <div class="container admin-top-links">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 button-column">
+                <a href="/Admin/Main" class="btn btn-block btn-primary btn-lg">СПИСОК ЗАКАЗОВ</a>
+            </div><!--end div ordering-list-button-column-->
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 button-column">
+                <a href="/Admin/GoodsMain" class="btn btn-block btn-primary  btn-lg">КАТАЛОГ ТОВАРОВ</a>
+            </div><!--end div ordering-list-button-column-->
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 button-column">
+                <a href="#" class="btn btn-block btn-default  btn-lg active">СПИСОК ПОЛЬЗОВАТЕЛЕЙ</a>
+            </div><!--end div ordering-list-button-column-->
+
+        </div><!--end div row-->
+    </div><!--end div admin-top-links-->
+
+
+    <div class="container users-list">
         <div class="row">
             <div class="col-xs-12">
                 <table class="table table-hover">
@@ -19,29 +52,35 @@
                         </tr>
                     </thead>
                     <tbody>
-
-                        @*@foreach (var user in Model)
-                        {
-                            <tr>
-                                <td>@user.UserName</td>
-                                <td>@user.Email</td>
-                                <td>@user.City</td>
-                                <td>@user.Address</td>
-                                <td>@user.PhoneNumber</td>
-                                <td>
-                                    @if (role != null && role == "SuperAdmin")
-                                    {
-
-
-                                        <button class="btn btn-success" ng-click="changeuser('@user.Id')">Изменить</button>
-                                    }
-                                    else
-                                    {
-                                        <span>Нет прав для изменения</span>
-                                    }
-                                </td>
-                            </tr>
-                        }*@
+                        <tr ng-repeat="user in users">
+                            <td>{{user.UserName}}</td>
+                            <td>{{user.Email}}</td>
+                            <td>{{user.City}}</td>
+                            <td>{{user.Address}}</td>
+                            <td>{{user.PhoneNumber}}</td>
+                            <td ng-if="currentrole == 'SuperAdmin'">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle role-select" 
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span id="{{user.Id}}" ng-if="user.Roles.length == 0 || user.Roles == null">
+                                            Нет ролей
+                                        </span>
+                                        <span id="{{user.Id}}" ng-if="user.Roles.length > 0">
+                                            {{user.Roles | GetRole}}
+                                        </span>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li ng-repeat="role in roles">
+                                            <a href="#" ng-click="changerole(role.Id, user.Id)">{{role.Name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td ng-if="currentrole != 'SuperAdmin'">
+                                <span>Нет прав для просмотра</span>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

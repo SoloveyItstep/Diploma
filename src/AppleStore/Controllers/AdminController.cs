@@ -375,16 +375,55 @@ namespace AppleStore.Controllers
             return User.IsInRole("SuperAdmin") ? "SuperAdmin" : User.IsInRole("Admin") ? "Admin" : "Client";
         }
 
-        public IList<IdentityRole> GetRoles(String id)
+        public IList<IdentityRole> GetAllRoles()
         {
-            var rolesList = context.UserRoles.Where(u => u.UserId == id);
-            IList<IdentityRole> roles = new List<IdentityRole>();
-            roles = rolesList.SelectMany(r => (context.Roles.Where(rl => rl.Id == r.RoleId))).ToList();
-            
-            return roles;
+            return context.Roles.ToList();
         }
-        
 
+        [Authorize(Roles = "SuperAdmin")]
+        public async Task<String> ChangeRole(String id, String roleId)
+        {
+            var user = context.Users.Where(u => u.Id == id).FirstOrDefault();
+            var role = context.Roles.Where(r => r.Id == roleId).FirstOrDefault();
+            var admin = await userManager.IsInRoleAsync(user, "Admin");
+            var super = await userManager.IsInRoleAsync(user, "SuperAdmin");
+            
+            //var key = await userManager.IsInRoleAsync(user, role.Name);
+            if (role.Name == "SuperAdmin")
+            {
+                if (super)
+                    return "ok";
+                if (!admin)
+                {
+                    await userManager.AddToRoleAsync(user, "Admin");
+                }
+                await userManager.AddToRoleAsync(user, "SuperAdmin");
+
+            }
+            else if(role.Name == "Admin")
+            {
+                if (admin)
+                    return "ok";
+                if (super)
+                {
+                    await userManager.RemoveFromRoleAsync(user, "SuperAdmin");
+                }
+                await userManager.AddToRoleAsync(user, "Admin");
+            }
+            else if(role.Name == "Client")
+            {
+                if (super)
+                    await userManager.RemoveFromRoleAsync(user, "SuperAdmin");
+                if (admin)
+                    await userManager.RemoveFromRoleAsync(user, "Admin");
+
+                var client = await userManager.IsInRoleAsync(user, "Client");
+                if (!client)
+                    await userManager.AddToRoleAsync(user, "Client");
+            }
+            context.SaveChanges();
+            return "ok";
+        }
     }
 
     
