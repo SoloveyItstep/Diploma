@@ -32,6 +32,7 @@ using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Identity;
 using AppleStore.DataServices.Admin.CreateGoods.Interfaces;
 using AppleStore.DataServices.Admin.CreateGoods.Builder;
+using AppleStore.DataServices.Admin.CreateGoods.ChangeGoods;
 
 namespace AppleStore
 {
@@ -122,6 +123,7 @@ namespace AppleStore
             //================Admin================
             services.AddTransient<IBuildApple,BuildApple>();
             services.AddTransient<ICreateGoods, CreateGoods>();
+            services.AddTransient<IUpdateGoods, UpdateGoods>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

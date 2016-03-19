@@ -11,6 +11,9 @@ namespace AppleStore.DataServices.Admin.CreateGoods.Builder
     public class BuildApple : IBuildApple
     {
         private readonly IUnitOfWork unitOfWork;
+        private Int32 Id { get; set; }
+        private ICollection<ProductDetails> detailsList { get; set; }
+
         public BuildApple(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
@@ -18,15 +21,27 @@ namespace AppleStore.DataServices.Admin.CreateGoods.Builder
         public Apple apple { get; set; }
         public async Task CreateDetails()
         {
-            foreach(var item in apple.ProductDetails)
+            detailsList = apple.ProductDetails;
+            apple.ProductDetails = new List<ProductDetails>();
+            foreach (var item in detailsList)
             {
                 var detail = await CheckDetail(item);
                 if(detail != null)
                 {
-                    apple.ProductDetails.Add(detail);
+                    var obj = new ProductDetails()
+                    {
+                        Apple = apple,
+                        AppleID = Id,
+                        Measure = "",
+                        Other = "",
+                        DetailNames = detail.DetailNames,
+                        Value = detail.Value
+                    };
+                    apple.ProductDetails.Add(obj);
+                    await unitOfWork.CommitAsync();
                 }
             }
-            await unitOfWork.CommitAsync();
+
         }
 
         private async Task<ProductDetails> CheckDetail(ProductDetails detail)
@@ -44,28 +59,33 @@ namespace AppleStore.DataServices.Admin.CreateGoods.Builder
                 unitOfWork.DetailNames.Add(detailName);
                 await unitOfWork.CommitAsync();
             }
+            detail.Measure = "";
+            detail.Other = "";
             detail.DetailNames = detailName;
             return detail;
         }
 
         public void CreateImages(IList<String> pathList)
         {
-            foreach(var path in pathList)
+            if (pathList != null)
             {
-                var image = new Image()
+                foreach (var path in pathList)
                 {
-                    ColorID = 1,
-                    Size = "large",
-                    Apple = apple,
-                    AppleID = apple.AppleID,
-                    Path = ".."+path,
-                };
-                unitOfWork.Image.Add(image);
+                    var image = new Image()
+                    {
+                        ColorID = 1,
+                        Size = "large",
+                        Apple = apple,
+                        AppleID = Id,
+                        Path = ".." + path,
+                    };
+                    unitOfWork.Image.Add(image);
+                }
+                unitOfWork.Commit();
             }
-            unitOfWork.Commit();
         }
 
-        public void CreateNewApple()
+        public async Task CreateNewApple()
         {
             var obj = new Apple()
             {
@@ -79,17 +99,21 @@ namespace AppleStore.DataServices.Admin.CreateGoods.Builder
                 Price = apple.Price
             };
             unitOfWork.Apple.Add(obj);
-            unitOfWork.Commit();
-            apple.AppleID = unitOfWork.Apple.Find(a => a.Categories == apple.Categories &&
-                            a.Construction == apple.Construction && a.Model == apple.Model &&
-                            a.Name == apple.Name && a.Price == apple.Price &&
-                            a.Subcategory == apple.Subcategory && a.Type == apple.Type &&
-                            a.Url == apple.Url).Result.AppleID;
+            Int32 commit = unitOfWork.Commit();
+            Apple item = await unitOfWork.Apple.Find(a => a.Construction == apple.Construction && a.Model == apple.Model &&
+                            a.Name == apple.Name && a.Subcategory == apple.Subcategory && a.Type == apple.Type &&
+                            a.Url == apple.Url);
+                Id = item.AppleID;
+            detailsList = apple.ProductDetails;
+            Categories categ = apple.Categories;
+            apple = item;
+            apple.ProductDetails = detailsList;
+            apple.Categories = categ;
         }
 
         public string GetUrl()
         {
-            return "/"+apple.Categories.CategoryName+"/"+apple.AppleID;
+            return "/"+apple.Categories.CategoryName+"/"+Id;
         }
     }
 }

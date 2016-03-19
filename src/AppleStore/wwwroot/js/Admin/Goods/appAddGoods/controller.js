@@ -68,13 +68,17 @@
         $scope.loaddata();
     }
 
+    $scope.closepopup = function () {
+        $(".url-alert").hide("slow");
+    }
+
     $scope.addfield = function () {
         $scope.apple.ProductDetails.push($scope.detail);
     }
     $scope.save = function () {
         var key = false;
         for (var i = 0; i < $scope.apple.Price.length; ++i) {
-            if (isNaN(parseInt($scope.apple.Price[i])) || $scope.apple.Price[i] != '.' ||
+            if (isNaN(parseInt($scope.apple.Price[i])) && $scope.apple.Price[i] != '.' &&
                 $scope.apple.Price[i] != ',')
                 key = true;
         }
@@ -82,14 +86,16 @@
             $scope.apple.Price = 0;
         }
         
-        console.log($scope.apple);
+        //console.log($scope.apple);
         //var apple = $scope.apple;
         $.ajax({
             type: "POST",
             url: "/admin/creategoods",
             data: $scope.apple,
             success: function (data) {
-                console.log(data);
+                //console.log(data);
+                $(".total-url").attr("href",data);
+                $(".url-alert").show("slow");
             }
         });
     }

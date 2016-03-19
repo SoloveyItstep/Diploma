@@ -17,6 +17,9 @@ using Microsoft.AspNet.Http;
 using AppleStore.DataServices.Admin.CreateGoods.Interfaces;
 using Microsoft.Net.Http.Headers;
 using Microsoft.AspNet.Hosting;
+using AppleStore.DataServices.Admin.CreateGoods.ChangeGoods;
+using Microsoft.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -31,13 +34,17 @@ namespace AppleStore.Controllers
         private readonly IOrderHubFacade adminOrder;
         private readonly ICreateGoods createGoods;
         private readonly IHostingEnvironment hostingEnv;
+        private readonly IUpdateGoods updateGoods;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public AdminController(IEmailSender emailSender,
                                ApplicationDbContext context,
                                IUnitOfWork unitOfWork,
                                IOrderHubFacade adminOrder,
                                ICreateGoods createGoods,
-                               IHostingEnvironment hostingEnv)
+                               IHostingEnvironment hostingEnv,
+                               IUpdateGoods updateGoods,
+                               UserManager<ApplicationUser> userManager)
         {
             this.emailSender = emailSender;
             this.context = context;
@@ -45,6 +52,8 @@ namespace AppleStore.Controllers
             this.adminOrder = adminOrder;
             this.createGoods = createGoods;
             this.hostingEnv = hostingEnv;
+            this.updateGoods = updateGoods;
+            this.userManager = userManager;
         }
 
         public IActionResult Main()
@@ -222,16 +231,42 @@ namespace AppleStore.Controllers
 
         public IActionResult ChangeElement(Int32 id)
         {
-            HttpContext.Session.SetString("element",id.ToString());
+            HttpContext.Session.SetInt32("element",id);
             ViewData["Role"] = GetRoleName();
             return View();
         }
 
-        public IActionResult RemoveElement(Int32 id)
+        public async Task<Apple> UpdateGoods(Apple apple)
         {
-            HttpContext.Session.SetString("element", id.ToString());
+            if (apple == null)
+                return null;
+            return await updateGoods.Update(apple);
+        }
+
+        public async Task<IActionResult> RemoveElement(Int32 id)
+        {
+            //HttpContext.Session.SetString("element", id.ToString());
             ViewData["Role"] = GetRoleName();
-            return View();
+            var apple = await unitOfWork.Apple.Find(a => a.AppleID == id);
+            if (apple == null)
+                return RedirectToAction("Error","Home","Объект с данным ключем не существует!");
+            return View(apple);
+        }
+
+        public async Task<String> RemoveEl(Int32 id)
+        {
+            var apple = await unitOfWork.Apple.Find(a => a.AppleID == id);
+            if (apple == null)
+                return "Товар несуществует или удален";
+
+            String name = apple.Model;
+            unitOfWork.Apple.Remove(apple);
+            var result = await unitOfWork.CommitAsync();
+
+            if (result == 1)
+                return "Товар " + name + " успешно удален";
+
+            return "Произошла ошибка при удалении";
         }
 
         public IActionResult AddElement()
@@ -243,8 +278,13 @@ namespace AppleStore.Controllers
 
         public async Task<Apple> GetElement()
         {
-            Int32 id = Int32.Parse(HttpContext.Session.GetString("element"));
-            return await unitOfWork.Apple.GetFirstInclude(apple => apple.AppleID == id);
+            var id = HttpContext.Session.GetInt32("element");
+            if (id == null)
+                return null;
+
+            Int32 i = id ?? default(int);
+            var apple = await unitOfWork.Apple.GetOneInclude(i);
+            return apple;
         }
 
         public async Task<Apple> GetFirstElementInCategory(Int32 id)
@@ -299,7 +339,9 @@ namespace AppleStore.Controllers
         public async Task<String> CreateGoods(Apple apple)
         {
             IList<String> imagesList = HttpContext.Session.GetObjectFromJson<IList<String>>("images");
-            return await createGoods.CreateGoods(apple,imagesList);
+            String appleUrl = await createGoods.CreateGoods(apple, imagesList);
+            HttpContext.Session.SetObjectAsJson("images", new List<String>());
+            return appleUrl;
         }
 
         [HttpPost]
@@ -316,6 +358,33 @@ namespace AppleStore.Controllers
             String response = $"{files.Count()} успешно сохранены";
             return new JsonResult(response);
         }
+
+        public IActionResult UsersMain()
+        {
+            //var users = (context as DbContext).Set<ApplicationUser>().ToArray();
+            return View();
+        }
+
+        public ApplicationUser[] GetAllUsers()
+        {
+            return (context as DbContext).Set<ApplicationUser>().Include(u => u.Roles).ToArray();
+        }
+
+        public String GetCurrentUserRole()
+        {
+            return User.IsInRole("SuperAdmin") ? "SuperAdmin" : User.IsInRole("Admin") ? "Admin" : "Client";
+        }
+
+        public IList<IdentityRole> GetRoles(String id)
+        {
+            var rolesList = context.UserRoles.Where(u => u.UserId == id);
+            IList<IdentityRole> roles = new List<IdentityRole>();
+            roles = rolesList.SelectMany(r => (context.Roles.Where(rl => rl.Id == r.RoleId))).ToList();
+            
+            return roles;
+        }
+        
+
     }
 
     

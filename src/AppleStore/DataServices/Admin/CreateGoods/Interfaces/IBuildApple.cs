@@ -8,7 +8,7 @@ namespace AppleStore.DataServices.Admin.CreateGoods.Interfaces
     public interface IBuildApple
     {
         Apple apple { get; set; }
-        void CreateNewApple();
+        Task CreateNewApple();
         void CreateImages(IList<String> pathList);
         Task CreateDetails();
         String GetUrl();

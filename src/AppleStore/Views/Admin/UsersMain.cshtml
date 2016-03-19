@@ -1,0 +1,56 @@
+﻿@{ 
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Список пользователей";
+    String role = ViewData["Role"].ToString();
+}
+<div class="col-xs-offset-1 col-xs-10 text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Email</td>
+                            <td>City</td>
+                            <td>Address</td>
+                            <td>Phone</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @*@foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.UserName</td>
+                                <td>@user.Email</td>
+                                <td>@user.City</td>
+                                <td>@user.Address</td>
+                                <td>@user.PhoneNumber</td>
+                                <td>
+                                    @if (role != null && role == "SuperAdmin")
+                                    {
+
+
+                                        <button class="btn btn-success" ng-click="changeuser('@user.Id')">Изменить</button>
+                                    }
+                                    else
+                                    {
+                                        <span>Нет прав для изменения</span>
+                                    }
+                                </td>
+                            </tr>
+                        }*@
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script asp-src-include="~/js/admin/users/appusersmain/*.js"></script>
+}
+
+
+

@@ -15,22 +15,7 @@
         $(".popup").html(page);
     });
 
-    //$http.post("/api/apple/currencyvalue").success(function (value) {
-    //    console.log(value);
-    //    $scope.currencyvalue = value;
-    //    $scope.$apply;
-    //});
     
-    //$scope.changecurrencyvalue = function () {
-        
-    //    if ($scope.currencyvalue == "USD") {
-    //        $scope.currencyvalue = "UAH"
-    //    }
-    //    else {
-    //        $scope.currencyvalue = "USD";
-    //    }
-    //    $http.post("/api/apple/changecurrencyvalue");
-    //}
 
     $http.get("/api/user/currentuser").success(function (user) {
         //console.log("-"+user + "- HomeLayout");

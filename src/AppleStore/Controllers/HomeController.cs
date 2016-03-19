@@ -32,10 +32,10 @@ namespace AppleStore.Controllers
             return View();
         }
 
-        public IActionResult Error()
-        {
-            return View();
-        }
+        //public IActionResult Error()
+        //{
+        //    return View();
+        //}
 
         public IActionResult Ipadlist()
         {
@@ -45,6 +45,11 @@ namespace AppleStore.Controllers
         public IActionResult Social()
         {
             return View(new LoginViewModel());
+        }
+
+        public IActionResult Error(String id)
+        {
+            return View("Error", id);
         }
 
     }

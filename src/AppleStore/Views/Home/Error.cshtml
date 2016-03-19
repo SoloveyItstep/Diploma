@@ -1,0 +1,35 @@
+﻿@model String
+@{
+    Layout = "_HomeLayout";
+    ViewData["Title"] = "Error";
+    String message = Model == null ? "" : Model;
+}
+<div class="" style="min-height: 95vh">
+    <div class="col-xs-offset-1 col-xs-10">
+        <h1 class="text-danger">А вот и ошибочка.</h1>
+        <h2 class="text-danger">При запросе к странице произошла ошибка.</h2>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-offset-2 col-xs-8">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-offset-1 col-xs-10">
+                            <br /><br /><br />
+                            <h3>Данная страница не существует или удалена</h3>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript" asp-src-include="~/js/Home/app/*.js"></script>
+    <script>
+        function Load() { }
+        function FilterPosition() { }
+    </script>
+}

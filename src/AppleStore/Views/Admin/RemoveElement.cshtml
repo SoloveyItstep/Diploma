@@ -1,9 +1,119 @@
-﻿@{ 
+﻿@model Store.Entity.Apple
+@{ 
     Layout = "_AdminLayout";
-    ViewData["Title"] = "Remove element";
+    ViewData["Title"] = "Удаление товара";
 }
-<div>
-    Remove
+@section Styles{
+    <style>
+    .close-classic{
+  color: #777;
+  font: 14px/100% arial, sans-serif;
+  position: absolute;
+  right: 5px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  top: 5px;
+}
+    .close-classic:after {
+  content: 'X';
+}
+    .url-alert{
+    position: fixed;
+    width: 400px;
+    left: 50%;
+    margin-left: -200px;
+    right: auto;
+    display: none;
+    text-align: center;
+    z-index: 3;
+}
+    </style>
+}
+<div class="alert alert-info url-alert" role="alert">
+    <a href="#" class="close-classic" ng-click="closepopup()"></a>
+    <span>{{message}}</span><br />
+</div>
+
+<div class="col-xs-offset-1 col-xs-10">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>Название поля</td>
+                            <td>Значение поля</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#</td>
+                            <td>@Model.AppleID</td>
+                        </tr>
+                        <tr>
+                            <td>Модель</td>
+                            <td>@Model.Model</td>
+                        </tr>
+                        <tr>
+                            <td>Модель</td>
+                            <td>@Model.Name</td>
+                        </tr>
+                        <tr>
+                            <td>Имя</td>
+                            <td>@Model.Name</td>
+                        </tr>
+                        <tr>
+                            <td>Конструкция</td>
+                            <td>@Model.Construction</td>
+                        </tr>
+                        <tr>
+                            <td>Цена</td>
+                            <td>@Model.Price</td>
+                        </tr>
+                        <tr>
+                            <td>Тип</td>
+                            <td>@Model.Type</td>
+                        </tr>
+                        <tr>
+                            <td>Подкатегория</td>
+                            <td>@Model.Subcategory</td>
+                        </tr>
+                        <tr>
+                            <td>Страница</td>
+                            <td>@Model.Url</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12" style="height: 50px;">
+        <span>
+            &nbsp;
+        </span>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="text-center">
+                    <div class="col-xs-6">
+                        <button class="btn btn-info" ng-click="cancel()">Отмена</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button class="btn btn-info" ng-click="remove(@Model.AppleID)">Удалить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="col-xs-12" style="height: 100px; width: 100%;">
+    <span>
+        &nbsp;
+    </span>
 </div>
 
 @section Scripts{

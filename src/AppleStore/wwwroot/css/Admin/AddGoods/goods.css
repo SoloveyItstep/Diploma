@@ -100,7 +100,7 @@
 }
 .buttons-div {
         margin-bottom: 50px;
-        margin-top: 50px;
+        margin-left: 45px;
     }
 
 input{
@@ -109,6 +109,7 @@ input{
 .div-main{
         margin-bottom: 200px;
         padding-bottom: 100px;
+        
     }
 .addfield-button{
         min-width: 150px;
@@ -128,7 +129,42 @@ input{
 .progress{
     margin-top: 30px;
 }
-
-
-
-
+.url-alert{
+    position: fixed;
+    width: 400px;
+    left: 50%;
+    margin-left: -200px;
+    right: auto;
+    display: none;
+    text-align: center;
+    z-index: 3;
+}
+.info-images{
+    max-width: 600px;
+    overflow: hidden;
+}
+h5 {
+  position: relative;
+  white-space: nowrap;  
+}
+h5:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: 100%;
+    pointer-events: none;
+  }
+.close-classic{
+  color: #777;
+  font: 14px/100% arial, sans-serif;
+  position: absolute;
+  right: 5px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  top: 5px;
+}
+.close-classic:after {
+  content: 'X';
+}

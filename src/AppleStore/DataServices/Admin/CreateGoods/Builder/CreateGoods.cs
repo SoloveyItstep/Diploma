@@ -42,10 +42,10 @@ namespace AppleStore.DataServices.Admin.CreateGoods.Builder
                 name += (date + count.ToString() +"."+ arr[arr.Length - 1]);
                 
                 ++count;
-                filename = hostingEnv.WebRootPath + $@"\images\Data\{category}\{name}";
+                filename = hostingEnv.WebRootPath + $@"/images/Data/{category}/{name}";
                 size += file.Length;
                 file.SaveAs(filename);
-                lst.Add(filename);
+                lst.Add($@"/images/Data/{ category}/{ name}");
             }
             
             return lst;
@@ -54,7 +54,7 @@ namespace AppleStore.DataServices.Admin.CreateGoods.Builder
         async Task<string> ICreateGoods.CreateGoods(Apple apple, IList<String> imagesPathList)
         {
             buildApple.apple = apple;
-            buildApple.CreateNewApple();
+            await buildApple.CreateNewApple();
             buildApple.CreateImages(imagesPathList);
             await buildApple.CreateDetails();
             return buildApple.GetUrl();

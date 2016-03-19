@@ -38,10 +38,13 @@ namespace AppleStore.Controllers
         [Route("{id}")]
         public async Task<IActionResult> WatchItem(Int32 id)
         {
-            HttpContext.Session.SetInt32("currentitem", id);
             var watch = await unitOfWork.Apple.Find(a => a.AppleID == id);
+            if (watch == null)
+                return RedirectToAction("Error","Home","No such item was found");
             String language = GetLanguage();
             ViewBag.Name = watch.Name;
+            HttpContext.Session.SetInt32("currentitem", id);
+            
             if (language == "EN")
                 return View("WatchItem.en-US",new ViewModels.Account.LoginViewModel());
             return View("WatchItem.ru-RU", new ViewModels.Account.LoginViewModel());

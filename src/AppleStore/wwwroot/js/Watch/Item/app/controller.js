@@ -32,7 +32,7 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         $scope.imageIndex = index;
         var image = $(".main-image");
         image.fadeOut("fast", function () {
-            image.attr("src", $scope.item.AppleImage[index].Path);
+            image.attr("src", $scope.watch.AppleImage[index].Path);
             image.fadeIn("fast");
         });
     }

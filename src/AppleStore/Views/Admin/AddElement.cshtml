@@ -3,9 +3,13 @@
     ViewData["Title"] = "Добавление товара";
 }
 @section Styles{
-<link href="~/css/admin/addgoods/goods.css" rel="stylesheet" />
+    <link href="~/css/admin/addgoods/goods.css" rel="stylesheet" />
 }
-
+<div class="alert alert-info url-alert" role="alert">
+    <a href="#"class="close-classic" ng-click="closepopup()"></a>
+    <span>Товар успешно создан</span><br />
+    <span><a href="#" class="total-url">Просмотреть товар</a></span>
+</div>
     <div class="text-center div-main" > 
         <div class="col-xs-12 buttons-div" > 
             <div class="col-xs-4" > 
@@ -67,20 +71,20 @@
                             </div>
                         </div>
                         <div class="col-xs-5">
-                            <div ng-repeat="file in files.slice(0)">
-                                <span>{{file.webkitRelativePath || file.name}}</span>
-                                (<span ng-switch="file.size > 1024*1024">
-                                    <span ng-switch-when="true">{{file.size / 1024 / 1024 | number:2}} MB</span>
-                                    <span ng-switch-default>{{file.size / 1024 | number:2}} kB</span>
-                                </span>)
+                            <div ng-repeat="file in files.slice(0)" class="info-images">
+                                <h5>
+                                    <span>{{file.webkitRelativePath || file.name}}</span>
+                                    <span ng-switch="file.size > 1024*1024">
+                                        <span ng-switch-when="true">{{file.size / 1024 / 1024 | number:2}} MB</span>
+                                        <span ng-switch-default>{{file.size / 1024 | number:2}} kB</span>
+                                    </span>
+                                </h5>
                             </div>
                         </div>
                     </div><!--end div col-8 imagePreview-->
                 </div><!--end div row-->
             </div><!--end div container-->
-            
-
-          
+                    
         </div>
 
         <div class="col-xs-offset-1 co-xs-8 col-xs-offset-2 tbl" >
@@ -90,7 +94,8 @@
                         <tr class="form-group">
                             <td class="form-title" style="min-width: 200px;">Model</td>
                             <td>
-                                <input type="text" class="form-control" name="Model" ng-model="apple.Model" placeholder="Model" />
+                                <input type="text" class="form-control" name="Model" ng-model="apple.Model" 
+                                       placeholder="Model" />
                             </td>
                         </tr>
                         <tr class="form-group">
