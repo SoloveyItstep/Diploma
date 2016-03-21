@@ -1,0 +1,72 @@
+﻿@font-face{
+    font-family: OpenSans-Light;
+    src: url(../../fonts/HomeLayout/OpenSans-Light.ttf);
+}
+
+.bottom-footer-links{
+    font-family: OpenSans-Light;
+    font-size: 22px;
+    color: lightgray;
+}
+.bottom-footer-links:hover{
+    color: lightgray;
+}
+.bottom-footer-links-container{
+    position:relative;
+    top: 60px;    
+}
+.bottom-footer-columns{
+    height: 60px;
+}
+.bottom-navbar-bottom-links{
+    position:center;
+    bottom:30px;
+    background: #343436;
+    height: 100px;
+    max-width: 1366px;
+    margin:auto;
+    margin-bottom: 30px;
+    width: 100%;
+}
+.phones{
+    font-family:OpenSans-Light;
+    font-size: 26px;
+    color: white;
+}
+.bottom-info{
+    padding-top: 40px;
+    font-family: OpenSans-Light;
+    color: lightgray;
+}
+.social-networks-bottom{
+    margin-left: 50px;
+}
+
+@media (min-width: 768px){
+    .large-footer{
+        display: block;
+    }
+    .medium-footer{
+        display: none;
+    }
+    
+}
+@media (max-width: 767px){
+    .large-footer{
+        display: none;
+    }
+    .medium-footer{
+        display: block;
+    }
+    .bottom-footer-columns{
+        height: 50px;
+    }
+    
+}
+
+
+
+
+
+
+

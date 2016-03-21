@@ -1,16 +1,17 @@
 ﻿@{
     Layout = "_HomeLayout";
-    ViewData["Title"] = "Contact";
+    ViewData["Title"] = "Dilivery";
 }
 @section Styles{
     <style>
-        .info-main{
+        .info-main {
             min-height: 95vh;
             margin-top: 50px;
         }
-        .txt{
-        font-size: 20px;
-    }
+
+        .txt {
+            font-size: 20px;
+        }
     </style>
 }
 <div class="container info-main">
@@ -19,20 +20,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-offset-1 col-xs-10">
-                        <address ng-if="language == 'EN'" class="txt">
-                            Hello there<br />
-                            If this website is interesting for You<br />
-                            You may contact me<br />
-                            <abbr title="Phone">P:</abbr>
-                            +(380) 93-497-0480
-                        </address>
-                        <address ng-if="language == 'RU'" class="txt">
-                            Здраствуйте<br />
-                            Если даній сайт заинтерисовал Вас<br />
-                            Вы можете связаться со мной<br />
-                            <abbr title="Phone">т:</abbr>
-                            +(380) 93-497-0480
-                        </address>
+                        <span ng-if="language == 'EN'">
+                            Text for Payment page
+                        </span>
+                        <span ng-if="language == 'RU'">
+                            Текст для страницы оплаты
+                        </span>
                     </div>
                 </div>
             </div>
@@ -59,4 +52,10 @@
         function FilterPosition() { }
     </script>
 }
+
+
+
+
+
+
 

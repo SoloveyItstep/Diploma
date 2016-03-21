@@ -5,7 +5,10 @@
 body{
     max-width: 100%;
 }
-
+html{
+    position:relative;
+    height: 100%;
+}
 .main{
     max-width: 1366px;
     min-width: 600px;
@@ -133,11 +136,13 @@ body{
 /*=========== navbar bottom=========================*/
 .bottom-navbar{
     position:relative;
-    height: 600px;
+    height: 500px;
     max-width: 1366px;
     width: 100%;
     background: #4d4c51;
     color: #e4e4e4;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 #go-search{
     position: absolute;

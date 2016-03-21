@@ -1,20 +1,20 @@
 ﻿[
     {
-        "href": "#",
-        "name": "watch",
+        "href": "/iPhone/Index",
+        "name": "iPhone",
         "src": "../images/HomeLayout/carousel/banner_1.png",
-        "text": "lorem ipsum"
+        "text": "The only thing that’s changed is everything"
     },
     {
-        "href": "#",
-        "name": "tv",
+        "href": "/Watch/Index",
+        "name": "Watch",
         "src": "../images/HomeLayout/carousel/banner_2.png",
-        "text": "lorem ipsum 2"
+        "text": "To wear it - is to love it"
     },
     {
-        "href": "#",
-        "name": "iphone",
+        "href": "/iPad/Index",
+        "name": "iPhone",
         "src": "../images/HomeLayout/carousel/banner_3.png",
-        "text": "lorem ipsum 3"
+        "text": "Thin. Light. Epic."
     }
 ]

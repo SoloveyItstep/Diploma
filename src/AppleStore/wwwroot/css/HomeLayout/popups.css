@@ -20,6 +20,7 @@
     left: 50%;
     max-width: 600px;
     max-height: 400px;
+    min-width: 350px;
     margin-left: -300px;
     z-index: 6;
     background: white;
@@ -32,6 +33,7 @@
     height: 25px;
     margin-top: 20px;
     right:2px;
+    display: none;
 }
 .close-popup-authorization:hover{
     cursor:pointer;
@@ -72,6 +74,24 @@
 }
 .authorization-form{
     height: 330px;
+}
+
+.close{
+  color: black;
+  font: 14px/100% arial, sans-serif;
+  position: absolute;
+  right: 5px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  top: 5px;
+  z-index: 2;
+}
+.close:after {
+  content: 'X';
+}
+.close:hover{
+    cursor:pointer;
+    color: gray;
 }
 
 .popup-input{

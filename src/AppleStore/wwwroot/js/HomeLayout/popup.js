@@ -8,6 +8,15 @@
     var cart = $(".cart");
     var main = $(".main");
     var nav = $(".bottom-navbar");
+    var close = $(".close");
+
+    close.click(function () {
+        authorization.hide("slow");
+        darkBackground.hide("slow");
+        authorization.css("left", "50%");
+        authorization.css("margin-left", "-175px");
+    });
+
 
     $.ajax({
         type: "GET",
@@ -36,12 +45,12 @@
         darkBackground.hide("slow");
     });
     //authorization close button click
-    closeAuthorizationPopup.click(function () {
-        authorization.hide("slow");
-        darkBackground.hide("slow");
-        authorization.css("left", "50%");
-        authorization.css("margin-left", "-175px");
-    });
+    //closeAuthorizationPopup.click(function () {
+    //    authorization.hide("slow");
+    //    darkBackground.hide("slow");
+    //    authorization.css("left", "50%");
+    //    authorization.css("margin-left", "-175px");
+    //});
     //user image click
     lk.click(function () {
         darkBackground.show("slow");

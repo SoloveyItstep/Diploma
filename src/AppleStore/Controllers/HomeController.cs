@@ -58,7 +58,14 @@ namespace AppleStore.Controllers
             return View();
         }
 
+        public IActionResult Delivery()
+        {
+            return View();
+        }
 
-
+        public IActionResult Payment()
+        {
+            return View();
+        }
     }
 }
