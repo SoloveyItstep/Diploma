@@ -1,4 +1,4 @@
-﻿var Watch = [];
+﻿var ipadData = [];
 
 app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $window) {
     $scope.loader = false;
@@ -9,24 +9,6 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     $scope.maxpages = 0;
     $scope.pages = [];
 
-    //================================
-    $http.post("/api/apple/currencyvalue").success(function (value) {
-        console.log(value);
-        $scope.currencyvalue = value;
-        $scope.$apply;
-    });
-    
-    $scope.changecurrencyvalue = function () {
-        
-        if ($scope.currencyvalue == "USD") {
-            $scope.currencyvalue = "UAH"
-        }
-        else {
-            $scope.currencyvalue = "USD";
-        }
-        $http.post("/api/apple/changecurrencyvalue");
-    }
-    //================================
     $http.get("/api/apple/categories").success(function (data) {
         for (var i = 0; i < data.length; ++i) {
             if ($scope.goods.indexOf(data[i].Categories.CategoryName) == -1) {
@@ -49,7 +31,24 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             cartImg.attr("onmouseout", "this.src = '/images/HomeLayout/cart_fool.png'");
         }
     });
-
+    //================================
+    $http.post("/api/apple/currencyvalue").success(function (value) {
+        //console.log(value);
+        $scope.currencyvalue = value;
+        $scope.$apply;
+    });
+    
+    $scope.changecurrencyvalue = function () {
+        
+        if ($scope.currencyvalue == "USD") {
+            $scope.currencyvalue = "UAH"
+        }
+        else {
+            $scope.currencyvalue = "USD";
+        }
+        $http.post("/api/apple/changecurrencyvalue");
+    }
+    //================================
     $scope.ChangeLanguage = function (language) {
         if (language == "EN") {
             $scope.language = "RU";
@@ -59,102 +58,39 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         }
         $http.get("/api/user/changelanguage");
     };
-    //==================Watch data==============================
-    $scope.watch = [];
-    $scope.elements = [];
-    $scope.filters = [];
-    $scope.filters.material = [];
-    $scope.filters.color = [];
+    //==================iPad data==============================
+    
 
-    $scope.elementsStart = function () {
-        $scope.itemslength = $scope.elements.length;
-        if ($scope.watch.length - $scope.itemslength >= 8) //9
-            $scope.itemsleft = 8;  //9
-        else {
-            $scope.itemsleft = $scope.watch.length - $scope.itemslength;
-        }
-        //==============Filters Data===============
-
-        for (var i = 0; i < Watch.length; ++i) {
-            for (var j = 0; j < Watch[i].ProductDetails.length; ++j) {
-                var item = Watch[i].ProductDetails[j];
-                ///==========================
-                if (item.DetailNames !== null && item.DetailNames.Name == "Strap material") {
-                    if ($scope.filters.material.indexOf(item.Value) == -1) {
-                        $scope.filters.material.push(item.Value);
-                    }
-                }
-            }
-            //if (Watch[i].AppleColor[0] == undefined)
-            //    console.log(Watch[i]);
-            if(Watch[i].AppleColor[0] != undefined){
-                var color = Watch[i].AppleColor[0].Color;
-            
-                if ($scope.filters.color.indexOf(color.ColorName) == -1)
-                    $scope.filters.color.push(color.ColorName);
-            }
-        }
-
-
-        $scope.maxpages = Math.ceil($scope.watch.length / 8); //9 !!! +1
-        $scope.pages = [];
-        for (var i = 1; i < 7 && i <= $scope.maxpages; ++i)
-            $scope.pages.push(i);
-    }
-
-    $http.get("/api/apple/sexteen/Watch").success(function (data) {
-        $scope.watch = data;
-        Watch = data;
+    $http.post("/api/apple/searchdata").success(function (data) {
+        $scope.ipads = data;
+        ipadData = data;
+        //console.log(data.length);
         console.log(data);
         for (var i = 0; i < 8 && i < data.length; ++i) { //8
             $scope.elements.push(data[i]);
         }
-        $scope.elementsStart();
+        
         $timeout(function () {
             $scope.loader = true;
             FilterPosition();
+            $scope.paging(1);
         }, 150);
         $timeout(function () {
             FilterPosition();
         }, 500);
-
-        $http.get("/api/apple/aftersexteen/watch").success(function (m) {
-            if (m.length > 0) {
-                Array.prototype.push.apply($scope.watch, m);
-                //Array.prototype.push.apply(Watch, m);
-                $scope.pages = [];
-                $scope.elementsStart();
-            }
-            $timeout(function () {
-                FilterPosition();
-            }, 500);
-            $timeout(function () {
-                FilterPosition();
-            }, 1500);
-        });
-
-    });
-
-    $scope.UserName = "";
-    $http.get("/api/user/currentuser").success(function (user) {
-        if (user != null && user != "") {
-            
-            $scope.UserName = user;
-            $("#lk").attr("onmouseout", "this.src = '/images/HomeLayout/lk.png'");
-            $("#lk").attr("onmouseover", "this.src = '/images/HomeLayout/lk_hover.png'");
-
-        }
     });
 
     $scope.popupLK = function () {
         var popupPreloader = $(".pre-loader-popup");
         popupPreloader.show("fast");
         $http.post("/Partials/Login").success(function (page) {
+            
             popupPreloader.hide("fast");
             $(".popup").html(page);
             $scope.GetUserName();
         });
     };
+    
     $scope.cart = function () {
         var popup = $(".popup");
         var darkBackground = $(".dark_background");
@@ -169,12 +105,19 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             darkBackground.show("slow");
             popup.html(page);
             popupPreloader.hide("fast");
-            setTimeout(function () {
-                authorization.css("left", "50%");
-                authorization.css("margin-left", "-300px");
-            }, 1000);
+            ReloadAuthorization(600);
         });
     }
+    $scope.UserName = "";
+    $http.get("/api/user/currentuser").success(function (user) {
+        if (user != null && user != "") {
+            
+            $scope.UserName = user;
+            $("#lk").attr("onmouseout", "this.src = '/images/HomeLayout/lk.png'");
+            $("#lk").attr("onmouseover", "this.src = '/images/HomeLayout/lk_hover.png'");
+
+        }
+    });
     $scope.GetUserName = function () {
         setTimeout(function () {
             $http.get("/api/user/currentuser").success(function (user) {
@@ -186,113 +129,13 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         }, 2000);
     };
     //==============filter functions=====================
-    $scope.strapmaterialArr = [];
-    $scope.colorArr = [];
-
-    $scope.resetFilter = function () {
-        $scope.strapmaterialArr = [];
-        $scope.colorArr = [];
-        $(".filter-checkbox").removeAttr("checked");
-        $scope.filterFunc();
-    }
+    
 
     Array.prototype.remove = function(from, to) {
         var rest = this.slice((to || from) + 1 || this.length);
         this.length = from < 0 ? this.length + from : from;
         return this.push.apply(this, rest);
     };
-
-    $scope.strapmaterialfilter = function (core) {
-        if ($scope.strapmaterialArr.indexOf(core) == -1) {
-            $scope.strapmaterialArr.push(core);
-        }
-        else {
-            $scope.strapmaterialArr.forEach(function (element, index, array) {
-                if (element == core) {
-                    $scope.strapmaterialArr.remove(index);
-                }
-            });
-        }
-        $scope.filterFunc();
-    };
-    $scope.colorfilter = function (diagonal) {
-        
-        if ($scope.colorArr.indexOf(diagonal) == -1) {
-            $scope.colorArr.push(diagonal);
-        }
-        else {
-            $scope.colorArr.forEach(function (element, index, array) {
-                if (element == diagonal) {
-                    $scope.colorArr.remove(index);
-                }
-            });
-        }
-        $scope.filterFunc();
-    };
-    //===============Main filter============================
-    $scope.filterFunc = function () {
-        var arr = Watch;
-        //==================================
-        var tmpArr = [];
-        var infilter = false;
-        var processed = false;
-        //------strapmaterial-------------
-        $scope.strapmaterialArr.forEach(function (element, index, array) {
-            infilter = true;
-            processed = true;
-            arr.forEach(function (watch, index, array) {
-                var key = false;
-                watch.ProductDetails.forEach(function (detail, index, array) {
-                    if (detail.DetailNames !== null &&
-                        detail.DetailNames.Name == "Strap material" && detail.Value == element) {
-                        key = true;
-                    }
-                });
-                if (key) {
-                    tmpArr.push(watch);
-                }
-            });
-        });
-        if (infilter) {
-            arr = tmpArr;
-            //console.log(arr);
-            tmpArr = [];
-            infilter = false;
-        }
-        //--------color-----------
-        $scope.colorArr.forEach(function (element, index, array) {
-            infilter = true;
-            processed = true;
-            arr.forEach(function (watch, index, array) {
-                var key = false;
-                var color = watch.AppleColor[0].Color;
-                if (color.ColorName == element) {
-                        key = true;
-                    }
-                if (key) {
-                    tmpArr.push(watch);
-                }
-            });
-        });       
-        if (infilter) {
-            arr = tmpArr;
-            tmpArr = [];
-            infilter = false;
-        }
-        if(processed)
-            $scope.watch = arr;
-        else {
-            $scope.watch = Watch;
-        }
-        console.log("ipads length - " + $scope.watch.length);
-        $scope.active = 1;
-        $scope.activelast = 1;
-        $scope.itemslength = 0;
-        $scope.maxpages = Math.ceil($scope.watch / 8); //9
-        $scope.repage();
-        //$scope.getData(0,true);
-        $scope.paging(1);
-    }
 
     //========================================
     $scope.elements = [];
@@ -310,10 +153,10 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         //left - is which can add
         var left = 0;
         //items left
-        if ($scope.watch.length - last > 7)
+        if ($scope.ipads.length - last > 7)
             left = 8;
-        else if ($scope.watch.length - last > 0)
-            left = $scope.watch.length - last;
+        else if ($scope.ipads.length - last > 0)
+            left = $scope.ipads.length - last;
         else
             left = 0;
         //start - start index to add elements
@@ -325,12 +168,12 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         //add elements
         //console.log("start - "+start+" end - "+end);
         for (var i = start; i < end; ++i) {
-            $scope.elements.push($scope.watch[i]);
+            $scope.elements.push($scope.ipads[i]);
         }
         //itemslength
         $scope.itemslength = end - start;
         //itemsleft
-        left = $scope.watch.length - end;
+        left = $scope.ipads.length - end;
         if (left > 7)
             $scope.itemsleft = 8;
         else
@@ -346,7 +189,6 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             resizeMain();
             FilterPosition();
         }, 500);
-        //console.log("====================");
     }
     
     $scope.repage = function () {
@@ -403,8 +245,8 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         $scope.activelast = page;
         $scope.pages = [];
         $scope.elements = [];
-        $scope.maxpages = Math.ceil($scope.watch.length / 8);
-        var left = $scope.watch.length - page * 8;
+        $scope.maxpages = Math.ceil($scope.ipads.length / 8);
+        var left = $scope.ipads.length - page * 8;
         if (left < 0)
             $scope.itemsleft = 0;
         else if (left > 7)
@@ -431,7 +273,7 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
                 if (start < 0)
                     start = 1;
             }
-            console.log(start);
+            //console.log(start);
             for (var i = start + 1; i < start + 7 && i < $scope.maxpages + 1; ++i) {
                 $scope.pages.push(i);
             }
@@ -445,8 +287,8 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         var end = start + (($scope.activelast - $scope.active) * 8) + 8;
         $scope.elements = [];
         //add elements
-        for (var i = start; i < end && i < $scope.watch.length; ++i) {
-            $scope.elements.push($scope.watch[i]);
+        for (var i = start; i < end && i < $scope.ipads.length; ++i) {
+            $scope.elements.push($scope.ipads[i]);
         }
 
         resizeMain();
@@ -464,9 +306,58 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     
     //=============ngRoute===============
     $scope.route = function (id) {
-        var url = '/watch/' + id;
+        var category = "";
+        for (var i = 0; i < $scope.ipads.length; ++i) {
+            if ($scope.ipads[i].AppleID == id)
+                category = $scope.ipads[i].Categories.CategoryName;
+        }
+        //console.log(category);
+        var url = '/'+ category +'/' + id;
         $window.location.href = url;
     }
+})
+.filter('GetProcessor', function () {
+    return function (arr) {
+        for (var i = 0; i < arr.length; ++i) {
+            if (arr[i].DetailNames != null && arr[i].DetailNames.Name == "Processor") {
+                return arr[i].Value;
+            }
+        }
+    };
+})
+.filter("GetRam", function () {
+    return function (arr) {
+        for (var i = 0; i < arr.length; ++i) {
+            if (arr[i].DetailNames != null && arr[i].DetailNames.Name == "RAM size") {
+                var text = arr[i].Value + " " + arr[i].Measure;
+                return text;
+            }
+        }
+    };
+})
+.filter('GetHD', function () {
+    return function (arr) {
+        for (var i = 0; i < arr.length; ++i) {
+            if (arr[i].DetailNames.Name == "HD size") {
+                return arr[i].Value + " Gb";
+            }
+        }
+    };
+})
+.filter("GetFM", function () {
+    return function (arr) {
+        for (var i = 0; i < arr.length; ++i) {
+            if (arr[i].DetailNames.Name == "FM-Radio") {
+                var text = "";
+                if (arr[i].Value == "false")
+                    text += "not avaliable";
+                else if (arr[i].Value != "false")
+                    text += "avaliable";
+                return text;
+            }
+        }
+        return "No info";
+    };
 })
 .filter('BatteryPower', function () {
     return function (arr) {
@@ -486,5 +377,30 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             }
         }
     };
+})
+.filter('Drive', function () {
+    return function (arr) {
+        for (var i = 0; i < arr.length; ++i) {
+            if (arr[i].DetailNames.Name == "Drive") {
+                return arr[i].Value + " " + arr[i].Measure + " " + arr[i].Other;
+            }
+        }
+    };
+})
+.filter('About', function () {
+    return function (arr) {
+        for (var i = 0; i < arr.length; ++i) {
+            if (arr[i].DetailNames.Name == "Other") {
+                if (arr[i].Value != "false" && arr[i].Value != "")
+                    return arr[i].Value
+                else
+                    return "No info";
+            }
+        }
+        return "No info";
+    };
 });
 
+//if ($scope.goods.indexOf(data[i].Model) == -1) {
+//    $scope.goods.push(data[i].Model);
+//}

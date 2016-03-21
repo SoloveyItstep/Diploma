@@ -36,6 +36,10 @@ app.controller("SearchCtrl", function ($scope, $http) {
         $http.get("/api/user/changelanguage");
     };
     
+    $scope.selectMatch = function(index){
+        console.log(index);
+    }
+
     //================================
     $http.post("/api/apple/currencyvalue").success(function (value) {
         $scope.currencyvalue = value;

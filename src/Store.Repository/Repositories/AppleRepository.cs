@@ -40,5 +40,13 @@ namespace Store.Repository.Repositories
             var apple = list.SelectMany(id => context.Apple.Where(a => a.AppleID == id)).ToAsyncEnumerable();
             return await apple.ToArray();
         }
+
+        public Apple[] FindAndIncludeAllTables(Expression<Func<Apple, bool>> predicate)
+        {
+            return (context as DbContext).Set<Apple>().Where(predicate).Include(apple => apple.AppleColor)
+                    .ThenInclude(apple => apple.Color).Include(apple => apple.AppleImage)
+                    .Include(apple => apple.ProductDetails).ThenInclude(apple => apple.DetailNames)
+                    .Include(apple => apple.Categories).ToArray();
+        }
     }
 }

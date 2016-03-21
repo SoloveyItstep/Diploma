@@ -11,5 +11,6 @@ namespace Store.Repository.Repositories.Interfaces
         Task<T> GetFirstInclude(Expression<Func<T, Boolean>> include);
         Task<T> GetOneInclude(Int32 id);
         Task<T[]> GetItemsByListWithId(IList<Int32> list);
+        T[] FindAndIncludeAllTables(Expression<Func<T, Boolean>> predicate);
     }
 }

@@ -47,9 +47,13 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <label for="goods" id="goodID"></label>
-                            <input name="search" id="search" type="text" placeholder="Search..." ng-model="selected"
-                                   typeahead="apple for apple in goods | filter:$viewValue | limitTo:10"
+                            <img src="~/images/HomeLayout/search.png" id="go-search" onmousedown="Search()"
+                                 onmouseover="this.src = '/images/HomeLayout/search_hover.png'"
+                                 onmouseout="this.src = '/images/HomeLayout/search.png'" class="hidden" />
+                            <input name="search" id="search" type="text" autocomplete="off" placeholder="Search..." 
+                                   ng-model="selected" typeahead="apple for apple in goods | filter:$viewValue | limitTo:10"
                                    class="search-input" /><!--end input search-->
+                            
                         </div><!--end div col-xs-12-->
                     </div><!--end div row-->
                 </div><!--end div search-panel-->
@@ -210,6 +214,7 @@
 <script>
     $(document).ready(function () {
         Load();
+        goSearch();
         SearchPanelHide();
         MenuLineBlur();
         setTimeout(containerSize, 500);

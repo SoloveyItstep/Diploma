@@ -139,6 +139,16 @@ body{
     background: #4d4c51;
     color: #e4e4e4;
 }
+#go-search{
+    position: absolute;
+    margin-left: 40px;
+    left: auto;
+    right: 0px;
+    margin-top: 25px;
+}
+#go-search:hover{
+    cursor:pointer;
+}
 /*=================animate=================*/
 @keyframes rotateFall {
     0%      { transform: rotateZ(0deg); }

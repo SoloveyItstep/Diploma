@@ -1,0 +1,188 @@
+﻿@{ 
+    Layout = "_HomeLayout";
+    ViewData["Title"] = "Search";
+}
+@section Styles{
+    <link type="text/css" rel="stylesheet" href="~/css/Home/Search/site.css" />
+    <link href="~/css/iphone/iphone.css" rel="stylesheet" />
+}
+<div class="search-main">
+    <div class="top-bar">
+        <div class="top-bar-text">
+            <span class="top-bar-text-main">iPhone</span><br />
+            <span class="top-bar-text-more">All world inside</span>
+        </div>
+        <div class="top-img-bar">
+            <img src="~/images/Data/iPhone/iphone.jpg" class="nav-img" />
+        </div><!--end div-->
+        <div class="link">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="col-sm-1 top-link-panel">
+                            <a href="/Home/Index" title="Home" class="top-link-panel-text">Home</a>
+                        </div><!--end div col-1-->
+                        <div class="col-sm-1 top-link-panel">
+                            <span class="top-link-panel-text">Search</span>
+                        </div><!--end div col-1-->
+                    </div><!--end div col-12-->
+                </div><!--end div row-->
+            </div><!--end div container-->
+        </div><!--end div link-->
+    </div><!--end div top-bar-->
+    <div class="left-panel">
+
+    </div>
+    <div class="items">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 ipad-items" ng-repeat="element in elements">
+            <div class="item-hover" ng-click="route(element.AppleID)">
+                <div class="element-a-link">
+                    <div class="container">
+                        <div class="row element-hover-text">
+
+                            <div class="element-hover-text-div">
+                                
+                                <span ng-if="element.Categories.CategoryName == 'iPad' || 
+                                      element.Categories.CategoryName == 'Mac' || 
+                                      element.Categories.CategoryName == 'iPhone'">
+                                    <span ng-if="language == 'EN'">Processor: &nbsp;</span>
+                                    <span ng-if="language == 'RU'">Процессор: &nbsp;</span>
+                                    <span>{{element.ProductDetails | GetProcessor }} Core</span>
+                                </span>
+                                <span ng-if="element.Categories.CategoryName == 'iPod'">
+                                    <span ng-if="language == 'EN'">HD: &nbsp;</span>
+                                    <span ng-if="language == 'RU'">Память: &nbsp;</span>
+                                    <span>{{element.ProductDetails | GetHD }}</span>
+                                </span>
+                                <span ng-if="element.Categories.CategoryName == 'Watch'">
+                                    <span ng-if="language == 'EN'">Power: </span>
+                                    <span ng-if="language == 'RU'">Батарея: </span>
+                                    <span>{{element.ProductDetails | BatteryPower }}</span>
+                                </span>
+                                <span ng-if="element.Categories.CategoryName == 'TV'">
+                                    <span ng-if="language == 'EN'">Drive: </span>
+                                    <span ng-if="language == 'RU'">Память: </span>
+                                    <span>{{element.ProductDetails | Drive }}</span>
+                                </span>
+                                <span ng-if="element.Categories.CategoryName == 'Accessories'">
+                                    <span ng-if="language == 'EN'">About: &nbsp;</span>
+                                    <span ng-if="language == 'RU'">О товаре: &nbsp;</span>
+                                    <span>{{element.ProductDetails | About }}</span>
+                                </span>
+                            </div><!--end div processor-->
+
+                            <div class="element-hover-text-div">
+
+                                <span ng-if="element.Categories.CategoryName == 'iPad' ||
+                                      element.Categories.CategoryName == 'Mac' ||
+                                      element.Categories.CategoryName == 'iPhone'">
+                                    <span ng-if="language == 'EN'">RAM: &nbsp;</span>
+                                    <span ng-if="language == 'RU'">Оперативная память: &nbsp;</span>
+                                    <span>{{element.ProductDetails | GetRam }}</span>
+                                </span>
+                                <span ng-if="element.Categories.CategoryName == 'iPod'">
+                                    <span ng-if="language == 'EN'">FM-Radio: &nbsp;</span>
+                                    <span ng-if="language == 'RU'">FM-радио: &nbsp;</span>
+                                    <span>{{element.ProductDetails | GetFM }}</span>
+                                </span>
+                                <span ng-if="element.Categories.CategoryName == 'Watch'">
+                                    <span ng-if="language == 'EN'">Size: </span>
+                                    <span ng-if="language == 'RU'">Размер: </span>
+                                    <span>{{element.ProductDetails | Size }}</span>
+                                </span>
+                                <span ng-if="element.Categories.CategoryName == 'TV'">
+                                    <span ng-if="language == 'EN'">Size: </span>
+                                    <span ng-if="language == 'RU'">Размер: </span>
+                                    <span>{{element.ProductDetails | Size }}</span>
+                                </span>
+                           </div><!--end div RAM-->
+
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="col-lg-2 col-lg-offset-1
+                                                col-md-3 col-md-offset-1
+                                                col-sm-4 col-sm-offset-1
+                                                col-xs-8 col-xs-offset-2">
+                                    <div class="learn-more-button" ng-if="language == 'EN'">
+                                        LEARN MORE >
+                                    </div>
+                                    <div class="learn-more-button" ng-if="language == 'RU'">
+                                        Узнать больше
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end div element-hover-text-->
+                    </div><!--end div container-->
+                </div>
+            </div><!--end div item-hover-->
+            <div class="item">
+                <img ng-src="../{{element.AppleImage[0].Path}}" class="item-img" />
+                <div class="item-name">
+                    {{element.Name}}
+                </div><!--end div item name-->
+                <div class="cost">
+                    <div ng-if="currencyvalue == 'USD'">
+                        <span class="cost-text" lang="en-us">{{element.Price}}$</span>
+                    </div><!--end div if-en-->
+                    <div ng-if="currencyvalue == 'UAH'">
+                        <span class="cost-text" lang="ru-Ru">{{element.Price * currency | number:2}} &#8372;</span>
+                    </div><!--end div if-ru-->
+                </div><!--end div cost-->
+            </div><!--end div item-->
+        </div><!--end div ipad-item (ng-repeat=items)-->
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 more-item" onclick="resizeMain()"
+             ng-click="getData(itemslength,false)">
+            <div class="container items-more-main">
+                <div class="row">
+                    <div class="col-xs-12 more-text">
+                        <span ng-if="language == 'EN'">
+                            Get More<br />
+                            + {{itemsleft}} products
+                        </span>
+                        <span ng-if="language == 'RU'">
+                            Добавить ещё<br />
+                            + {{itemsleft}} товаров
+                        </span>
+                    </div><!--end div col-xs-12-->
+                </div><!--end div row-->
+            </div><!--end div container (more-item)-->
+        </div><!--end div item-more-->
+        <div class="col-xs-6 paging">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-offset-4 col-xs-4
+                                    col-sm-offset-4 col-sm-4
+                                    col-sm-offset-3 col-sm-4
+                                    col-lg-offset-4 col-sm-4">
+                        <div class="page-items col-xs-2" ng-repeat="page in pages">
+                            <div ng-if="page == active" class="page-item-active">
+                                {{page}}
+                            </div>
+                            <div ng-if="page == 0" class="page-dots">
+                                <span>. . . </span>
+                            </div>
+                            <div ng-if="page == activelast && active < activelast"
+                                 class="page-item-active">
+                                {{page}}
+                            </div>
+                            <div ng-if="page != active && page != activelast && page != 0"
+                                 ng-click="paging(page)" class="page-item">
+                                {{page}}
+                            </div>
+                        </div>
+
+                    </div><!--end div col-->
+                </div><!--end div row-->
+            </div><!--end div container < paging-->
+        </div><!--end div paging-->
+    </div><!--end div items-->
+</div>
+
+@section Scripts{
+    <script src="~/js/homelayout/search/searchpage.js"></script>
+    <script type="text/javascript" asp-src-include="~/js/HomeLayout/Search/app/*.js"></script>
+    <script>
+        function Load(){}
+        
+    </script>
+}
+

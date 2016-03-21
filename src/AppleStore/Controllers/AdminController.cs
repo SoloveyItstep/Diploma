@@ -361,6 +361,7 @@ namespace AppleStore.Controllers
 
         public IActionResult UsersMain()
         {
+            ViewData["Role"] = GetRoleName();
             //var users = (context as DbContext).Set<ApplicationUser>().ToArray();
             return View();
         }

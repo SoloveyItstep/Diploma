@@ -245,5 +245,16 @@ namespace AppleStore.Controllers
             else
                 HttpContext.Session.SetString("currencyvalue", "USD");
         }
+
+        [HttpPost]
+        [Route("searchdata")]
+        public Apple[] GetSearchData()
+        {
+            var search = HttpContext.Session.GetString("search");
+            if (search == null)
+                return null;
+            var apple = unitOfWork.Apple.FindAndIncludeAllTables(a => a.Model.Contains(search));
+            return apple;
+        }
     }
 }

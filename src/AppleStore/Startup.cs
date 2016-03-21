@@ -57,6 +57,7 @@ namespace AppleStore
 
                 // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
                 builder.AddApplicationInsightsSettings(developerMode: true);
+                
             }
 
             builder.AddEnvironmentVariables();
@@ -132,7 +133,6 @@ namespace AppleStore
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             
-
             app.UseApplicationInsightsRequestTelemetry();
 
             if (env.IsDevelopment())

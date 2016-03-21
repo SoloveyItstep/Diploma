@@ -52,5 +52,13 @@ namespace AppleStore.Controllers
             return View("Error", id);
         }
 
+        public IActionResult Search(String id)
+        {
+            HttpContext.Session.SetString("search", id);
+            return View();
+        }
+
+
+
     }
 }

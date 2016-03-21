@@ -1,0 +1,18 @@
+﻿.search-main{
+    position: relative;
+    width: 100%;
+    min-height: 85vh;
+}
+.left-panel{
+    width: 46px;
+    position:relative;
+    background-color: lightgray;
+    height: 100px;
+    bottom: 0px;
+    top:0px;
+    left: 0px;
+    float:left;
+    display: inline;
+}
+
+
