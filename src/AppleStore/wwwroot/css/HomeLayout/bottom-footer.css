@@ -5,11 +5,14 @@
 
 .bottom-footer-links{
     font-family: OpenSans-Light;
-    font-size: 22px;
+    font-size: 18px;
     color: lightgray;
 }
 .bottom-footer-links:hover{
     color: lightgray;
+}
+.bottom-footer-links:active{
+    color:lightgray;
 }
 .bottom-footer-links-container{
     position:relative;
@@ -20,17 +23,19 @@
 }
 .bottom-navbar-bottom-links{
     position:center;
-    bottom:30px;
+    bottom:0px;
     background: #343436;
     height: 100px;
     max-width: 1366px;
     margin:auto;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
     width: 100%;
+    min-width: 600px;
 }
 .phones{
+    position:relative;
     font-family:OpenSans-Light;
-    font-size: 26px;
+    font-size: 22px;
     color: white;
 }
 .bottom-info{
@@ -39,7 +44,18 @@
     color: lightgray;
 }
 .social-networks-bottom{
-    margin-left: 50px;
+    position:relative;
+    margin: auto;
+    margin-left: 30px;
+    right:70px;
+    left: auto;
+}
+.logo-bottom{
+    position:relative;
+    padding-top: 20px;
+    top: 10px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 @media (min-width: 768px){
@@ -51,6 +67,12 @@
     }
     
 }
+@media (min-width: 768px) and (max-width: 1200px){
+    .phones{
+        position:relative;
+        margin-top: 30px;
+    }
+}
 @media (max-width: 767px){
     .large-footer{
         display: none;
@@ -61,7 +83,18 @@
     .bottom-footer-columns{
         height: 50px;
     }
-    
+    .phones{
+        position:relative;
+        margin-top: 30px;
+        font-size: 16px;
+    }
+    .social-networks-bottom{
+    position:relative;
+    margin: auto;
+    margin-left: 30px;
+    right:120px;
+    left: auto;
+}
 }
 
 

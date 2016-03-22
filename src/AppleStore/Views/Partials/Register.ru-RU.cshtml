@@ -4,7 +4,8 @@
 <div class="form-title col-xs-12">
     <span>Реристрация</span>
 </div>
-<form asp-controller="Auth" asp-action="Register" autocomplete="off" method="post" role="form">
+<form asp-controller="Auth" asp-action="Register" autocomplete="off" method="post" role="form"
+      style="margin-bottom: 25px;">
     @*@Html.ValidationSummary(true)*@
     <div asp-validation-summary="ValidationSummary.All" class="text-danger">
         <div class="col-xs-6">
@@ -12,7 +13,7 @@
             @*<span asp-validation-for="UserName" class="text-danger"></span>*@
         </div>
         <div class="col-xs-6">
-            <input type="text" asp-for="Password" placeholder="Пароль" class="popup-input" />
+            <input type="password" asp-for="Password" placeholder="Пароль" class="popup-input" />
             @*<span asp-validation-for="Password" class="text-danger"></span>*@
         </div>
         <div class="col-xs-6">
@@ -20,7 +21,7 @@
             @*<span asp-validation-for="Phone" class="text-danger"></span>*@
         </div>
         <div class="col-xs-6">
-            <input type="text" asp-for="ConfirmPassword" placeholder="Повторите Пароль" class="popup-input" />
+            <input type="password" asp-for="ConfirmPassword" placeholder="Повторите Пароль" class="popup-input" />
             @*<span asp-validation-for="ConfirmPassword" class="text-danger"></span>*@
         </div>
         <div class="col-xs-6">

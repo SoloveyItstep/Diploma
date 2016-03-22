@@ -78,6 +78,12 @@ html{
     }
 }
 
+.info-panel-links{
+    color: lightgray;
+}
+.info-panel-links:hover{
+    color:white;
+}
 /*==============Menu line====================*/
 .menu-line{
     background-color: #4d4c51;
@@ -92,10 +98,10 @@ html{
     margin-left: 35px;
 }
 .info-text-link{
-    color: #89898b;
+    color: lightgray;
 }
 .info-text-link:hover{
-    color: #4d4c51;
+    color: white;
 }
 .dropdown-menu{
     position: relative;
@@ -132,11 +138,16 @@ html{
 }
 .link-text-item{
     font-size: 20px;
+    color: #4d4c51;
 }
+.link-text-item:hover{
+    color: #4d4c51;
+}
+
 /*=========== navbar bottom=========================*/
 .bottom-navbar{
     position:relative;
-    height: 500px;
+    height: 400px;
     max-width: 1366px;
     width: 100%;
     background: #4d4c51;

@@ -28,6 +28,11 @@ namespace AppleStore.Services
             throw new NotImplementedException();
         }
 
+        public Task SendOrderToUser(Apple[] apple, Dictionary<int, int> count, Dictionary<int, decimal> price, ApplicationUser user, string orderNumber)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task SendSmsAsync(string number, string message)
         {
             // Plug in your SMS service here to send a text message.

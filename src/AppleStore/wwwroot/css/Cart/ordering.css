@@ -52,7 +52,7 @@
 }
 .orering-user-menus div{
     font-family:OpenSans-Light;
-    font-size: 15px;
+    font-size: 20px;
 }
 #new-user{
     margin-left: 50px;
@@ -61,7 +61,10 @@
     margin-left: 50px;
 }
 .ordering-user-links:hover, .ordering-user-links:active, .ordering-user-links:link, .ordering-user-links:visited{
-    text-decoration:none;
+    text-decoration:none;    
+}
+.ordering-user-links{
+    font-size: 20px;
 }
 .moved-underline{
     background-color: lightgray;

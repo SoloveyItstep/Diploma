@@ -4,7 +4,7 @@
 @{ 
     var loginProviders = SignInManager.GetExternalAuthenticationSchemes();}
 <div class="login-page">
-    <div class="form-title col-xs-12">
+    <div class="form-title col-xs-12 text-center">
         <span>Login</span>
     </div>
     <form asp-controller="Auth" asp-action="Login" class="log-form" autocomplete="off" method="post" role="form">
@@ -13,7 +13,7 @@
                 <input type="text" asp-for="Email" placeholder="Email" class="popup-input" />
             </div>
             <div class="col-xs-12">
-                <input type="text" asp-for="Password" placeholder="Password" class="popup-input" />
+                <input type="password" asp-for="Password" placeholder="Password" class="popup-input" />
             </div>
             <div class="col-xs-12 login-middle">
                 <div class="col-xs-6 login-links">

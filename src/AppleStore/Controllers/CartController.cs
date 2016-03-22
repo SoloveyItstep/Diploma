@@ -82,7 +82,7 @@ namespace AppleStore.Controllers
                 var price = cart.GetPrice();
                 if(user.Email != "")
                     await email.SendOrder(apple, count, price, user);
-
+                    
                     Decimal sum = 0;
                     foreach(var i in count.Keys)
                     {
@@ -121,9 +121,11 @@ namespace AppleStore.Controllers
                     unitOfWork.AppleOrders.Add(a);
                     unitOfWork.Commit();
                 }
-                
+                if (user.Email != null && user.Email != "")
+                    await email.SendOrderToUser(apple,count,price,user,order.OrderNumber);
                 //order = await unitOfWork.Orders.GetByOrderId(num);
                 adminOrder.SendNewOrder(user,order);
+                
                 HttpContext.Session.SetObjectAsJson("cart", null);
                 HttpContext.Session.SetObjectAsJson("count", null);
 

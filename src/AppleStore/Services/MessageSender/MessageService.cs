@@ -41,6 +41,35 @@ namespace AppleStore.Services.MessageSender
             return Task.FromResult(0);
         }
 
+        public Task SendOrderToUser(Apple[] apple, Dictionary<Int32, Int32> count, Dictionary<Int32, Decimal> price, 
+            ApplicationUser user, String orderNumber)
+        {
+            MailMessage message = new MailMessage();
+            message.To.Add(new MailAddress(user.Email));
+            message.From = new MailAddress("solovey.itstep@gmail.com", "VS Shop");
+
+            String html = BuildUserOrder(apple, count, price, user,orderNumber);
+
+            message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString("New order", null, MediaTypeNames.Text.Plain));
+            message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
+            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("solovey.itstep@gmail.com", "solovey14060");
+            smtpClient.Credentials = credentials;
+            smtpClient.EnableSsl = true;
+
+            try
+            {
+                smtpClient.Send(message);
+            }
+            catch (Exception ex)
+            {
+                String error = ex.Message;
+                throw new Exception(ex.Message);
+            }
+
+            return Task.FromResult(0);
+        }
+
         public Task SendEmailToConfirm(String email, String subject, String key, String userName,String userID)
         {
             MailMessage mess = new MailMessage();
@@ -99,6 +128,38 @@ namespace AppleStore.Services.MessageSender
 
         }
 
+        private String BuildUserOrder(Apple[] apple, Dictionary<Int32, Int32> count, Dictionary<Int32, Decimal> price, 
+            ApplicationUser user, String orderNumber)
+        {
+            StringBuilder builder = new StringBuilder();
+
+            builder.Append("<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7' crossorigin='anonymous'><br/>");
+
+            builder.Append("<div><br/><p>New Order From " + user.UserName + "</p><br/></div>");
+            builder.Append("<div><b>Your order number - "+orderNumber+"</b><br/></div>");
+            builder.Append("<div><br/><p>Address " + user.City + " " + user.Address + "</p><br/></div>");
+            builder.Append("<div><br/><p>Email " + user.Email + "</p><br/></div>");
+            builder.Append("<div><br/><p>Phone " + user.PhoneNumber + "</p><br/></div>");
+
+            builder.Append("<div class='col-xs-12'>");
+            foreach (var i in apple)
+            {
+                builder.Append("<div>" + i.Model + " - Count: " + count[i.AppleID]);
+                builder.Append(" - Price: " + price[i.AppleID] + "</div>");
+            }
+
+            builder.Append("</div><br/><br/><div class='col-xs-12'>");
+
+            Decimal p = 0;
+            foreach (var pr in price.Values)
+                p += pr;
+
+            builder.Append("Total Price: " + p.ToString("C2", System.Globalization.CultureInfo.CreateSpecificCulture("en-US")));
+            builder.Append("</div>");
+
+            return builder.ToString();
+        }
+
         private String BuildOrder(Apple[] apple, Dictionary<Int32,Int32> count, Dictionary<Int32,Decimal> price, ApplicationUser user)
         {
             StringBuilder builder = new StringBuilder();
@@ -123,7 +184,7 @@ namespace AppleStore.Services.MessageSender
             foreach(var pr in price.Values)
                 p += pr;
 
-            builder.Append("Total Price: " + String.Format("{0:C}",p));
+            builder.Append("Total Price: " + p.ToString("C2", System.Globalization.CultureInfo.CreateSpecificCulture("en-US")));
             builder.Append("</div>");
 
             return builder.ToString();
@@ -140,6 +201,7 @@ namespace AppleStore.Services.MessageSender
                 };
             }
         }
+
         public AuthMessageSMSSenderOptions Options { get { return new AuthMessageSMSSenderOptions(); } }
 
         public Task SendSmsAsync(string number, string message)

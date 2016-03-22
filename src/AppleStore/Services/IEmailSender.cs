@@ -13,5 +13,7 @@ namespace AppleStore.Services
         Task SendEmailToConfirm(String email, String subject, String key, String userName, String userID);
 
         Task SendOrder(Apple[] apple, Dictionary<Int32, Int32> count, Dictionary<Int32,Decimal> price, ApplicationUser user);
+        Task SendOrderToUser(Apple[] apple, Dictionary<Int32, Int32> count, Dictionary<Int32, Decimal> price, 
+            ApplicationUser user, String orderNumber);
     }
 }

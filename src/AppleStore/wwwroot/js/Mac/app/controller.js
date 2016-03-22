@@ -654,6 +654,10 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
             resizeMain();
             FilterPosition();
         }, 500);
+        setTimeout(function () {
+            resizeMain();
+            FilterPosition();
+        }, 1500);
     };
 
     var date = new Date();

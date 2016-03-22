@@ -325,6 +325,15 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
         }
     };
 })
+.filter('ProcessorCore', function () {
+    return function (arr) {
+        for (var i = 0; i < arr.length; ++i) {
+            if (arr[i].DetailNames.Name == "Processor core count") {
+                return arr[i].Value;
+            }
+        }
+    };
+})
 .filter("GetRam", function () {
     return function (arr) {
         for (var i = 0; i < arr.length; ++i) {

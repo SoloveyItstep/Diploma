@@ -3,18 +3,18 @@
         "href": "/iPhone/Index",
         "name": "iPhone",
         "src": "../images/HomeLayout/carousel/banner_1.png",
-        "text": "The only thing that’s changed is everything"
+        "text": ""
     },
     {
         "href": "/Watch/Index",
         "name": "Watch",
         "src": "../images/HomeLayout/carousel/banner_2.png",
-        "text": "To wear it - is to love it"
+        "text": ""
     },
     {
         "href": "/iPad/Index",
         "name": "iPhone",
         "src": "../images/HomeLayout/carousel/banner_3.png",
-        "text": "Thin. Light. Epic."
+        "text": ""
     }
 ]
