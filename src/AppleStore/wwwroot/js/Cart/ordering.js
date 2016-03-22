@@ -85,6 +85,10 @@
     });
 
     submit.click(function () {
+        var popupPreloader = $(".pre-loader-popup");
+        var main = $(".ordering-main");
+        main.hide("fast");
+        popupPreloader.show("fast");
         $.ajax({
             type: "POST",
             data: $(".ordering-form").serialize(),
@@ -98,7 +102,10 @@
                     type: "GET",
                     url: "/partials/placedorderinfo/" + result,
                     success: function (page) {
+                        main.show("fast");
                         $(".ordering-place-order-main").html(page);
+                        
+                        popupPreloader.hide("fast");
                     }
                 });
             }

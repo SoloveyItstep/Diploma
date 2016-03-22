@@ -67,6 +67,8 @@ namespace AppleStore.DataServices.Cart.Service
                 cart[id] = count;
             else
                 cart.Add(id, count);
+
+            cartData.AddCount(cart);
             return true;
 
         }

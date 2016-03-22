@@ -13,10 +13,9 @@
     close.click(function () {
         authorization.hide("slow");
         darkBackground.hide("slow");
-        authorization.css("left", "50%");
-        authorization.css("margin-left", "-175px");
+        //authorization.css("left", "50%");
+        //authorization.css("margin-left", "-175px");
     });
-
 
     $.ajax({
         type: "GET",
@@ -30,12 +29,10 @@
         }
     });
 
-    
     //cart click
     cart.click(function () {
         authorization.show("slow");
-        darkBackground.show("slow");
-        console.log("clicked");
+        darkBackground.show("slow");        
     });
     //dark background click
     darkBackground.click(function () {
