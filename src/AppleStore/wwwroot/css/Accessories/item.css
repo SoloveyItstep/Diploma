@@ -41,6 +41,9 @@
     margin-top: 5px;
     top: 5px;
 }
+.img-list{
+    height: 130px;
+}
 .image-border{
     border: 3px solid #4d4c51;
 }

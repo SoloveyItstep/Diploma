@@ -25,6 +25,9 @@
 .ident{
     height: 20px;
 }
+.img-list{
+    height: 130px;
+}
 .item-image-div{
     position:relative;
     height: 120px;

@@ -9,20 +9,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using Microsoft.AspNet.Http;
-using System.Web.Configuration;
-using AppleStore.Services.MessageSender;
 using AppleStore.Services;
 using System.Web;
-using Microsoft.AspNet.Mvc.ModelBinding;
-using System.Web.ModelBinding;
 using AppleStore.Models.RegisterLogin;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Http.Authentication;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc.Rendering;
-using System.Web.Security;
-
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace AppleStore.Controllers
 {
@@ -82,7 +73,21 @@ namespace AppleStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AdminLogin(LoginViewModel model, String ReturnUrl = null)
         {
+            if (User.Identity.Name != null)
+                await signInManager.SignOutAsync();
+
             if (ModelState.IsValid && User.Identity.Name == null)
+            {
+                model.RememberMe = true;
+                var user = userManager.Users.Where(u => u.Email == model.Email).FirstOrDefault();
+                var result = CanLogin(user, model);
+                if (ReturnUrl != null)
+                {
+                    var v = await LoginMethod(user, result);
+                    return RedirectToLocal(ReturnUrl);
+                }
+            }
+            else if(ModelState.IsValid && User.Identity.Name != null)
             {
                 model.RememberMe = true;
                 var user = userManager.Users.Where(u => u.Email == model.Email).FirstOrDefault();
@@ -143,7 +148,8 @@ namespace AppleStore.Controllers
                 return RedirectToAction(url[0],url[1]);
             }
                 AddErrors(result);
-                return new ObjectResult("User already exist");
+            return new ObjectResult(result.Errors.ToArray()[0].Code);
+                //return new ObjectResult("User already exist");
         }
 
         private String CreateRegistrationErrors()
@@ -180,7 +186,7 @@ namespace AppleStore.Controllers
 
         private SignInResult CanLogin(ApplicationUser user, LoginViewModel model)
         {
-            var result = SignInResult.Success;
+            var result = SignInResult.Failed;
 
             if (user == null)
                 result = SignInResult.Failed;

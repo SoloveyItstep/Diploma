@@ -32,6 +32,9 @@
     top: 5%;
     background-color: white;
 }
+.img-list{
+    height: 130px;
+}
 .item-image-div:hover{
     cursor:pointer;
 }

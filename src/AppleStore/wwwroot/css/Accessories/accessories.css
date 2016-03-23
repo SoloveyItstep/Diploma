@@ -304,8 +304,13 @@
 @media (min-width: 1200px){
     
 }
-@media (min-width: 1024px) and (max-wodth: 1200px){
-
+@media (min-width: 1024px) and (max-width: 1200px){
+    .element-hover-text-div{
+        left: 3%;
+    }
+    .element-hover-text{
+        margin-left: 13%;
+    }
 }
 @media (min-width: 768px) and (max-width: 1024px) {
 .top-bar-text-main{
@@ -314,24 +319,35 @@
 .top-bar-text-more{
     font-size: 20px;
 }
+.element-hover-text-div{
+    left: 7%;
+}
 }
 @media (max-width: 767px) and (min-width: 481px) {
-    .top-bar-text-main{
+.top-bar-text-main{
     font-size: 30px;
 }
 .top-bar-text-more{
     font-size: 15px;
 }
+.element-hover-text-div{
+    width: 40%;
+    left: 25%;
+}
 }
 @media (max-width: 480px) {
     .item-img{
-        width: 250px;
-        height: 200px;
+        max-width: 200px;
+        max-height: 200px;
     }
     .top-bar-text-main{
     font-size: 25px;
 }
 .top-bar-text-more{
     font-size: 12px;
+}
+.element-hover-text-div{
+    width: 50%;
+    left: 25%;
 }
 }

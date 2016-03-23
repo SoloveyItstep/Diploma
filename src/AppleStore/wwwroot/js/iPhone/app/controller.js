@@ -184,12 +184,15 @@ app.controller("SearchCtrl", function ($scope, $http, $timeout, $location, $wind
     }
 
     $scope.popupLK = function(){
+        $(".popup").css("display", "none");
         var popupPreloader = $(".pre-loader-popup");
         popupPreloader.show("fast");
         $http.post("/Partials/Login").success(function (page) {
+            $(".popup").css("display", "none");
             $(".popup").html(page);
-            popupPreloader.hide("fast");
             $scope.GetUserName();
+            popupPreloader.hide("fast");
+            $(".popup").css("display", "block");
         });
     };
     $scope.cart = function () {

@@ -7,12 +7,11 @@ using Microsoft.AspNet.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Store.Repository.UnitOfWorks;
-using Store.Entity;
 using AppleStore.DataServices.Cart.Interfaces;
 using AppleStore.DataServices.Currency.Interfaces;
-using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.AspNet.Identity;
 using System.Linq;
+using System.Threading;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
