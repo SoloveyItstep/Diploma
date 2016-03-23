@@ -205,11 +205,15 @@ namespace AppleStore
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}")
+                        name: "default",
+                        template: "{controller=Home}/{action=Index}/{id?}")
                     .MapRoute(
-                    name: "api",
-                    template: "api/{controller=Apple}/{action=Index}/{id?}");
+                        name: "api",
+                        template: "api/{controller=Apple}/{action=Index}/{id?}")
+                    .MapRoute(
+                        name: "admin",
+                        template: "{controller=Admin}/{action=Main}/{id?}"
+                    );
             });
         }
 

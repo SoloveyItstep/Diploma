@@ -53,6 +53,13 @@ namespace AppleStore.Controllers
             return true;
         }
 
+        [Authorize(Roles = "Admin,SuperAdmin")]
+        public async Task<IActionResult> LogOutAdmin()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<String> Login(LoginViewModel model, String ReturnUrl = null)
