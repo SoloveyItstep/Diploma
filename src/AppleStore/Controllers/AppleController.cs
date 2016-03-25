@@ -92,13 +92,13 @@ namespace AppleStore.Controllers
         [HttpPost]
         public async Task<Decimal> Currency()
         {
-            var cur = await unitOfWork.Currency.Find(c => c.CurrencyID == 16);
-            Decimal uah = Decimal.Parse(cur.CurrencyUSD);
-            return uah;
-            //var cur = await currency.GetCurrency();
-            //if (cur == -1)
-            //    return unitOfWork.Currency.GetLastCurrency();
-            //return cur;
+            //var cur = await unitOfWork.Currency.Find(c => c.CurrencyID == 16);
+            //Decimal uah = Decimal.Parse(cur.CurrencyUSD);
+            //return uah;
+            var cur = await currency.GetCurrency();
+            if (cur == -1)
+                return unitOfWork.Currency.GetLastCurrency();
+            return cur;
         }
 
         [Route("element/{id}")]
