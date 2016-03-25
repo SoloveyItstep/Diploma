@@ -54,7 +54,7 @@ namespace AppleStore.Services.MessageSender
                                                   //add smtp (example - smtp.gmail.com) and port (example - 587)
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
                                                                                         //add email and password
-            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("solovey.itstep@gmail.com", "solovey14060");
+            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("solovey.itstep@gmail.com", "");
             smtpClient.Credentials = credentials;
             smtpClient.EnableSsl = true;
 
