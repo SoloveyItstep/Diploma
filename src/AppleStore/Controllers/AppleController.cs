@@ -1,22 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Store.Entity;
-using Microsoft.Data.Entity;
 using Store.Repository.UnitOfWorks;
-using Currency;
-using Currency.Entity;
 using Microsoft.AspNet.Http;
 using AppleStore.Models;
 using AppleStore.DataServices.Currency.Interfaces;
-using AppleStore.DataServices.Cart;
 using AppleStore.DataServices.Cart.Interfaces;
-using Microsoft.AspNet.Mvc.Filters;
 using AppleStore.Services;
 using Store.Entity.Order;
-using AppleStore.ViewModels.Account;
 using Microsoft.AspNet.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -99,13 +92,13 @@ namespace AppleStore.Controllers
         [HttpPost]
         public async Task<Decimal> Currency()
         {
-            //var cur = await unitOfWork.Currency.Find(c => c.Date == "09.03.2016");
-            //Decimal uah = Decimal.Parse(cur.CurrencyUSD);
-            //return uah;
-            var cur = await currency.GetCurrency();
-            if (cur == -1)
-                return unitOfWork.Currency.GetLastCurrency();
-            return cur;
+            var cur = await unitOfWork.Currency.Find(c => c.CurrencyID == 16);
+            Decimal uah = Decimal.Parse(cur.CurrencyUSD);
+            return uah;
+            //var cur = await currency.GetCurrency();
+            //if (cur == -1)
+            //    return unitOfWork.Currency.GetLastCurrency();
+            //return cur;
         }
 
         [Route("element/{id}")]

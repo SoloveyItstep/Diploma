@@ -21,7 +21,7 @@ namespace AppleStore.DataServices.Currency.AbstractFactory
             this.unitOfWork = unitOfWork;
         }
 
-        public void CreateCurrency()
+        public async Task CreateCurrency()
         {
             //var curr = await GetLastFromDB();
             var curr = unitOfWork.Currency.GetLast();
@@ -41,25 +41,30 @@ namespace AppleStore.DataServices.Currency.AbstractFactory
             //    }
             //    await unitOfWork.CommitAsync();
             //}
-            //else if (curr.Date != data.date.ToShortDateString())
-            //{
-            //    curr.CurrencyUSD = data.curency.ToString();
-            //    curr.Date = data.date.ToShortDateString();
-            //    try
-            //    {
-            //        await unitOfWork.CommitAsync();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        throw new Exception(ex.Message);
-            //    }
-            //}
+            if (curr.Date != data.date.ToShortDateString())
+            {
+                //curr.CurrencyUSD = data.curency.ToString();
+                //curr.Date = data.date.ToShortDateString();
+                var currency = new Store.Entity.Currency()
+                {
+                    CurrencyUSD = data.curency,
+                    Date = data.date.ToShortDateString()
+                };
+                unitOfWork.Currency.Add(currency);
+                try
+                {
+                    await unitOfWork.CommitAsync();
+                }
+                catch
+                {
+                    return;
+                }
+            }
         }
 
 
         private Store.Entity.Currency GetLastFromDB()
         {
-  //TODO: changed on async
             return unitOfWork.Currency.GetLast();
         }
 

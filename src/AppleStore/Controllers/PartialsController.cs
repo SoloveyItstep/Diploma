@@ -70,9 +70,6 @@ namespace AppleStore.Controllers
             return PartialView("LogOut.ru-RU", User.Identity.Name);
         }
 
-
- //TODO: Change Cart Connection
-        //[HttpPost]
         public async Task<IActionResult> Cart()
         {
             //====Cart Data==============

@@ -46,13 +46,14 @@ namespace AppleStore.Services.MessageSender
         {
             MailMessage message = new MailMessage();
             message.To.Add(new MailAddress(user.Email));
-            message.From = new MailAddress("solovey.itstep@gmail.com", "VS Shop");
+            message.From = new MailAddress("solovey.itstep@gmail.com", "VS");
 
             String html = BuildUserOrder(apple, count, price, user,orderNumber);
-
             message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString("New order", null, MediaTypeNames.Text.Plain));
             message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
+                                                  //add smtp (example - smtp.gmail.com) and port (example - 587)
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
+                                                                                        //add email and password
             System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("solovey.itstep@gmail.com", "solovey14060");
             smtpClient.Credentials = credentials;
             smtpClient.EnableSsl = true;

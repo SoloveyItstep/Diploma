@@ -10,7 +10,7 @@ namespace AppleStore.DataServices.Currency.Interfaces
     {
         void GetLastCurrencyFromPB();
         Task<Boolean> DateExist();
-        void CreateCurrency();
+        Task CreateCurrency();
         Decimal GetCurrency();
     }
 }
